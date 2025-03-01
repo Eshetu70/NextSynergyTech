@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EthioBooks - My Website</title>
+    <link rel="stylesheet" href="server/Sytles/wix.css">
+    <link rel="stylesheet" href="server/Sytles//contact..css">
+    <link rel="stylesheet" href="server/Sytles/footer.css">
+    <link rel="stylesheet" href="server/Sytles/order.css">
+    <style>
+        /* Custom Header */
+        .custom-header {
+            position: relative;
+            width: 100%;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.6);
+            text-align: center;
+            padding-top: 20px;
+            color: white;
+            font-size: 24px;
+        }
+
+        /* Background Video */
+        .header-bg video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            background: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        /* Iframe Container */
+        .iframe-container {
+            width: 100%;
+            height: calc(100vh - 150px);
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .custom-header {
+                height: 100px; /* Reduce header height for small screens */
+                font-size: 18px; /* Adjust text size */
+                padding-top: 10px;
+            }
+
+            .back-btn {
+                top: 5px;
+                left: 10px;
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+
+            .iframe-container {
+                height: calc(100vh - 100px); /* Adjust iframe height */
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .custom-header {
+                height: 80px;
+                font-size: 16px;
+                padding-top: 5px;
+            }
+
+            .back-btn {
+                top: 3px;
+                left: 5px;
+                padding: 5px 8px;
+                font-size: 12px;
+            }
+
+            .iframe-container {
+                height: calc(100vh - 80px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="custom-header">
+        <div class="header-bg">
+            <video autoplay loop muted>
+                <source src="https://video.wixstatic.com/video/11062b_cca29298dbe547f4983e127aba1c1966/720p/mp4/file.mp4" type="video/mp4">
+            </video>
+        </div>
+        <a href="nextSynergy.html" class="back-btn">← Back</a>
+        <h2>Welcome to EthioBooks</h2>
+    </div>
+
+    <div class="iframe-container">
+        <iframe src="https://fetena.net/" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+    </div>
+
+
+    <footer class="footer">
+        <div class="footer-container">
+    
+            <!-- About Section -->
+            <div class="footer-section">
+                <h2>About Us</h2>
+                <p>NextSynergy Tech is a leading platform for technology tutorials, AI development, and software engineering training.</p>
+            </div>
+    
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="nextSynergy.html" onclick="showSection('about')">Home</a></li>
+                    <li><a href="https://www.nextsynergytech.online/solutions">Services</a></li>
+                    <li><a href="https://www.nextsynergytech.online/courses">Courses</a></li>
+                    <li><a href="https://www.nextsynergytech.online/contact">Contact</a></li>
+                    <li><a href="https://fetena.net/">EthioBooks</a></li>
+                   <li> <a href="privacy.html">Privacy Policy</a></li> 
+                </ul>
+            </div>
+    
+            <!-- Contact Section with Email & Phone -->
+            <div class="footer-section">
+                <h2>Contact Us</h2>
+                <div class="contact-info">
+                    <a href="mailto:eshetuwek1@gmail.com"><i class="fas fa-envelope"></i> eshetuwek1@gmail.com</a>
+                </div>
+                <a href="https://www.nextsynergytech.online/contact" class="contact-btn">Get in Touch</a>
+
+                
+            </div>
+    
+            <!-- Social Media -->
+            <div class="footer-section">
+                <h2>Follow Us</h2>
+                <div class="social-icons">
+                    <a href="https://web.facebook.com/eshetu.teshome.798" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/eshetuwekjira/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Eshetu70" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+    
+        </div>
+    
+        <!-- Payment Section -->
+     
+    
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 NextSynergy Tech. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

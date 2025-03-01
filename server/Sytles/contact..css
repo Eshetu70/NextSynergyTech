@@ -1,0 +1,84 @@
+
+
+
+/* Contact Section */
+.contact-section {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease-in-out;
+}
+
+.contact-section:hover {
+    transform: scale(1.02);
+}
+
+/* Heading */
+.contact-section h2 {
+    font-size: 30px;
+    color: #222;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Contact Info */
+.contact-section p {
+    font-size: 17px;
+    color: #444;
+    font-weight: 500;
+    margin: 8px 0;
+}
+
+/* Amazing Contact Button */
+.contact-btn {
+    display: inline-block;
+    padding: 14px 30px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    margin-top: 20px;
+    box-shadow: 0 8px 20px rgba(106, 17, 203, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Button Hover Effect */
+.contact-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(106, 17, 203, 0.5);
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+}
+
+/* Button Ripple Effect */
+.contact-btn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: width 0.5s ease-out, height 0.5s ease-out, opacity 0.5s;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.contact-btn:active::before {
+    width: 0;
+    height: 0;
+    opacity: 1;
+    transition: 0s;
+}

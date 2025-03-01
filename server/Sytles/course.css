@@ -1,0 +1,59 @@
+/* Course List Container */
+#courses {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    margin: 30px auto;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    border-left: 7px solid #007bff;
+    max-width: 800px;
+}
+
+/* Heading Style */
+#courses h2 {
+    color: #007bff;
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Course List Styling */
+#courses ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Course List Items */
+#courses ul li {
+    background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+    margin: 12px 0;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    border-left: 5px solid #007bff;
+}
+
+/* Add an Icon Before Each List Item */
+#courses ul li::before {
+    content: "✔️";
+    margin-right: 12px;
+    font-size: 20px;
+    color: #007bff;
+}
+
+/* Hover Effect */
+#courses ul li:hover {
+    background: linear-gradient(90deg, #e9ecef 0%, #d6dce5 100%);
+    transform: translateX(8px);
+    cursor: pointer;
+}
+

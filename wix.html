@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextSynergyTech Header</title>
+    <!--<link rel="stylesheet" href="server/Sytles/wix.css"> Link your custom CSS file -->
+    <style>/* General Header Styling */
+       /* Reset and General Styling */
+
+
+/* Header Styling */
+.custom-header {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    padding-top: 20px;
+}
+
+/* Background Video */
+.header-bg video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Navigation Bar */
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo */
+.logo img {
+    height: 60px;
+    max-width: 200px;
+}
+
+/* Navigation Menu */
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+}
+
+.nav-menu li {
+    display: inline;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: yellow;
+}
+
+/* Right-side Icons */
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Language Selector */
+.lang-selector {
+    padding: 5px;
+    font-size: 16px;
+}
+
+/* Cart Icon */
+.cart-icon {
+    font-size: 22px;
+    color: white;
+    text-decoration: none;
+    position: relative;
+}
+
+/* Cart Count */
+.cart-count {
+    background: red;
+    color: white;
+    font-size: 14px;
+    border-radius: 50%;
+    padding: 2px 6px;
+    position: absolute;
+    top: -8px;
+    right: -10px;
+}
+
+/* Login Button */
+.login-btn {
+    background: white;
+    color: black;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background: yellow;
+}
+
+/* Mobile Menu Icon */
+.menu-icon {
+    display: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Dropdown Mobile Menu */
+.dropdown-menu {
+    display: none;
+    flex-direction: column;
+    background: #002b5c;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu a {
+    color: white;
+    padding: 12px;
+    display: block;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.dropdown-menu a:hover {
+    background: #004080;
+}
+
+/* Welcome Text */
+.welcome-text {
+    color: white;
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+/* Responsive - Mobile View */
+@media screen and (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .dropdown-menu {
+        display: none;
+    }
+}
+
+        </style>
+</head>
+<body>
+
+    <!-- Custom Wix Header -->
+    <header class="custom-header">
+        <!-- Background Video -->
+        <div class="header-bg">
+            <video autoplay loop muted playsinline>
+                <source src="https://video.wixstatic.com/video/11062b_cca29298dbe547f4983e127aba1c1966/720p/mp4/file.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <div class="logo">
+                <a href="/"> 
+                    <img src="https://static.wixstatic.com/media/11062b_cca29298dbe547f4983e127aba1c1966f000.jpg" alt="Logo">
+                </a>
+            </div>
+
+            <!-- Desktop Navigation Menu -->
+            <ul class="nav-menu">
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">E-Commerce</a></li>
+                <li><a href="#">Mission & Vision</a></li>
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">Tutorials</a></li>
+                <li><a href="#">Mobile Development</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="https://fetena.net/" target="_blank">EthioBooks 1-12/Exams</a></li>
+            </ul>
+
+            <!-- Right-side Icons -->
+            <div class="nav-icons">
+                <select class="lang-selector">
+                    <option value="en">EN</option>
+                    <option value="am">AM</option>
+                    <option value="om">OM</option>
+                </select>
+
+                <a href="https://www.nextsynergytech.online/cart-page" class="cart-icon">
+                    🛒 <span class="cart-count">0</span>
+                </a>
+
+                <button class="login-btn">Log In</button>
+            </div>
+
+            <!-- Mobile Menu Icon -->
+            <div class="menu-icon" onclick="toggleMenu()">☰ Menu</div>
+        </nav>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="navMenu" class="dropdown-menu">
+            <a href="#">About Us</a>
+            <a href="#">Services</a>
+            <a href="#">E-Commerce</a>
+            <a href="#">Mission & Vision</a>
+            <a href="#">Projects</a>
+            <a href="#">Tutorials</a>
+            <a href="#">Mobile Development</a>
+            <a href="#">Contact</a>
+            <a href="https://fetena.net/" target="_blank">EthioBooks 1-12/Exams</a>
+        </div>
+
+        <!-- Welcome Text -->
+        <h1 class="welcome-text">Welcome to NextSynergy Tech</h1>
+    </header>
+
+
+</body>
+</html>

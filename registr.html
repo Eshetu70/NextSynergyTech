@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <title>NextSynergy Tech</title>
+
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="server/Sytles/css.css">
+    <link rel="stylesheet" href="server/Sytles/course.css">
+    <link rel="stylesheet" href="server/Sytles/mobile.css">
+    <link rel="stylesheet" href="server/Sytles/wix.css">
+    <link rel="stylesheet" href="server/Sytles/contact.css">
+    
+    <!-- Scripts -->
+    <script src="server/script.js"></script>
+    <script src="server/HTMLInclude.js"></script>
+
+    <style>
+        /* Navigation Menu */
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            background: #007bff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            gap: 15px;
+        }
+
+        .nav-menu li {
+            margin: 0;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 12px 18px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .nav-menu a:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Course Registration Section */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 30%;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            font-size: 22px;
+            text-align: center;
+        }
+
+        .prerequisites {
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 8px;
+            border-left: 4px solid #007bff;
+            background: #f9f9f9;
+        }
+
+        .register-button {
+            display: inline-block;
+            padding: 12px 18px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .register-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .course-card {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .course-card {
+                width: 90%;
+            }
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+                padding: 15px;
+            }
+            .nav-menu a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="custom-header">
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <div class="logo">
+                <a href="/"> 
+                    <img src="https://static.wixstatic.com/media/11062b_cca29298dbe547f4983e127aba1c1966f000.jpg" alt="Logo">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showSection('about')">About Us</a></li>
+                <li><a href="#" onclick="showSection('services')">Services</a></li>
+                <li><a href="#" onclick="showSection('ecommerce')">E-Commerce</a></li>
+                <li><a href="#" onclick="showSection('mission')">Mission & Vision</a></li>
+                <li><a href="#" onclick="showSection('projects')">Projects</a></li>
+                <li><a href="#" onclick="showSection('tutorials')">Tutorials</a></li>
+                <li><a href="#" onclick="showSection('mobile-development')">Mobile Development</a></li>
+                <li><a href="#" onclick="showSection('courses')">Courses</a></li>
+                <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Course Registration Section -->
+    <section id="courses">
+        <h2>Course Registration</h2>
+        <div class="containe">
+            <div class="course-card">
+                <h2>Web Design & Development</h2>
+                <p>Master the foundations of web development and build interactive, responsive websites. Topics include:</p>
+                <ul>
+                    <li>HTML, CSS & JavaScript for front-end development</li>
+                    <li>AJAX & jQuery for dynamic user interfaces</li>
+                    <li>JSON & XML for structured data management</li>
+                    <li>Responsive Web Design techniques</li>
+                    <li>Website optimization and SEO best practices</li>
+                </ul>
+                <p class="prerequisites">📝 Prerequisites: No prior programming experience required.</p>
+                <a href="#" class="register-button">Register</a>
+            </div>
+            
+            <div class="course-card">
+                <h2>Advanced Programming</h2>
+                <p>Gain proficiency in advanced coding techniques and full-stack development. Topics include:</p>
+                <ul>
+                    <li>Object-Oriented Programming (OOP) with Java</li>
+                    <li>SQL & Database Management (MySQL, PostgreSQL)</li>
+                    <li>Backend development with Express.js & Node.js</li>
+                    <li>RESTful API development and integration</li>
+                    <li>Testing and debugging methodologies</li>
+                </ul>
+                <p class="prerequisites">📝 Prerequisites: Basic knowledge of HTML, CSS, and JavaScript.</p>
+                <a href="#" class="register-button">Register</a>
+            </div>
+
+            <div class="course-card">
+                <h2>Mobile Application Development</h2>
+                <p>Learn how to design and develop cross-platform mobile applications. Topics include:</p>
+                <ul>
+                    <li>UI/UX design principles for mobile apps</li>
+                    <li>JavaScript & APIs for mobile functionalities</li>
+                    <li>Cross-platform development using React Native or Flutter</li>
+                    <li>Integration with Firebase and cloud services</li>
+                    <li>Performance optimization and debugging techniques</li>
+                </ul>
+                <p class="prerequisites">📝 Prerequisites: Completion of Web Design & Development and Advanced Programming.</p>
+                <a href="#" class="register-button">Register</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll("section").forEach(section => {
+                section.style.display = "none";
+            });
+            document.getElementById(sectionId).style.display = "block";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Nexy Synergy Tech</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+        h2 {
+            color: #007bff;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="paymentForm">
+        <h2>Pay with CBE via Chapa</h2>
+        <input type="text" id="name" placeholder="Enter your name">
+        <input type="email" id="email" placeholder="Enter your email">
+        <input type="number" id="amount" placeholder="Enter amount">
+        <button id="generateLink">Generate Payment Link</button>
+        <p id="paymentLink" style="margin-top: 20px;"></p>
+    </div>
+
+    <div class="container hidden" id="successMessage">
+        <h2>🎉 Payment Successful! 🎉</h2>
+        <p>Thank you for your payment. Your transaction was successful.</p>
+        <p><strong>Transaction ID:</strong> <span id="transactionId"></span></p>
+        <p><strong>Amount Paid:</strong> <span id="amountPaid"></span> ETB</p>
+        <p><strong>Status:</strong> <span style="color: green;">Completed</span></p>
+        <button onclick="window.location.href='https://nexysynergytech.com'">Back to Home</button>
+    </div>
+
+    <script>
+        document.getElementById("generateLink").addEventListener("click", async function () {
+            const secretKey = "CHASECK_TEST-bQpyUUaMGUZaonuFkHlqEyuu4e7vDUAL"; // Your Chapa Secret Key
+            const paymentUrl = "https://api.chapa.co/v1/transaction/initialize";
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const amount = document.getElementById("amount").value;
+
+            if (!name || !email || !amount) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            const transactionRef = "TX" + Math.floor(Math.random() * 1000000);
+
+            const requestData = {
+                amount: amount,
+                currency: "ETB",
+                email: email,
+                first_name: name.split(" ")[0],
+                last_name: name.split(" ")[1] || "Customer",
+                tx_ref: transactionRef,
+                callback_url: "https://nexysynergytech.com/payment", // Redirects back to this page
+                customization: {
+                    title: "CBE Payment",
+                    description: "Payment for Services",
+                    logo: "https://nexysynergytech.com/logo.png"
+                }
+            };
+
+            try {
+                const response = await fetch(paymentUrl, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${secretKey}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                const result = await response.json();
+                console.log("API Response:", result); // Debugging
+
+                if (result.status === "success") {
+                    window.location.href = result.data.checkout_url; // Redirect to Chapa payment page
+                } else {
+                    alert("Payment failed: " + result.message);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Error generating payment link. Check the console for details.");
+            }
+        });
+
+        // Check if payment was successful (detect Chapa callback)
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("tx_ref")) {
+            document.getElementById("paymentForm").classList.add("hidden");
+            document.getElementById("successMessage").classList.remove("hidden");
+
+            document.getElementById("transactionId").textContent = params.get("tx_ref") || "N/A";
+            document.getElementById("amountPaid").textContent = params.get("amount") || "N/A";
+        }
+    </script>
+
+</body>
+</html>

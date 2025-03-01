@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextSynergy Tech - Mobile Development</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="stylesheet" href="server/Sytles/css.css">
+    <script src="server/HTMLInclude.js"></script>
+    <script src="server/script.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            color: #333;
+        }
+        .tab-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .tab {
+            background: red;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+        }
+        .tab:hover {
+            background: #ddd;
+        }
+        .content {
+            display: none;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+        }
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to NextSynergy Tech</h1>
+        <div class="menu-icon" onclick="toggleMenu()">☰ Menu</div>
+    </header>
+
+    <nav id="navMenu">
+        <a onclick="showSection('about')">About Us</a>
+        <a onclick="showSection('services')">Services</a>
+        <a onclick="showSection('ecommerce')">E-Commerce</a>
+        <a onclick="showSection('mission')">Mission & Vision</a>
+        <a onclick="showSection('projects')">Projects</a>
+        <a onclick="showSection('tutorials')">Tutorials</a>
+        <a onclick="showSection('mobile-development')">Mobile Development</a>
+        <a onclick="showSection('contact')">Contact</a>
+    </nav>
+
+    <div class="container">
+        <section id="mobile-development" class="section">
+            <h2>📱 Mobile App Development</h2>
+
+            <div class="tab-container">
+                <div class="tab" onclick="showContent('java-basics')">Java Basics</div>
+                <div class="tab" onclick="showContent('android-ui')">Android UI & Layouts</div>
+                <div class="tab" onclick="showContent('intents-nav')">Intents & Navigation</div>
+                <div class="tab" onclick="showContent('data-storage')">Data Storage</div>
+                <div class="tab" onclick="showContent('firebase')">Firebase</div>
+                <div class="tab" onclick="showContent('rest-api')">REST API & JSON Parsing</div>
+            </div>
+
+            <div id="java-basics" class="content">
+                <h3>🚀 Java Basics</h3>
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=UQrBgnm8bhU&t=2s" target="_blank">Setting up the Java Development Environment</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=241" target="_blank">Java Classes and Objects</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=241" target="_blank">Java Method Overloading</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=241" target="_blank">Java Inheritance & Interfaces</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=241" target="_blank">Java Anonymous Classes</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=241" target="_blank">Java Exceptions & Arrays</a></li>
+                </ul>
+            </div>
+
+            <div id="android-ui" class="content">
+                <h3>📱 Android UI & Layouts</h3>
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=243" target="_blank">Setting up Emulator & LogCat</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=243" target="_blank">Toast Messages & UI Components</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=243" target="_blank">Using Buttons & Event Handlers</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=243" target="_blank">Radio Groups & Constraint Layout</a></li>
+                </ul>
+            </div>
+
+            <div id="intents-nav" class="content">
+                <h3>🔄 Intents & Navigation</h3>
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=243" target="_blank">Explicit & Implicit Intents</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=243" target="_blank">Passing Data Using Parcelable Objects</a></li>
+                </ul>
+            </div>
+
+            <div id="data-storage" class="content">
+                <h3>💾 Data Storage</h3>
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=244" target="_blank">SQLite Database Introduction</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=244" target="_blank">Using Room Library in Android</a></li>
+                </ul>
+            </div>
+
+            <div id="firebase" class="content">
+                <h3>🔥 Firebase</h3>
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=244" target="_blank">Firebase Authentication</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=244" target="_blank">Firestore Setup & Data Management</a></li>
+                </ul>
+            </div>
+
+            <div id="rest-api" class="content">
+                <h3>🌍 REST API & JSON Parsing</h3>
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=244" target="_blank">Making GET Requests with OkHttp</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=244" target="_blank">JSON Parsing using GSON</a></li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function showContent(tabId) {
+            let contents = document.querySelectorAll('.content');
+            contents.forEach(content => content.style.display = 'none');
+            document.getElementById(tabId).style.display = 'block';
+        }
+    </script>
+
+    <footer>
+        <p>&copy; 2025 NextSynergy Tech. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

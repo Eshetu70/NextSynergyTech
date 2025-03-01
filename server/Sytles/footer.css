@@ -1,0 +1,185 @@
+/* FOOTER STYLING - HIGH-END TECH DESIGN */
+.footer {
+    background: linear-gradient(135deg, #001F4D, #004080); /* Modern gradient */
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 16px;
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* FOOTER CONTAINER */
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* FOOTER SECTIONS */
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin: 10px;
+}
+
+.footer-section h2 {
+    font-size: 1.3em;
+    margin-bottom: 12px;
+    color: gold;
+    text-transform: uppercase;
+    border-bottom: 2px solid gold;
+    padding-bottom: 5px;
+}
+
+/* FOOTER LINKS */
+.footer-section p, .footer-section ul {
+    font-size: 0.9em;
+    line-height: 1.8;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 6px 0;
+    transition: 0.3s ease-in-out;
+}
+
+.footer-section ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-section ul li a:hover {
+    color: gold;
+    transform: scale(1.05);
+}
+
+/* EMAIL & PHONE STYLING */
+.contact-info {
+    margin-top: 10px;
+}
+
+.contact-info a {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 0;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+.contact-info a i {
+    font-size: 1.3em;
+    margin-right: 12px;
+    color: gold;
+    transition: color 0.3s ease-in-out;
+}
+
+.contact-info a:hover {
+    color: gold;
+    transform: scale(1.05);
+}
+
+.contact-info a:hover i {
+    color: white;
+}
+
+/* SOCIAL MEDIA ICONS */
+.social-icons {
+    margin-top: 15px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 22px;
+    margin: 0 8px;
+    display: inline-block;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.social-icons a:hover {
+    transform: translateY(-3px);
+    color: gold;
+}
+
+/* CONTACT BUTTON */
+.contact-btn {
+    display: inline-block;
+    background: gold;
+    color: #004080;
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 12px;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.contact-btn:hover {
+    background: white;
+    color: #004080;
+    transform: scale(1.05);
+}
+
+/* PAYMENT SECTION */
+.payment-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.payment-section img {
+    width: 180px;
+    margin-top: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.payment-section img:hover {
+    transform: scale(1.1);
+}
+
+/* QR CODE */
+.qr-code img {
+    width: 120px;
+    margin-top: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.qr-code img:hover {
+    transform: rotate(5deg);
+}
+
+/* FOOTER BOTTOM */
+.footer-bottom {
+    margin-top: 25px;
+    font-size: 0.9em;
+    border-top: 2px solid gold;
+    padding-top: 12px;
+}
+
+/* RESPONSIVE FOOTER */
+@media (max-width: 768px) {
+    .footer-container {
+        text-align: center;
+        flex-direction: column;
+    }
+    
+    .footer-section {
+        margin-bottom: 20px;
+    }
+
+    .social-icons {
+        margin-top: 10px;
+    }
+}

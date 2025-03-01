@@ -1,0 +1,149 @@
+<!-- Right-side Icons -->
+<div class="nav-icons">
+    <div class="menu-translate-container">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="translate-icon" onclick="toggleTranslate()">
+            <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="Translate" width="24" height="24">
+        </div>
+    </div>
+    <div class="translate-container" id="translateBox">
+        <select class="lang-selector" id="languageSwitcher" onchange="googleTranslateElementInit()">
+            <option value="en">EN</option>
+            <option value="am">AM</option>
+            <option value="om">OM</option>
+        </select>
+        <div id="google_translate_element" class="translate-box"></div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="nav-icons">
+    <div class="menu-translate-container">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="translate-icon" onclick="toggleTranslate()">
+            <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="Translate" width="24" height="24">
+        </div>
+    </div>
+    <div class="translate-container" id="translateBox">
+        <select class="lang-selector" id="languageSwitcher" onchange="translateLanguage()">
+            <option value="en">EN</option>
+            <option value="am">AM</option>
+            <option value="om">OM</option>
+        </select>
+        <div id="google_translate_element" class="translate-box"></div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,am,om',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+
+    function translateLanguage() {
+        var selectedLang = document.getElementById("languageSwitcher").value;
+        var googleFrame = document.querySelector(".goog-te-combo");
+        if (googleFrame) {
+            googleFrame.value = selectedLang;
+            googleFrame.dispatchEvent(new Event("change"));
+        }
+    }
+
+    function toggleTranslate() {
+        var translateBox = document.getElementById("translateBox");
+        translateBox.style.display = translateBox.style.display === "none" ? "flex" : "none";
+    }
+
+    
+
+    
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<style>
+    .menu-translate-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .menu-icon {
+        cursor: pointer;
+        font-size: 1.5em;
+        padding: 5px;
+    }
+
+
+
+
+
+
+
+    .translate-icon {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px;
+        transition: transform 0.2s;
+    }
+    
+    .translate-icon:hover {
+        transform: scale(1.1);
+    }
+    
+    .translate-icon img {
+        width: 26px;
+        height: 26px;
+    }
+    
+    .translate-container {
+        display: none;
+        align-items: center;
+        gap: 6px;
+        background: linear-gradient(135deg, #0066cc, #003366);
+        padding: 7px;
+        border-radius: 6px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        max-width: 190px;
+        position: absolute;
+        top: 50px;
+        left: 10px;
+        z-index: 1000;
+        transition: all 0.3s ease-in-out;
+    }
+    
+    .lang-selector {
+        background: white;
+        border: none;
+        padding: 5px 10px;
+        font-size: 13px;
+        font-weight: bold;
+        color: #333;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        transition: background 0.3s ease;
+    }
+    
+    .lang-selector:hover {
+        background: #e0e0e0;
+    }
+    
+    .translate-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px;
+        border-radius: 4px;
+        max-width: 20px;
+    }
+</style>

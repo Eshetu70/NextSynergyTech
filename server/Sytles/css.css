@@ -1,0 +1,317 @@
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+       
+        h2 {
+            text-align: center;
+        }
+       /* nav {
+            display: flex;
+            justify-content: center;
+            background: #003366;
+            padding: 10px;
+        }*/
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .container {
+            padding: 10px;
+            text-align: center;   
+            
+        }
+        img {
+            width: 100%;
+            max-width: 400px;
+            display: block;
+            margin: 10px auto;
+            border-radius: 10px;
+        }
+        .section {
+            background: #fff;
+            padding: 20px;
+            margin: 10px auto;
+            width: 90%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        /*
+        footer {
+            background: #004080;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            position: relative;
+        } */
+         
+         /* Responsive menu for mobile devices */
+         .dropdown {
+            display: none;
+            flex-direction: column;
+            background: #003366;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            top: 50px;
+            left: 0;
+        }
+        .dropdown a {
+            padding: 15px;
+            display: block;
+        }
+        .menu-icon {
+            display: flex;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            text-align: center;
+        }
+        @media screen and (max-width: 768px) {
+            nav {
+                display: none;
+            }
+            .menu-icon {
+                display: block;
+            }
+        }
+
+
+        .course-list, .icon-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .course-list li, .icon-list li {
+            background: #435568;
+            color: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            width: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .course-list li:hover, .icon-list li:hover {
+            background: #0056b3;
+            cursor: pointer;
+        }
+        .icon-list li a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            text-align: center;
+        }
+        .icon-list img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        
+
+       
+        .containers {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+       
+        
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tab {
+            background: #004080;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .tab:hover {
+            background: #004080;
+        }
+        .tab-content {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .register-form input, .register-form select, .register-form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .register-form button {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .register-form button:hover {
+            background: #0056b3;
+        }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            display: none;
+        }
+    
+            .containers {
+                max-width: 1000px;
+                margin: 50px auto;
+                background: white;
+                padding: 20px;
+                box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+                border-radius: 8px;
+                text-align: center;
+            }
+            
+            .tab-container {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+            .tab {
+                background: #004080;
+                color: white;
+                padding: 10px 20px;
+                margin: 5px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .tab:hover {
+                background: #004080;
+            }
+            .tab-content {
+                display: none;
+            }
+            .active {
+                display: block;
+            }
+            .register-form input, .register-form select, .register-form button {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            .register-form button {
+                background: #007bff;
+                color: white;
+                cursor: pointer;
+            }
+            .register-form button:hover {
+                background: #0056b3;
+            }
+            .success-message {
+                color: green;
+                font-weight: bold;
+                display: none;
+            }
+        
+
+
+            
+        /* Course Registration Section */
+        .containe {
+            max-width: 1100px;
+            margin: 40px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 39%;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            font-size: 22px;
+            text-align: center;
+        }
+
+        .prerequisites {
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 8px;
+            border-left: 4px solid #007bff;
+            background: #f9f9f9;
+        }
+
+        .register-button {
+            display: inline-block;
+            padding: 12px 18px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .register-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .course-card {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .containe {
+                flex-direction: column;
+                align-items: center;
+            }
+            .course-card {
+                width: 90%;
+            }
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+                padding: 15px;
+            }
+            .nav-menu a {
+                width: 100%;
+                text-align: center;
+            }
+        }

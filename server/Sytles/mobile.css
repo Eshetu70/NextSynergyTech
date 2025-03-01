@@ -1,0 +1,177 @@
+/* Container Styling */
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #004080;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Section Heading */
+.section h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Tab Container */
+.tab-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+/* Tabs */
+.tab {
+    background: #004080;
+    padding: 12px 20px;
+    margin: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid #007bff;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.tab:hover {
+    background: #007bff;
+    color: white;
+}
+
+/* Content Sections */
+.content {
+    display: none;
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Active Tab Content */
+.content.active {
+    display: block;
+}
+
+/* Heading inside Content */
+.content h3 {
+    font-size: 22px;
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+/* List Styling */
+.content ul {
+    list-style: none;
+    padding: 0;
+}
+#ecommerce ul li {
+    list-style: none;
+    padding: 0;
+}
+
+.content ul li {
+    background: #e9ecef;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+/* List Item Icon */
+.content ul li::before {
+    content: "▶";
+    margin-right: 10px;
+    font-size: 14px;
+    color:#284868 ;
+}
+
+/* List Hover Effect */
+.content ul li:hover {
+    background: #2c4258;
+    cursor: pointer;
+}
+
+/* Links inside List */
+.content ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.content ul li a:hover {
+    color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tab-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .tab {
+        width: 80%;
+        text-align: center;
+    }
+}
+
+/* E-Commerce Services Styling */
+#ecommerce-services {
+    background: linear-gradient(to right, #004080, #0073e6);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 3px solid gold;
+}
+
+#ecommerce-services h3 {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-family: 'Arial', sans-serif;
+}
+
+#ecommerce-services ul {
+    list-style: none;
+    padding: 0;
+}
+
+#ecommerce-services li {
+    margin: 10px 0;
+}
+
+#ecommerce-services a {
+    display: inline-block;
+    background: gold;
+    color: #004080;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#ecommerce-services a:hover {
+    background: white;
+    color: #004080;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
