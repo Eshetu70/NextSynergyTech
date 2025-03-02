@@ -395,27 +395,7 @@
             }
         </script>
         
-        <script>
-            function showSection(sectionId) {
-                // Hide all sections
-                document.querySelectorAll("section").forEach(section => {
-                    section.style.display = "none";
-                });
-            
-                // Show the selected section
-                let section = document.getElementById(sectionId);
-                if (section) {
-                    section.style.display = "block";
-                } else {
-                    console.error("Section not found:", sectionId);
-                }
-            }
-            
-            document.addEventListener("DOMContentLoaded", function () {
-                // Ensure sections hide/show properly on page load
-                showSection("about"); // Set default section
-            });
-        </script>
+        
     
     </section>
 
