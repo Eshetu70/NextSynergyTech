@@ -312,9 +312,10 @@
                 <button class="dropdown-btn" onclick="toggleDropdown('education')">🎓 Education</button>
                 <div id="education" class="dropdown-content">
                     <ul>
-                        <li>📌 Addis Ababa University - B.S. Civil Engineering</li>
-                        <li>📌 University of North Carolina at Charlotte - Software Engineering</li>
+                        <li>📌 University of North Carolina at Charlotte - B.S. Software Engineering</li>
                         <li>📌 Specialized Software Systems & Networking</li>
+                        <li>📌 Addis Ababa University - B.S. Civil Engineering</li>
+                       
                     </ul>
                 </div>
         
@@ -349,23 +350,39 @@
                 margin-top: 20px;
             }
             .dropdown-btn {
-                width: 80%;
-                padding: 10px;
+                width: 90%;
+                padding: 12px;
                 background: #004080;
                 color: white;
                 border: none;
                 cursor: pointer;
-                margin: 5px;
+                margin: 10px 0;
                 border-radius: 5px;
+                font-size: 16px;
+                text-align: left;
             }
             .dropdown-content {
                 display: none;
                 background: white;
                 border: 1px solid #ccc;
                 margin: 5px auto;
-                padding: 10px;
-                max-width: 400px;
+                padding: 15px;
+                max-width: 500px;
                 border-radius: 5px;
+                text-align: left;
+                box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+            }
+            .dropdown-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            .dropdown-list li {
+                padding: 8px 0;
+                border-bottom: 1px solid #eee;
+            }
+            .dropdown-list li:last-child {
+                border-bottom: none;
             }
         </style>
         
