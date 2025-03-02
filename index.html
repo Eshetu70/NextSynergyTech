@@ -210,10 +210,7 @@
 
 
 
-   #who-we-are h2 {
-    text-align: center;
-}
-
+        #who-we-are h2, 
 #who-we-are h3 {
     text-align: center;
 }
@@ -221,6 +218,14 @@
 #who-we-are p {
     font-style: italic;
     
+    text-align: left; /* Ensures paragraphs are left-aligned */
+}
+
+/* Responsive styling for mobile screens */
+@media screen and (max-width: 768px) {
+    #who-we-are p {
+        text-align: left; /* Ensures paragraphs remain left-aligned on mobile */
+    }
 }
 
 
