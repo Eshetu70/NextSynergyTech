@@ -226,6 +226,7 @@
             <!-- Desktop Navigation Menu -->
             <ul class="nav-menu">
                 <li><a href="#" onclick="showSection('about')">About Us</a></li>
+                <li><a href="#" onclick="showSection('who-we-are')">Who We Are</a></li>
                 <li><a href="#" onclick="showSection('services')">Services</a></li>
                 <li><a href="#" onclick="showSection('ecommerce')">E-Commerce</a></li>
                 <li><a href="#" onclick="showSection('mission')">Mission & Vision</a></li>
@@ -271,6 +272,7 @@
         <!-- Mobile Dropdown Menu -->
         <div id="navMenu" class="dropdown-menu" style="display: none;">
             <a href="#" onclick="showSection('about')">About Us</a>
+            <a href="#" onclick="showSection('who-we-are')">Who We Are</a>
             <a href="#" onclick="showSection('services')">Services</a>
             <a href="#" onclick="showSection('ecommerce')">E-Commerce</a>
             <a href="#" onclick="showSection('mission')">Mission & Vision</a>
@@ -295,7 +297,87 @@
             <p>Our company is committed to technological research, application development, and student training. We empower young developers through our schools and innovation programs, ensuring they acquire the necessary skills to create impactful applications.</p>
             <p>We integrate AI and machine learning into our solutions to drive efficiency, automation, and business growth, setting new industry standards.</p>
         </section>
+        <section id="who-we-are" class="section">
+            <h2>🌟 Who We Are</h2>
+            <div class="who-we-are-container">
+                <div class="founder-info">
+                    <img src="my.jpg" alt="Eshetu T. Wekjira" class="founder-image">
+                    <h3>Eshetu T. Wekjira</h3>
+                    <p><strong>Founder & CEO, NextSynergy Tech</strong></p>
+                    <p>"At NextSynergy Tech, our mission is to build a digital generation and bring smiles to our customers. We empower businesses and individuals through innovative technology solutions, AI automation, and software development. Join us on our journey to redefine the future!"</p>
+                </div>
+            </div>
+        
+            <div class="dropdowns">
+                <button class="dropdown-btn" onclick="toggleDropdown('education')">🎓 Education</button>
+                <div id="education" class="dropdown-content">
+                    <ul>
+                        <li>📌 Addis Ababa University - B.S. Civil Engineering</li>
+                        <li>📌 University of North Carolina at Charlotte - Software Engineering</li>
+                        <li>📌 Specialized Software Systems & Networking</li>
+                    </ul>
+                </div>
+        
+                <button class="dropdown-btn" onclick="toggleDropdown('experience')">💼 Job Experience</button>
+                <div id="experience" class="dropdown-content">
+                    <ul>
+                        <li>🚀 Amazon - Operations Manager</li>
+                        <li>💻 NextSynergy Tech - CEO & Software Developer</li>
+                    </ul>
+                </div>
+            </div>
         </section>
+        
+        <style>
+            .who-we-are-container {
+                text-align: center;
+                margin: 20px auto;
+                padding: 20px;
+                max-width: 600px;
+                background: #f9f9f9;
+                border-radius: 10px;
+                box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+            }
+            .founder-image {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                margin-bottom: 10px;
+            }
+            .dropdowns {
+                text-align: center;
+                margin-top: 20px;
+            }
+            .dropdown-btn {
+                width: 80%;
+                padding: 10px;
+                background: #004080;
+                color: white;
+                border: none;
+                cursor: pointer;
+                margin: 5px;
+                border-radius: 5px;
+            }
+            .dropdown-content {
+                display: none;
+                background: white;
+                border: 1px solid #ccc;
+                margin: 5px auto;
+                padding: 10px;
+                max-width: 400px;
+                border-radius: 5px;
+            }
+        </style>
+        
+        <script>
+            function toggleDropdown(id) {
+                var content = document.getElementById(id);
+                content.style.display = (content.style.display === "block") ? "none" : "block";
+            }
+        </script>
+        
+    
+    </section>
 
         <section id="services" class="section">
             <h2>Our Services</h2>
