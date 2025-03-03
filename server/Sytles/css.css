@@ -1,7 +1,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    height: 100vh;
+    
     margin: 0;
     padding: 0;
     background: repeating-linear-gradient(45deg, #0d1b2a, #1a2d44 10px, #327daf 20px);
