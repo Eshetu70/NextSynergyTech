@@ -305,6 +305,41 @@
         .dropdown-list li:last-child {
             border-bottom: none;
         }
+
+        #about h2 {
+    margin: 0 auto;  /* Remove extra spacing */
+    padding: 0;  /* Remove extra padding */
+    display: block;
+}
+
+.containerss {
+    margin: 0 auto; /* Remove unwanted side margins */
+    padding: 0; /* Remove extra padding */
+    
+
+#about p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    #about h2 {
+        font-size: 20px; /* Adjust font size for smaller screens */
+        text-align: center;
+    }
+
+    .containerss {
+        flex-direction: column; /* Stack items vertically on mobile */
+        align-items: center; /* Center-align content */
+    }
+
+    #about p {
+        font-size: 16px; /* Adjust text size for readability */
+        text-align: justify; /* Improve text alignment */
+    }
+}
+
     </style>
 
 
