@@ -313,32 +313,70 @@
 }
 
 .containerss {
-    margin: 0 auto; /* Remove unwanted side margins */
-    padding: 0; /* Remove extra padding */
-    
-
-#about p {
-    margin: 0;
-    padding: 0;
+    position: relative; /* Ensures icons position relative to this container */
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%; /* Ensures full width */
+    max-width: 600px; /* Adjust as needed */
+    margin: 0 auto; /* Centers the container */
 }
 
-/* Mobile-specific styles */
+.theme-icons {
+    position: absolute; /* Positions icons relative to .containerss */
+    font-size: 24px; /* Adjust icon size */
+}
+
+/* Positioning icons close to the diamond edges */
+.theme-icons.top {
+    top: -10px; /* Move slightly up */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.theme-icons.bottom {
+    bottom: -10px; /* Move slightly down */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.theme-icons.left {
+    left: -10px; /* Move slightly left */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.theme-icons.right {
+    right: -10px; /* Move slightly right */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Mobile adjustments */
 @media (max-width: 768px) {
-    #about h2 {
-        font-size: 20px; /* Adjust font size for smaller screens */
-        text-align: center;
+    .theme-icons {
+        font-size: 20px; /* Slightly smaller icons */
     }
 
-    .containerss {
-        flex-direction: column; /* Stack items vertically on mobile */
-        align-items: center; /* Center-align content */
+    .theme-icons.top {
+        top: -5px;
     }
 
-    #about p {
-        font-size: 16px; /* Adjust text size for readability */
-        text-align: justify; /* Improve text alignment */
+    .theme-icons.bottom {
+        bottom: -5px;
+    }
+
+    .theme-icons.left {
+        left: -5px;
+    }
+
+    .theme-icons.right {
+        right: -5px;
     }
 }
+
+    
 
     </style>
 
