@@ -331,28 +331,42 @@
 /* Positioning icons close to the diamond edges */
 
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .theme-icons {
-        font-size: 20px; /* Slightly smaller icons */
-    }
 
-    .theme-icons.top {
-        top: 40px;
-    }
-
-    .theme-icons.bottom {
-        bottom: 30px;
-    }
-
-    .theme-icons.left {
-        left: 30px;
-    }
-
-    .theme-icons.right {
-        right: 30px;
-    }
-}
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .section {
+            position: relative;
+            padding: 20px;
+            text-align: center;
+            max-width: 1200px;
+            margin: auto;
+        }
+        
+        .containerss {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .theme-icons {
+            position: absolute;
+            font-size: 24px;
+        }
+        
+        .top { top: 0; left: 50%; transform: translateX(-50%); }
+        .left { top: 50%; left: 0; transform: translateY(-50%); }
+        .right { top: 50%; right: 0; transform: translateY(-50%); }
+        .bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
+        
+        @media (max-width: 768px) {
+            .theme-icons {
+                font-size: 18px;
+            }
+        }
 
 
     
