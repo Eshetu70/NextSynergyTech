@@ -235,7 +235,9 @@
     top: 50px; /* Adjust distance below menu button */
     left: 0;
     background: repeating-linear-gradient(45deg, #0d1b2a, #1a2d44 10px, #327daf 20px);
-    color: white; /* Or any background color */
+    background: linear-gradient(45deg, #ff4500, #900C3F);
+    box-shadow: 0 15px 40px rgba(255, 69, 0, 1);
+   /* Or any background color */
     border-radius: 5px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
@@ -254,7 +256,7 @@
 .dropdown-menu a {
     display: block;
     padding: 8px 15px;
-    color: black;
+    color: white;
     text-decoration: none;
     z-index: 30; /* Ensures links are above icons */
 }
@@ -272,8 +274,10 @@
         left: 0;
         width: 100%;
         background: repeating-linear-gradient(45deg, #0d1b2a, #1a2d44 10px, #327daf 20px);
-        color: white;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(45deg, #ff4500, #900C3F);
+        box-shadow: 0 15px 40px rgba(255, 69, 0, 1);
+       
+       
         z-index: 25; /* Ensures visibility */
     }
 
