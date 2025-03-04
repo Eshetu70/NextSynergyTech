@@ -159,19 +159,21 @@
     z-index: 5; /* Ensure links are above everything */
 }
 
-/* Responsive Design for Mobile Screens */
+/* 🔥 Mobile Adjustments (Close to H2 & P) */
 @media (max-width: 768px) {
     .containerss {
-        max-width: 300px; /* Reduce size for mobile */
-        margin: 80px auto; /* Increase top & bottom space */
+        max-width: 320px; /* Slightly reduce for mobile */
+        margin-top: -10px; /* Move up closer to H2 */
+        margin-bottom: -10px; /* Move up closer to P */
     }
 
     .theme-icons {
-        font-size: 18px; /* Adjust icon size */
+        font-size: 18px; /* Reduce icon size for mobile */
     }
 
-    .top { top: -5px; }
-    .bottom { bottom: -5px; }
+    /* Adjust diamond edges */
+    .top { top: -5px; } /* Move closer to h2 */
+    .bottom { bottom: -5px; } /* Move closer to p */
     .left { left: -5px; }
     .right { right: -5px; }
 }
