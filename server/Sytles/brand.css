@@ -163,6 +163,7 @@
 @media (max-width: 768px) {
     .containerss {
         max-width: 300px; /* Reduce size for mobile */
+        margin: 80px auto; /* Increase top & bottom space */
     }
 
     .theme-icons {
