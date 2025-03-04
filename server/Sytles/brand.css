@@ -159,7 +159,8 @@
     z-index: 5; /* Ensure links are above everything */
 }
 
-/* 🔥 Mobile Adjustments (Close to H2 & P) */
+
+/* 🔥 Mobile Adjustments (Icons at the Corners of Diamond) */
 @media (max-width: 768px) {
     .containerss {
         max-width: 320px; /* Slightly reduce for mobile */
@@ -173,13 +174,31 @@
         font-size: 18px; /* Reduce icon size for mobile */
     }
 
-    /* Adjust diamond edges */
-    .top { top: -5px; } /* Move closer to h2 */
-    .bottom { bottom: -5px; } /* Move closer to p */
-    .left { left: -5px; }
-    .right { right: -5px; }
-}
+    /* 💎 Place icons at the 4 corners of the diamond */
+    .top { 
+        top: 5px; 
+        left: 5px; 
+        transform: translate(0, 0); 
+    }
 
+    .bottom { 
+        bottom: 5px; 
+        right: 5px; 
+        transform: translate(0, 0); 
+    }
+
+    .left { 
+        bottom: 5px; 
+        left: 5px; 
+        transform: translate(0, 0); 
+    }
+
+    .right { 
+        top: 5px; 
+        right: 5px; 
+        transform: translate(0, 0); 
+    }
+}
 
 
 
