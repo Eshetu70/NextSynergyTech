@@ -163,8 +163,8 @@
 @media (max-width: 768px) {
     .containerss {
         max-width: 320px; /* Slightly reduce for mobile */
-        margin-top: -10px; /* Move up closer to H2 */
-        margin-bottom: -10px; /* Move up closer to P */
+        margin-top: 20px; /* Push the diamond down from H2 */
+        margin-bottom: 20px; /* Push the diamond up from P */
     }
 
     .theme-icons {
