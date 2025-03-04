@@ -179,3 +179,83 @@
     .left { left: -5px; }
     .right { right: -5px; }
 }
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap');
+
+h2 {
+    font-family: 'Orbitron', sans-serif; /* High-tech, futuristic font */
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    color: #222; /* Dark text for contrast on white background */
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding: 15px 0;
+    background: none; /* Keeps original icon colors */
+}
+
+/* ✨ Neon Glow Border Effect */
+h2::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -5px;
+    width: 100px;
+    height: 5px;
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    border-radius: 5px;
+    transform: translateX(-50%);
+    transition: width 0.3s ease-in-out;
+}
+
+h2::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 80px;
+    height: 5px;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    border-radius: 5px;
+    transform: translateX(-50%);
+    transition: width 0.3s ease-in-out;
+}
+
+/* ✨ Hover Effect - Expanding Borders */
+h2:hover::before, h2:hover::after {
+    width: 150px;
+}
+
+/* 🚀 Keep the Icon as It Is */
+h2 span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+h2:hover span {
+    transform: rotate(10deg) scale(1.1);
+}
+
+/* 📱 Responsive Design for Mobile */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 26px; /* Slightly smaller for mobile */
+        letter-spacing: 1.5px;
+    }
+    
+    h2::before, h2::after {
+        width: 60px;
+    }
+
+    h2:hover::before, h2:hover::after {
+        width: 100px;
+    }
+}
