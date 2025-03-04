@@ -234,7 +234,8 @@
     position: absolute;
     top: 50px; /* Adjust distance below menu button */
     left: 0;
-    background: white; /* Or any background color */
+    background: repeating-linear-gradient(45deg, #0d1b2a, #1a2d44 10px, #327daf 20px);
+    color: white; /* Or any background color */
     border-radius: 5px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
@@ -270,7 +271,8 @@
         top: 60px; /* Adjusted for mobile menu */
         left: 0;
         width: 100%;
-        background: white;
+        background: repeating-linear-gradient(45deg, #0d1b2a, #1a2d44 10px, #327daf 20px);
+        color: white;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 25; /* Ensures visibility */
     }
