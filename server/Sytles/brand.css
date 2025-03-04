@@ -165,9 +165,9 @@
     .containerss {
         max-width: 320px; /* Slightly reduce for mobile */
         margin-top: 40px; /* Push the diamond down from H2 */
-        margin-bottom: 40px; /* Push the diamond up from P */
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-bottom: 60px; /* Push the diamond up from P */
+        margin-left: 15px;
+        margin-right: 15px;
     }
 
     .theme-icons {
