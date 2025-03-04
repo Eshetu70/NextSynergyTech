@@ -312,39 +312,7 @@
     display: block;
 }
 
-.containerss {
-    position: relative; /* Ensures icons position relative to this container */
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%; /* Ensures full width */
-    max-width: 600px; /* Adjust as needed */
-    margin: 0 auto; /* Centers the container */
-}
 
-.theme-icons {
-    position: absolute; /* Positions icons relative to .containerss */
-    font-size: 24px; /* Adjust icon size */
-}
-
-/* Positioning icons close to the diamond edges */
-
-
-
-
-    
-        
-        .top { top: 0; left: 50%; transform: translateX(-50%); }
-        .left { top: 50%; left: 0; transform: translateY(-50%); }
-        .right { top: 50%; right: 0; transform: translateY(-50%); }
-        .bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
-        
-        @media (max-width: 768px) {
-            .theme-icons {
-                font-size: 18px;
-            }
-        }
 
 
     
@@ -570,7 +538,7 @@
                 </div>
         </section>
         <section id="about" class="section">
-            <h2>🚀 About NextSynergy Tech - Your Digital Transformation Partner</h2>
+            <h2>🚀 About NextSynergy Tech - Your Digital Transformation Partner</h2><br>
             <div class="containerss">
                 <div class="theme-icons top">☀️</div>
                 <div class="theme-icons left">🌙</div>
@@ -1353,6 +1321,9 @@
             var content = document.getElementById(id);
             content.style.display = (content.style.display === "block") ? "none" : "block";
         }
+
+       
+        
     </script>
 
 </body>

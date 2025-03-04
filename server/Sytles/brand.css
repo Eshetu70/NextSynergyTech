@@ -1,11 +1,4 @@
-.containerss {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
+
 .wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -95,4 +88,89 @@
     .theme-icons {
         font-size: 18px;
     }
+}
+
+
+
+
+
+.containerss {
+    position: relative; /* Ensures icons position relative to this container */
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%; /* Ensures full width */
+    max-width: 600px; /* Adjust as needed */
+    margin: 0 auto; /* Centers the container */
+    aspect-ratio: 1 / 1; /* Makes it square for diamond shape */
+    z-index: 1; /* Ensure it stays above other elements */
+}
+
+.theme-icons {
+    position: absolute; /* Positions icons relative to .containerss */
+    font-size: 24px; /* Adjust icon size */
+    z-index: 2; /* Ensures icons don't overlap dropdown */
+}
+
+/* Positioning icons at diamond edges */
+.top { 
+    top: -10px; /* Slightly above the container */
+    left: 50%; 
+    transform: translateX(-50%); 
+}
+
+.bottom { 
+    bottom: -10px; /* Slightly below the container */
+    left: 50%; 
+    transform: translateX(-50%); 
+}
+
+.left { 
+    left: -10px; /* Slightly outside the left edge */
+    top: 50%; 
+    transform: translateY(-50%); 
+}
+
+.right { 
+    right: -10px; /* Slightly outside the right edge */
+    top: 50%; 
+    transform: translateY(-50%); 
+}
+
+/* Dropdown Menu */
+.nav-menun {
+    position: relative; /* Ensure proper stacking context */
+    z-index: 3; /* Bring dropdown above icons */
+}
+
+.nav-menun li {
+    position: relative; /* Needed for dropdown positioning */
+}
+
+.nav-menun .box {
+    position: relative;
+    z-index: 4; /* Ensures it appears above all icons */
+}
+
+/* Ensure dropdown stays on top */
+.nav-menun a {
+    position: relative;
+    z-index: 5; /* Ensure links are above everything */
+}
+
+/* Responsive Design for Mobile Screens */
+@media (max-width: 768px) {
+    .containerss {
+        max-width: 300px; /* Reduce size for mobile */
+    }
+
+    .theme-icons {
+        font-size: 18px; /* Adjust icon size */
+    }
+
+    .top { top: -5px; }
+    .bottom { bottom: -5px; }
+    .left { left: -5px; }
+    .right { right: -5px; }
 }
