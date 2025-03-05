@@ -285,3 +285,63 @@
         z-index: 5; /* Keeps icons in background */
     }
 }
+
+
+
+
+
+
+
+
+
+ /* Global Site Header with Video Background */
+    header {
+      position: relative;
+      height: 150px;
+      /* Adjust height as needed */
+      overflow: hidden;
+    }
+
+    header video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      z-index: -1;
+    }
+
+    header h1 {
+      margin: 15px 0 0;
+      /* Push title below the logo */
+      font-size: 1.8em;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 1em;
+    }
+
+    /* Translator Icon and Box */
+    .translate-icon {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    #translateBox {
+      display: none;
+      position: absolute;
+      top: 40px;
+      right: 20px;
+      z-index: 3;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
