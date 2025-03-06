@@ -433,6 +433,8 @@ section ul li:hover {
 /* Navigation Bar - Mobile */
 /* Navigation Bar - Mobile */
 /* Navigation Bar - Mobile */
+
+/* Navigation Bar - Mobile */
 @media screen and (max-width: 768px) {
     .nav-bar {
         position: absolute;
@@ -445,7 +447,7 @@ section ul li:hover {
         justify-content: space-evenly; /* Equal spacing */
         align-items: center;
         margin: 0; /* No margin left/right */
-        padding: 0; /* No padding left/right */
+        padding-top: 10px; /* Only top padding */
         background: transparent; /* Overlaying header */
         z-index: 10;
     }
@@ -468,7 +470,7 @@ section ul li:hover {
         display: flex;
         justify-content: center; /* Centers the icons */
         align-items: center;
-        gap: 30px; /* Equal space between icons */
+        gap: 20px; /* Equal space between icons */
     }
 
     .menu-icon {
@@ -500,9 +502,7 @@ section ul li:hover {
 
     /* Adjust Section Padding for Mobile */
     .section {
-        padding-top: 10px; /* Adds space inside the top of the nav-bar */
-padding-left: 0;
-padding-right: 0;
+        padding: 10px 15px; /* Reduce padding */
     }
 
     /* Remove extra <br> spaces */
@@ -510,7 +510,6 @@ padding-right: 0;
         display: none;
     }
 }
-
 /* Adjust spacing for images in mobile */
 figure {
     margin: 10px auto; /* Reduced margin */
