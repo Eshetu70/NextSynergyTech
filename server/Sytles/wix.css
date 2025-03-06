@@ -1,9 +1,15 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 /* Header Styling */
 .custom-header {
     position: relative;
     width: 100%;
-    height: 150px;
+    height: 150px; /* Keeping the original height */
     background: rgba(0, 0, 0, 0.6);
     text-align: center;
     padding-top: 20px;
@@ -25,23 +31,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 2px 5px; /* Reduced padding */
     position: relative;
     z-index: 10;
 }
 
 /* Logo */
 .logo img {
-    height: 60px;
-    max-width: 200px;
+    height: 40px; /* Reduced from 60px */
+    max-width: 120px; /* Reduced width */
 }
 
 /* Navigation Menu */
 .nav-menu {
     list-style: none;
     display: flex;
-    gap: 5px;
-    padding: 0;
+    gap: 2px; /* Reduced spacing */
+    padding: 5px; /* Reduced padding */
 }
 
 .nav-menu li {
@@ -51,57 +57,67 @@
 .nav-menu a {
     color: white;
     text-decoration: none;
+    text-align: center;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 12px; /* Reduced font size */
     transition: color 0.3s;
 }
 
 .nav-menu a:hover {
-    color: yellow;
+    color: teal;
 }
 
 /* Right-side Icons */
 .nav-icons {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 50px; /* Reduced spacing */
 }
 
 /* Language Selector */
 .lang-selector {
-    padding: 5px;
-    font-size: 16px;
+    padding: 3px; /* Reduced padding */
+    font-size: 12px;
+    background: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.lang-selector:hover {
+    background: #e0e0e0;
 }
 
 /* Cart Icon */
 .cart-icon {
-    font-size: 22px;
+    font-size: 16px; /* Reduced icon size */
     color: white;
     text-decoration: none;
     position: relative;
 }
 
-/* Cart Count */
 .cart-count {
     background: red;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     border-radius: 50%;
-    padding: 2px 6px;
+    padding: 2px 4px;
     position: absolute;
-    top: -8px;
-    right: -10px;
+    top: -6px;
+    right: -8px;
 }
 
 /* Login Button */
 .login-btn {
     background: white;
     color: black;
-    padding: 8px 15px;
-    border-radius: 5px;
+    padding: 6px 10px; /* Reduced padding */
+    border-radius: 4px;
     border: none;
     font-weight: bold;
     cursor: pointer;
+    font-size: 12px;
 }
 
 .login-btn:hover {
@@ -110,32 +126,40 @@
 
 /* Mobile Menu Icon */
 .menu-icon {
+    display: flex;
     cursor: pointer;
-    font-size: 1.5em;
-    position: absolute;
-    top: 10px;
-    right: 20px;
+    font-size: 1.3em; /* Reduced size */
+    color: white;
 }
 
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background: rgba(0, 0, 0, 0.9);
+    background: linear-gradient(45deg, #ff4500, #900C3F);
+    border-radius: 5px;
+    padding: 8px;
+    display: none;
+    flex-direction: column;
+    width: 160px;
+    z-index: 20;
+}
+
+.dropdown-menu.active {
+    display: flex;
+}
 
 .dropdown-menu a {
-    color: white;
-    padding: 12px;
     display: block;
-    font-size: 18px;
+    padding: 6px 10px;
+    color: white;
     text-decoration: none;
-    transition: background 0.3s;
 }
 
 .dropdown-menu a:hover {
-    background: #004080;
-}
-
-/* Welcome Text */
-.welcome-text {
-    color: white;
-    font-size: 22px;
-    margin-top: 10px;
+    background: teal;
 }
 
 /* Responsive - Mobile View */
@@ -149,139 +173,250 @@
     }
 
     .dropdown-menu {
-        display: none;
-    }
-}
-
-
-
-
-.translate-icon {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px;
-    transition: transform 0.2s;
-}
-
-.translate-icon:hover {
-    transform: scale(1.1);
-}
-
-.translate-icon img {
-    width: 26px;
-    height: 26px;
-}
-
-.translate-container {
-    display: none;
-    align-items: center;
-    gap: 6px;
-    background: linear-gradient(135deg, #0066cc, #003366);
-    padding: 7px;
-    border-radius: 6px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-    max-width: 190px;
-    position: absolute;
-    top: 50px;
-    left: 10px;
-    z-index: 1000;
-    transition: all 0.3s ease-in-out;
-}
-
-.lang-selector {
-    background: white;
-    border: none;
-    padding: 5px 10px;
-    font-size: 13px;
-    font-weight: bold;
-    color: #333;
-    border-radius: 4px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-    transition: background 0.3s ease;
-}
-
-.lang-selector:hover {
-    background: #e0e0e0;
-}
-
-.translate-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4px;
-    border-radius: 4px;
-    max-width: 20px;
-}
-
-
-
-
-
-
-
-
-/* Ensures the navigation menu has a high stacking order */
-.nav-menu {
-    position: relative; 
-    z-index: 10; /* Higher than theme-icons */
-}
-
-/* Fix for dropdown menu */
-.dropdown-menu {
-    position: absolute;
-    top: 50px; /* Adjust distance below menu button */
-    left: 0;
-    background: repeating-linear-gradient(45deg, #0d1b2a, #1a2d44 10px, #327daf 20px);
-    background: linear-gradient(45deg, #ff4500, #900C3F);
-    box-shadow: 0 15px 40px rgba(255, 69, 0, 1);
-   /* Or any background color */
-    border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    display: none; /* Initially hidden */
-    flex-direction: column;
-    width: 200px; /* Adjust width as needed */
-    z-index: 20; /* Ensures it is above all other elements */
-}
-
-/* Show dropdown when active */
-.dropdown-menu.active {
-    display: flex;
-}
-
-/* Ensure links are above everything */
-.dropdown-menu a {
-    display: block;
-    padding: 8px 15px;
-    color: white;
-    text-decoration: none;
-    z-index: 30; /* Ensures links are above icons */
-}
-
-/* Fix theme-icons z-index so they stay below */
-.theme-icons {
-    z-index: 5; /* Lower than dropdown menu */
-}
-
-/* Responsive fix for mobile */
-@media (max-width: 768px) {
-    .dropdown-menu {
         position: fixed;
-        top: 60px; /* Adjusted for mobile menu */
+        top: 50px;
         left: 0;
         width: 100%;
-        background: repeating-linear-gradient(45deg, #0d1b2a, #1a2d44 10px, #327daf 20px);
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 25;
+    }
+}
+/* Translator Icon and Box */
+.translate-icon {
+    position: absolute;
+    top: 10px;
+    right: 60px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+#translateBox {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 60px;
+    z-index: 3;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Mobile Menu Icon */
+.mobile-menu-icon {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 5;
+    cursor: pointer;
+    color: #fff;
+    font-size: 24px;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Navigation Menu Animation */
+
+
+nav {
+    background: linear-gradient(45deg, #2c3e50, #3498db, #2c3e50);
+    padding: 1px 0;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    animation: navGlow 5s infinite alternate;
+    
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #000;
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+/* Responsive - Mobile View */
+@media screen and (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+    .menu-icon {
+        display: block;
+    }
+    .dropdown-menu {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
         background: linear-gradient(45deg, #ff4500, #900C3F);
         box-shadow: 0 15px 40px rgba(255, 69, 0, 1);
-       
-       
-        z-index: 25; /* Ensures visibility */
+        z-index: 25;
+    }
+    .theme-icons {
+        z-index: 5;
+    }
+}
+
+
+/* Logo */
+.logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo img {
+    height: 50px;
+    max-width: 180px;
+    position: relative;
+}
+
+.wrappers {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: repeating-linear-gradient(45deg, #172757, #1b2838 10px, #2c3e50 20px);
+    
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #000;
+}
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@700&display=swap');
+
+
+
+    .magic-heading {
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+      letter-spacing: 2px;
+      font-family: 'Alegreya', serif;
+      color: white;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.4);
+      position: relative;
+      padding: 20px;
+      display: inline-block;
     }
 
-    .theme-icons {
-        z-index: 5; /* Keeps icons in background */
+    /* Subtle Background Glow */
+    .magic-heading::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 20%, transparent 80%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1;
     }
+
+    /* Responsive Styles for Mobile */
+    @media (max-width: 768px) {
+      .magic-heading {
+        display: none;
+        font-size: 1.0rem;
+        padding: 15px;
+        letter-spacing: 1px;
+      }
+
+      .magic-heading::before {
+        width: 90px;
+        height: 90px;
+      }
+    }
+
+
+    /* Amazing List Styles */
+/* Amazing List Styles - Excluding Navigation */
+
+/* Clean and Elegant List Styles - Excluding Navigation */
+
+/* Clean and Elegant List Styles - Excluding Navigation */
+
+/* Clean and Elegant List Styles - Excluding Navigation */
+
+/* Clean and Elegant List Styles - Excluding Navigation */
+
+/* Clean and Elegant List Styles - Excluding Navigation */
+
+section ul {
+    list-style: none;
+    padding-left: 20px;
+    margin: 20px 0;
+}
+
+section ul li {
+    font-size: 1.2rem;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    transition: transform 0.2s ease;
+    padding-left: 15px;
+}
+
+/* Add special icon for all list items */
+section ul li::before {
+    content: '\2605'; /* Star Icon */
+    font-size: 1.5rem;
+    margin-right: 10px;
+    color: gold;
+}
+
+section ul li:last-child {
+    border-bottom: none;
+}
+
+section ul li:hover {
+    transform: translateX(5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    section ul {
+        padding-left: 10px;
+    }
+    
+    section ul li {
+        font-size: 1rem;
+        padding: 6px 0;
+        padding-left: 10px;
+    }
+}
+
+
+ section ul li strong {
+    min-width: 250px; /* Adjust width for alignment */
+    text-align: left;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+ section ul li span {
+    flex: 1; /* Makes text flow properly */
+    color: #333; /* Improves readability */
 }
