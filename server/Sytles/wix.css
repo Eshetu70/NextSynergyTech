@@ -529,4 +529,15 @@ figure figcaption {
     margin-top: 5px; /* Reduced margin */
 }
 
+@media (max-width: 767px) {
+  section ul li strong {
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: left;
+    display: inline-block; /* Make sure it behaves like an inline element */
+    width: 100%; /* Use 100% of the available width */
+    box-sizing: border-box; /* Ensure padding and borders are included in width calculation */
+  }
+}
+
 
