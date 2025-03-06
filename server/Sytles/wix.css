@@ -529,4 +529,12 @@ figure figcaption {
     margin-top: 5px; /* Reduced margin */
 }
 
+@media (max-width: 767px) { 
+  section ul li strong {
+    min-width: 250px; /* Adjust width for alignment */
+    text-align: left;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+}
 
