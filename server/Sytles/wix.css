@@ -430,57 +430,58 @@ section ul li:hover {
 
 /* Navigation Bar - Mobile */
 /* Navigation Bar - Mobile */
+/* Navigation Bar - Mobile */
 @media screen and (max-width: 768px) {
     .nav-bar {
         position: absolute;
-        bottom: 0;
+        top: 0; /* Move to the top */
         left: 0;
         width: 100%;
-        height: 35px; /* Small bar at the bottom of the header */
+        height: 50px; /* Adjust height if needed */
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 3px 10px; /* Adjusted padding */
-        background: rgba(0, 0, 0, 0.8);
+        padding: 5px 15px; /* Adjust spacing */
+        background: transparent; /* Overlaying header */
         z-index: 10;
     }
 
-    /* Logo Adjustments */
+    /* Logo Positioned to Left */
     .logo img {
-        height: 35px; /* Smaller height for mobile */
-        max-width: 100px; /* Adjusted width */
+        height: 40px; /* Adjust size */
+        max-width: 120px; /* Limit width */
     }
 
-    /* Bigger Icons with Proper Spacing */
+    /* Icons Positioned to Right */
     .nav-icons {
         display: flex;
         align-items: center;
-        gap: 18px; /* Adds space between icons */
+        gap: 15px; /* Space between icons */
     }
 
     .menu-icon {
-        font-size: 2em; /* Bigger menu icon */
+        font-size: 1.8em; /* Bigger menu icon */
         cursor: pointer;
         color: white;
         padding: 5px;
     }
 
     .translate-icon img {
-        width: 36px; /* Bigger translate icon */
-        height: 36px;
+        width: 30px; /* Adjust size */
+        height: 30px;
     }
 
     .cart-icon {
-        font-size: 2em; /* Bigger cart icon */
+        font-size: 1.8em; /* Bigger cart icon */
         position: relative;
     }
 
     .cart-count {
         background: red;
         color: white;
-        font-size: 14px;
+        font-size: 12px;
         border-radius: 50%;
-        padding: 3px 6px;
+        padding: 2px 5px;
         position: absolute;
         top: -5px;
         right: -10px;
@@ -488,13 +489,7 @@ section ul li:hover {
 
     /* Adjust Section Padding for Mobile */
     .section {
-        padding: 10px 15px; /* Reduced padding */
-    }
-
-    /* Ensure sections are aligned properly */
-    .container {
-        margin-top: 0;
-        padding-top: 0;
+        padding: 10px 15px; /* Reduce padding */
     }
 
     /* Remove extra <br> spaces */
