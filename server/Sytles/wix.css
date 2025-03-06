@@ -427,64 +427,65 @@ section ul li:hover {
 
 /* Navigation Bar - Mobile */
 /* Navigation Bar - Mobile */
+
+/* Navigation Bar - Mobile */
 @media screen and (max-width: 768px) {
-    .nav {
+    .nav-bar {
         position: absolute;
-        bottom: 0; /* Positions it at the end of the header */
+        bottom: 0;
         left: 0;
         width: 100%;
-        height: 25px; /* Very small bar */
+        height: 30px; /* Small bar at the bottom of the header */
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 2px 8px; /* Reduced padding */
-        background: rgba(0, 0, 0, 0.8); /* Slightly visible */
+        padding: 3px 10px; /* Adjusted padding */
+        background: rgba(0, 0, 0, 0.8);
         z-index: 10;
     }
 
-    /* Small Menu Icon */
+    /* Bigger Icons with Spacing */
+    .nav-icons {
+        display: flex;
+        align-items: center;
+        gap: 15px; /* Adds space between icons */
+    }
+
     .menu-icon {
-        display: block;
-        font-size: 1em; /* Very small */
+        font-size: 1.8em; /* Bigger menu icon */
         cursor: pointer;
         color: white;
         padding: 5px;
-        position: absolute;
-        top: 2px; /* Brings closer to the bar */
-        right: 5px; /* Edge placement */
     }
 
-    /* Dropdown Menu */
-    .dropdown-menu {
-        position: absolute;
-        top: 25px; /* Below the small bar */
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        display: none;
-        flex-direction: column;
-        text-align: center;
-        padding: 5px; /* Reduced padding */
+    .translate-icon img {
+        width: 32px; /* Bigger translate icon */
+        height: 32px;
     }
 
-    .dropdown-menu.active {
-        display: flex;
+    .cart-icon {
+        font-size: 1.8em; /* Bigger cart icon */
+        position: relative;
     }
 
-    .dropdown-menu a {
+    .cart-count {
+        background: red;
         color: white;
-        padding: 6px;
-        text-decoration: none;
-        font-size: 12px; /* Smaller font */
-        display: block;
+        font-size: 14px;
+        border-radius: 50%;
+        padding: 3px 6px;
+        position: absolute;
+        top: -5px;
+        right: -10px;
     }
 
-    .dropdown-menu a:hover {
-        background: teal;
+    /* Remove extra <br> spaces */
+    br {
+        display: none;
     }
 
-    /* Remove space between header and sections */
-    section {
+    /* Ensure sections are aligned properly */
+    .container {
         margin-top: 0;
         padding-top: 0;
     }
