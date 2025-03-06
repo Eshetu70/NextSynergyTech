@@ -432,6 +432,7 @@ section ul li:hover {
 /* Navigation Bar - Mobile */
 /* Navigation Bar - Mobile */
 /* Navigation Bar - Mobile */
+/* Navigation Bar - Mobile */
 @media screen and (max-width: 768px) {
     .nav-bar {
         position: absolute;
@@ -441,31 +442,39 @@ section ul li:hover {
         transform: translateY(-50%); /* Ensures perfect centering */
         height: 50px; /* Adjust height if needed */
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly; /* Equal spacing */
         align-items: center;
-        padding: 10px 20px; /* Adjust spacing */
+        margin: 0; /* No margin left/right */
+        padding: 0; /* No padding left/right */
         background: transparent; /* Overlaying header */
         z-index: 10;
     }
 
-    /* Logo Positioned to Left */
+    /* Logo with Equal Spacing */
+    .logo {
+        flex: 1; /* Allows it to take equal space */
+        display: flex;
+        justify-content: center;
+    }
+
     .logo img {
         height: 45px; /* Adjust size */
         max-width: 130px; /* Limit width */
     }
 
-    /* Icons Positioned to Right with More Space */
+    /* Icons with Equal Spacing */
     .nav-icons {
+        flex: 1; /* Equal spacing */
         display: flex;
+        justify-content: center; /* Centers the icons */
         align-items: center;
-        gap: 30px; /* Increased space between icons */
+        gap: 20px; /* Equal space between icons */
     }
 
     .menu-icon {
         font-size: 2em; /* Bigger menu icon */
         cursor: pointer;
         color: white;
-        padding: 5px;
     }
 
     .translate-icon img {
