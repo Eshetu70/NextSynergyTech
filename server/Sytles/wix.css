@@ -429,13 +429,14 @@ section ul li:hover {
 /* Navigation Bar - Mobile */
 
 /* Navigation Bar - Mobile */
+/* Navigation Bar - Mobile */
 @media screen and (max-width: 768px) {
     .nav-bar {
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 30px; /* Small bar at the bottom of the header */
+        height: 35px; /* Small bar at the bottom of the header */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -444,27 +445,33 @@ section ul li:hover {
         z-index: 10;
     }
 
-    /* Bigger Icons with Spacing */
+    /* Logo Adjustments */
+    .logo img {
+        height: 35px; /* Smaller height for mobile */
+        max-width: 100px; /* Adjusted width */
+    }
+
+    /* Bigger Icons with Proper Spacing */
     .nav-icons {
         display: flex;
         align-items: center;
-        gap: 15px; /* Adds space between icons */
+        gap: 18px; /* Adds space between icons */
     }
 
     .menu-icon {
-        font-size: 1.8em; /* Bigger menu icon */
+        font-size: 2em; /* Bigger menu icon */
         cursor: pointer;
         color: white;
         padding: 5px;
     }
 
     .translate-icon img {
-        width: 32px; /* Bigger translate icon */
-        height: 32px;
+        width: 36px; /* Bigger translate icon */
+        height: 36px;
     }
 
     .cart-icon {
-        font-size: 1.8em; /* Bigger cart icon */
+        font-size: 2em; /* Bigger cart icon */
         position: relative;
     }
 
@@ -479,15 +486,20 @@ section ul li:hover {
         right: -10px;
     }
 
-    /* Remove extra <br> spaces */
-    br {
-        display: none;
+    /* Adjust Section Padding for Mobile */
+    .section {
+        padding: 10px 15px; /* Reduced padding */
     }
 
     /* Ensure sections are aligned properly */
     .container {
         margin-top: 0;
         padding-top: 0;
+    }
+
+    /* Remove extra <br> spaces */
+    br {
+        display: none;
     }
 }
 
