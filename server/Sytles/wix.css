@@ -468,7 +468,7 @@ section ul li:hover {
         display: flex;
         justify-content: center; /* Centers the icons */
         align-items: center;
-        gap: 20px; /* Equal space between icons */
+        gap: 30px; /* Equal space between icons */
     }
 
     .menu-icon {
@@ -500,7 +500,9 @@ section ul li:hover {
 
     /* Adjust Section Padding for Mobile */
     .section {
-        padding: 10px 15px; /* Reduce padding */
+        padding-top: 10px; /* Adds space inside the top of the nav-bar */
+padding-left: 0;
+padding-right: 0;
     }
 
     /* Remove extra <br> spaces */
