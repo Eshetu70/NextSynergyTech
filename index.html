@@ -436,7 +436,7 @@
             <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchFunction()">
             <button onclick="searchFunction()">🔍</button>
         </div>
-
+          <div id="searchResults" class="search-popup"></div>
         <!-- Desktop Navigation Menu -->
         <ul class="nav-menu">
             <li><a href="#" onclick="showSection('about')">About Us</a></li>
@@ -505,20 +505,48 @@
 <script>
     function searchFunction() {
         let input = document.getElementById("searchInput").value.toLowerCase();
-        let menuItems = document.querySelectorAll(".nav-menu li a, .dropdown-content a");
+        let searchResults = document.getElementById("searchResults");
+        searchResults.innerHTML = ""; // Clear previous results
+        searchResults.style.display = "none"; // Hide initially
 
-        menuItems.forEach(item => {
-            let text = item.textContent.toLowerCase();
-            if (text.includes(input)) {
-                item.style.display = "block";
+        if (input === "") return;
+
+        let elements = document.querySelectorAll("h1, h2, h3, p, a"); // Search headings, paragraphs, and links
+        let matches = [];
+
+        elements.forEach((element) => {
+            if (element.textContent.toLowerCase().includes(input)) {
+                matches.push(element);
+                element.innerHTML = element.textContent.replace(
+                    new RegExp(input, "gi"),
+                    (match) => `<span class="highlight">${match}</span>`
+                );
             } else {
-                item.style.display = "none";
+                element.innerHTML = element.textContent; // Remove old highlights
             }
         });
+
+        if (matches.length > 0) {
+            searchResults.style.display = "block";
+            matches.forEach((match, index) => {
+                let resultItem = document.createElement("div");
+                resultItem.classList.add("search-result-item");
+                resultItem.innerHTML = `<a href="#" onclick="scrollToElement(${index})">${match.textContent}</a>`;
+                searchResults.appendChild(resultItem);
+            });
+        }
+    }
+
+    function scrollToElement(index) {
+        let elements = document.querySelectorAll("h1, h2, h3, p, a");
+        let targetElement = elements[index];
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
     }
 </script>
 
-<!-- CSS for Search Bar -->
+<!-- CSS for Search Bar and Results -->
 <style>
     .search-container {
         display: flex;
@@ -539,6 +567,34 @@
         cursor: pointer;
         font-size: 18px;
         margin-left: 5px;
+    }
+
+    .search-popup {
+        display: none;
+        position: absolute;
+        background: white;
+        border: 1px solid #ccc;
+        max-width: 300px;
+        padding: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+    }
+
+    .search-result-item {
+        padding: 5px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .search-result-item a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .highlight {
+        background-color: yellow;
     }
 </style>
 
