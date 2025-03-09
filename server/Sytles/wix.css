@@ -220,7 +220,7 @@
 
 
 nav {
-    background: linear-gradient(45deg, #2c3e50, #3498db, #2c3e50);
+    background: #091423;
     padding: 1px 0;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     animation: navGlow 5s infinite alternate;

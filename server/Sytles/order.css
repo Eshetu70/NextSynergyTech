@@ -39,7 +39,7 @@ p {
 }
 .section {
     
-    background: linear-gradient(to right, #eef2f3, #dfe6e9);
+    background: #14213d;
     border-radius: 15px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     margin: 25px auto;

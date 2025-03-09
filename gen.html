@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenShifter Technologies</title>
+   <!-- FontAwesome for Icons -->
+  
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    scroll-behavior: smooth;
+}
+
+/* Header */
+.custom-header {
+    position: relative;
+    text-align: center;
+    color: white;
+    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.header-bg video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.magic-heading {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+/* Navigation Bar */
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-menu li {
+    display: inline;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-menu a:hover {
+    color: gold;
+}
+
+.nav-icons .cart-icon {
+    font-size: 22px;
+    color: white;
+    text-decoration: none;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: url('https://source.unsplash.com/1600x900/?technology') center/cover no-repeat;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.cta-btn {
+    padding: 12px 25px;
+    background: #ff8000;
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.cta-btn:hover {
+    background: #e06c00;
+}
+
+/* Section Styling */
+.section {
+    padding: 60px 20px;
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2.5rem;
+    color: #004080;
+    margin-bottom: 20px;
+}
+
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.founder-image {
+    width: 150px;
+    border-radius: 50%;
+}
+
+/* Services Section */
+.services-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.service-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+.service-card img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* Projects Section */
+.project-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.project-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.project-card img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* Contact Section */
+#contact {
+    background: #004080;
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+#contact a {
+    color: gold;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+#contact a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+}
+
+footer a {
+    color: gold;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-bar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .services-grid, .project-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d1b2a;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+
+     
+
+            /* Footer Section */
+            .footer-section {
+                background-color: #0d1b2a;
+                color: white;
+                padding: 30px 20px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                position: relative;
+            }
+            .footer-logo img {
+                width: 150px;
+            }
+            .footer-content {
+                max-width: 300px;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+            .footer-links, .footer-services, .footer-contact {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .footer-links h3, .footer-services h3, .footer-contact h3 {
+                font-size: 18px;
+                color: #fca311;
+                margin-bottom: 10px;
+            }
+            .footer-links ul, .footer-services ul, .footer-contact ul {
+                list-style: none;
+                padding: 0;
+            }
+            .footer-links ul li, .footer-services ul li, .footer-contact ul li {
+                margin-bottom: 8px;
+                display: flex;
+                align-items: center;
+            }
+            .footer-links ul li a, .footer-services ul li a, .footer-contact ul li a {
+                color: white;
+                text-decoration: none;
+                transition: 0.3s;
+            }
+            .footer-links ul li a:hover, .footer-services ul li a:hover, .footer-contact ul li a:hover {
+                color: #fca311;
+            }
+            
+            /* Motionable Icons */
+            .footer-links ul li i, 
+            .footer-services ul li i, 
+            .footer-contact ul li i {
+                margin-right: 10px;
+                color: #fca311;
+                transition: transform 0.3s ease-in-out;
+            }
+            .footer-links ul li:hover i,
+            .footer-services ul li:hover i,
+            .footer-contact ul li:hover i {
+                transform: translateX(5px);
+            }
+    
+            /* Footer Bottom */
+            .footer-bottom {
+                background-color: #091423;
+                padding: 10px 0;
+                text-align: center;
+                font-size: 14px;
+            }
+    
+            /* Scroll-Up Button */
+            #scrollUp {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background-color: #fca311;
+                color: white;
+                padding: 10px 15px;
+                border-radius: 50%;
+                display: none;
+                cursor: pointer;
+                transition: 0.3s;
+                border: none;
+                font-size: 16px;
+            }
+            #scrollUp:hover {
+                background-color: #ffbe0b;
+            }
+    
+            /* Responsive Design */
+            @media (max-width: 900px) {
+                .footer-section {
+                    flex-direction: column;
+                    text-align: center;
+                }
+                .footer-links, .footer-services, .footer-contact {
+                    align-items: center;
+                    margin-bottom: 20px;
+                }
+            }
+
+        h1, h2, h3 {
+            color: #fca311;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-image: url('assets/img/hero/hero-bg.jpg');
+            background-size: cover;
+            padding: 50px;
+        }
+        .hero-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .hero-section p {
+            max-width: 600px;
+            margin: auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .hero-section .cta-buttons {
+            margin-top: 20px;
+        }
+        .cta-button {
+            background-color: #fca311;
+            color: white;
+            padding: 12px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #ffbe0b;
+        }
+
+        /* Animated Moving Cards */
+        .services-section {
+            padding: 50px 0;
+            position: relative;
+            overflow: hidden;
+        }
+    
+        .services-container {
+            display: flex;
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+        }
+    
+        .service-card {
+            background: #14213d;
+            color: white;
+            padding: 20px;
+            width: 250px;
+            height: 350px; /* Fixed Height */
+            margin: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .service-card i {
+            font-size: 2rem;
+            color: #fca311;
+            margin-bottom: 10px;
+        }
+    
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+    
+        .service-card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            padding: 0 10px;
+        }
+    
+        .service-card:hover {
+            transform: scale(1.05);
+        }
+    
+        /* Moving Animation */
+        @keyframes moveLeftRight {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+    
+        .moving-cards {
+            display: flex;
+            animation: moveLeftRight 12s linear infinite alternate;
+        }
+
+       
+
+        /* Contact Section */
+        .contact-section {
+            padding: 50px 20px;
+            background-color: #091423;
+            text-align: center;
+        }
+        .contact-info {
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #0d1b2a;
+            padding: 20px 10px;
+        }
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer ul li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .footer ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+        .footer ul li a:hover {
+            color: #fca311;
+        }
+
+        /* Scroll-Up Button */
+        #scrollUp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fca311;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            display: none;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            font-size: 16px;
+        }
+        #scrollUp:hover {
+            background-color: #ffbe0b;
+        }
+    </style>
+</head>
+<body>
+
+
+    <body>
+
+        <!-- Header Section -->
+        <header class="custom-header">
+            <div class="header-bg">
+                <video autoplay loop muted playsinline>
+                    <source src="https://video.wixstatic.com/video/11062b_cca29298dbe547f4983e127aba1c1966/720p/mp4/file.mp4"
+                        type="video/mp4">
+                </video>
+            </div>
+            <h1 class="magic-heading">Next Synergy Tech</h1>
+    
+            <!-- Navigation Bar -->
+            <nav class="nav-bar">
+                <div class="logo">
+                    <a href="/">
+                        <img src="https://eshetu70.github.io/NextSynergyTech/favicon_io/logo.png" alt="Logo">
+                    </a>
+                </div>
+    
+                <ul class="nav-menu">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+    
+                <div class="nav-icons">
+                    <a href="https://www.nextsynergytech.online/cart-page" class="cart-icon">🛒</a>
+                </div>
+            </nav>
+        </header>
+    
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Innovating the Future with AI & Tech</h1>
+                <p>Revolutionizing businesses with cutting-edge digital solutions.</p>
+                <a href="#services" class="cta-btn">Explore Services</a>
+            </div>
+        </section>
+    
+        <!-- About Section -->
+        <section id="about" class="section">
+            <h2>🌟 Who We Are</h2>
+            <div class="about-container">
+                <img src="https://eshetu70.github.io/NextSynergyTech/assets/founder.jpg" alt="Eshetu T. Wekjira" class="founder-image">
+                <p>At NextSynergy Tech, our mission is to empower businesses through innovative software, AI automation, and expert solutions.</p>
+            </div>
+        </section>
+    
+        <!-- Services Section -->
+        <section id="services" class="section">
+            <h2>🚀 Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <img src="https://via.placeholder.com/150" alt="Web Development">
+                    <h3>Web Development</h3>
+                    <p>Modern and scalable web solutions tailored to your needs.</p>
+                </div>
+                <div class="service-card">
+                    <img src="https://via.placeholder.com/150" alt="AI Solutions">
+                    <h3>AI-Powered Solutions</h3>
+                    <p>Advanced AI applications to automate and optimize business processes.</p>
+                </div>
+                <div class="service-card">
+                    <img src="https://via.placeholder.com/150" alt="Cybersecurity">
+                    <h3>Cybersecurity</h3>
+                    <p>Secure your digital assets with our top-tier cybersecurity services.</p>
+                </div>
+            </div>
+        </section>
+    
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <h2>🔥 Featured Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/250" alt="Project 1">
+                    <h3>AI Chatbot</h3>
+                    <p>Revolutionizing customer service with AI-powered chat solutions.</p>
+                </div>
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/250" alt="Project 2">
+                    <h3>E-Commerce Platform</h3>
+                    <p>Building seamless online shopping experiences.</p>
+                </div>
+            </div>
+        </section>
+    
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <h2>📞 Contact Us</h2>
+            <p>We are here to assist you! Reach out for collaborations or inquiries.</p>
+            <p>Email: <a href="mailto:eshetuwek1@gmail.com">eshetuwek1@gmail.com</a></p>
+            <p>Phone: <a href="tel:+17044888465">+1 (704) 488-8465</a></p>
+        </section>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1>NextSynergy Technologies</h1>
+        <p>Empower your business with our cutting-edge technology solutions, expert software development, and tailored IT services. Get started today!</p>
+        <div class="cta-buttons">
+            <a href="/about" class="cta-button">Explore More</a>
+            <a href="/contact" class="cta-button">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Moving Cards Section -->
+    <section class="services-section">
+        <h2>Our IT Services</h2>
+        <div class="services-container">
+            <div class="moving-cards">
+                <div class="service-card">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <h3>Software Development</h3>
+                    <p>Custom software solutions tailored to your business needs.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-server"></i>
+                    <h3>Managed Services</h3>
+                    <p>End-to-end IT management and support services.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <h3>Infrastructure Services</h3>
+                    <p>Building and maintaining reliable IT infrastructures.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-cogs"></i>
+                    <h3>System Integration</h3>
+                    <p>Seamless connectivity between your business systems.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-shield-alt"></i>
+                    <h3>Cybersecurity</h3>
+                    <p>Protecting your data with advanced security solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+<!-- Footer Start -->
+<footer class="footer-section">
+    <!-- About Section -->
+    <div class="footer-logo">
+        <a href="/">
+            <img src="/assets/img/header/logo_f.png" alt="GenShifter Technologies Logo">
+        </a>
+        <div class="footer-content">
+            <p>NextSynergy Technologies is a leading IT company based in USA and Ethiopia, dedicated to providing innovative software solutions.</p>
+        </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+            <li><i class="fa-solid fa-chevron-right"></i> <a href="/about">About GenShifter</a></li>
+            <li><i class="fa-solid fa-chevron-right"></i> <a href="/service">Our Services</a></li>
+            <li><i class="fa-solid fa-chevron-right"></i> <a href="/faq">FAQ’S</a></li>
+            <li><i class="fa-solid fa-chevron-right"></i> <a href="/project">Our Projects</a></li>
+            <li><i class="fa-solid fa-chevron-right"></i> <a href="/career">Careers</a></li>
+        </ul>
+    </div>
+
+    <!-- Our Services -->
+    <div class="footer-services">
+        <h3>Our Services</h3>
+        <ul>
+            <li><i class="fa-solid fa-laptop-code"></i> <a href="service-details.html?title=software-development">Software Development</a></li>
+            <li><i class="fa-solid fa-server"></i> <a href="service-details.html?title=managed-services">Managed Services</a></li>
+            <li><i class="fa-solid fa-network-wired"></i> <a href="service-details.html?title=infrastructure-services">Infrastructure Services</a></li>
+            <li><i class="fa-solid fa-cogs"></i> <a href="service-details.html?title=system-integration">System Integration</a></li>
+            <li><i class="fa-solid fa-chalkboard-teacher"></i> <a href="service-details.html?title=training-development">Training and Development</a></li>
+            <li><i class="fa-solid fa-shield-alt"></i> <a href="service-details.html?title=cybersecurity">Cybersecurity Services</a></li>
+        </ul>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="footer-contact">
+        <h3>Contact Us</h3>
+        <ul>
+            <li><i class="fas fa-map-marker-alt"></i> Charlotte, North Carolina , Addis Ababa</li>
+            <li><i class="fa-regular fa-envelope"></i> <a href="mailto:info@genshifter.com">info@genshifter.com</a></li>
+            <li><i class="fa-solid fa-phone-volume"></i> <a href="tel:+251910813571">+7044888465</a></li>
+        </ul>
+    </div>
+</footer>
+
+<!-- Footer Bottom -->
+<div class="footer-bottom">
+    <p>© 2025 NextSynergy Technologies. All Rights Reserved.</p>
+</div>
+
+<!-- Scroll-Up Button -->
+<button id="scrollUp"><i class="fas fa-arrow-up"></i></button>
+
+<!-- Scroll-Up Script -->
+<script>
+    window.addEventListener("scroll", function() {
+        document.getElementById("scrollUp").style.display = window.pageYOffset > 200 ? "block" : "none";
+    });
+
+    document.getElementById("scrollUp").addEventListener("click", function() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+</script>
+
+</body>
+</html>
