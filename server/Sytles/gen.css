@@ -142,21 +142,7 @@ h1, h2, h3 {
 .cta-button:hover {
     background-color: #ffbe0b;
 }
-
-/* Animated Moving Cards */
-.services-section {
-    padding: 50px 0;
-    position: relative;
-    overflow: hidden;
-}
-
-.services-container {
-    display: flex;
-    white-space: nowrap;
-    overflow: hidden;
-    position: relative;
-}
-
+/* Services Section */
 .service-card {
     background: #14213d;
     color: white;
@@ -165,13 +151,11 @@ h1, h2, h3 {
     height: 350px; /* Fixed Height */
     margin: 10px;
     border-radius: 10px;
-    display: inline-block;
-    text-align: center;
-    transition: transform 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    overflow: hidden; /* Ensures content does not spill outside */
 }
 
 .service-card i {
@@ -183,17 +167,27 @@ h1, h2, h3 {
 .service-card h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
+    white-space: nowrap; /* Prevents breaking into multiple lines */
+    overflow: hidden; /* Hides text if it's too long */
+    text-overflow: ellipsis; /* Adds "..." when text overflows */
+    max-width: 90%; /* Ensures text doesn't touch card edges */
 }
 
 .service-card p {
     font-size: 0.95rem;
-    line-height: 1.5;
+    line-height: 1.4;
     padding: 0 10px;
+    overflow: hidden; /* Ensures the text doesn't spill out */
+    text-overflow: ellipsis; /* If needed, adds "..." to overflowing text */
+    white-space: normal; /* Allows wrapping */
+    word-wrap: break-word; /* Ensures long words break properly */
+    max-height: 120px; /* Limits paragraph height */
 }
 
 .service-card:hover {
     transform: scale(1.05);
 }
+
 
 /* Moving Animation */
 @keyframes moveLeftRight {
