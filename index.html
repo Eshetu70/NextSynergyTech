@@ -317,6 +317,68 @@
 
 
 
+/* Dropdown Styling */
+.nav-menu {
+    display: flex;
+    justify-content: center; /* Centers navigation */
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+   
+}
+
+.nav-menu li {
+    margin: 0 10px; /* Space between tabs */
+    position: relative; /* Keeps dropdown positioned properly */
+}
+
+.nav-menu a, .dropbtn {
+    display: block;
+    padding: 12px 16px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+/* Dropdown Styling */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #14213d;
+    min-width: 160px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #fca311;
+    color: #14213d;
+}
+
+/* Show Dropdown on Hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
 
 
 
@@ -358,21 +420,28 @@
 
 
             <!-- Desktop Navigation Menu -->
-            <ul class="nav-menu">
+           <!-- Desktop Navigation Menu -->
+<!-- Desktop Navigation Menu -->
+<ul class="nav-menu">
+    <li><a href="#" onclick="showSection('about')">About Us</a></li>
+    <li><a href="#" onclick="showSection('who-we-are')">Who We Are</a></li>
+    <li><a href="#" onclick="showSection('services')">Services</a></li>
+    <li><a href="#" onclick="showSection('ecommerce')">E-Commerce</a></li>
+    <li><a href="#" onclick="showSection('mission')">Mission & Vision</a></li>
+    <li><a href="#" onclick="showSection('projects')">Projects</a></li>
+    <li class="dropdown">
+        <a href="#" class="dropbtn">More ▼</a>
+        <div class="dropdown-content">
+            <a href="#" onclick="showSection('order')">AppOrders</a>
+            <a href="#" onclick="showSection('tutorials')">Tutorials</a>
+            <a href="#" onclick="showSection('courses')">Registration</a>
+            <a href="#" onclick="showSection('mobile-development')">Mobile Development</a>
+            <a href="#" onclick="showSection('contact-content')">Contact</a>
+        </div>
+    </li>
+</ul>
 
-                <li><a href="#" onclick="showSection('about')">About Us</a></li>
-                <li><a href="#" onclick="showSection('who-we-are')">Who We Are</a></li>
-                <li><a href="#" onclick="showSection('services')">Services</a></li>
-                <li><a href="#" onclick="showSection('ecommerce')">E-Commerce</a></li>
-                <li><a href="#" onclick="showSection('mission')">Mission & Vision</a></li>
-                <li><a href="#" onclick="showSection('projects')">Projects</a></li>
-                <li><a href="#" onclick="showSection('order')">AppOrders</a></li>
-                <li><a href="#" onclick="showSection('tutorials')">Tutorials</a></li>
-                <li><a href="#" onclick="showSection('courses')">Registration</a></li>
-                <li><a href="#" onclick="showSection('mobile-development')">Mobile Development</a></li>
-                <li><a href="#" onclick="showSection('contact-content')">Contact</a></li>
 
-            </ul>
 
             <!-- Right-side Icons -->
             <div class="nav-icons">
