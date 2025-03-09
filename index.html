@@ -412,104 +412,136 @@
 
 <body>
     
-    <header class="custom-header">
+  <header class="custom-header">
 
+    <!-- Background Video -->
+    <div class="header-bg">
+        <video autoplay loop muted playsinline>
+            <source src="https://video.wixstatic.com/video/11062b_cca29298dbe547f4983e127aba1c1966/720p/mp4/file.mp4"
+                type="video/mp4">
+        </video>
+    </div>
+    <h1 class="magic-heading">Next Synergy Tech</h1>
 
-        <!-- Background Video -->
-        <div class="header-bg">
-            <video autoplay loop muted playsinline>
-                <source
-                    src="https://video.wixstatic.com/video/11062b_cca29298dbe547f4983e127aba1c1966/720p/mp4/file.mp4"
-                    type="video/mp4">
-            </video>
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <div class="logo">
+            <a href="/">
+                <img src="image/LOGOS.jpg" alt="Logo">
+            </a>
         </div>
-        <h1 class="magic-heading">Next Synergy Tech</h1>
-        <!-- Navigation Bar -->
-        <nav class="nav-bar">
-            <div class="logo">
-                <a href="/">
-                    <img src="image/LOGOS.jpg"
-                        alt="Logo">
-                    
-                        
-                </a>
-                 
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchFunction()">
+            <button onclick="searchFunction()">🔍</button>
+        </div>
+
+        <!-- Desktop Navigation Menu -->
+        <ul class="nav-menu">
+            <li><a href="#" onclick="showSection('about')">About Us</a></li>
+            <li><a href="#" onclick="showSection('who-we-are')">Who We Are</a></li>
+            <li><a href="#" onclick="showSection('services')">Services</a></li>
+            <li><a href="#" onclick="showSection('ecommerce')">E-Commerce</a></li>
+            <li><a href="#" onclick="showSection('mission')">Mission & Vision</a></li>
+            <li><a href="#" onclick="showSection('projects')">Projects</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">More ▼</a>
+                <div class="dropdown-content">
+                    <a href="#" onclick="showSection('order')">AppOrders</a>
+                    <a href="#" onclick="showSection('tutorials')">Tutorials</a>
+                    <a href="#" onclick="showSection('courses')">Registration</a>
+                    <a href="#" onclick="showSection('mobile-development')">Mobile Development</a>
+                    <a href="#" onclick="showSection('contact-content')">Contact</a>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Right-side Icons -->
+        <div class="nav-icons">
+            <div class="menu-translate-container">
+                <div class="menu-icon" onclick="toggleMenu()">☰</div>
+                <div class="translate-icon" onclick="toggleTranslate()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="Translate" width="24"
+                        height="24">
+                </div>
+            </div>
+            <div class="translate-container" id="translateBox">
+                <select class="lang-selector" id="languageSwitcher" onchange="translateLanguage()">
+                    <option value="en">EN</option>
+                    <option value="am">AM</option>
+                    <option value="om">OM</option>
+                    <option value="ti">TI</option>
+                    <option value="ar">AR</option>
+                    <option value="fr">FR</option>
+                </select>
+                <div id="google_translate_element" class="translate-box"></div>
             </div>
 
-
-            <!-- Desktop Navigation Menu -->
-           <!-- Desktop Navigation Menu -->
-<!-- Desktop Navigation Menu -->
-<ul class="nav-menu">
-    <li><a href="#" onclick="showSection('about')">About Us</a></li>
-    <li><a href="#" onclick="showSection('who-we-are')">Who We Are</a></li>
-    <li><a href="#" onclick="showSection('services')">Services</a></li>
-    <li><a href="#" onclick="showSection('ecommerce')">E-Commerce</a></li>
-    <li><a href="#" onclick="showSection('mission')">Mission & Vision</a></li>
-    <li><a href="#" onclick="showSection('projects')">Projects</a></li>
-    <li class="dropdown">
-        <a href="#" class="dropbtn">More ▼</a>
-        <div class="dropdown-content">
-            <a href="#" onclick="showSection('order')">AppOrders</a>
-            <a href="#" onclick="showSection('tutorials')">Tutorials</a>
-            <a href="#" onclick="showSection('courses')">Registration</a>
-            <a href="#" onclick="showSection('mobile-development')">Mobile Development</a>
-            <a href="#" onclick="showSection('contact-content')">Contact</a>
+            <a href="https://www.nextsynergytech.online/cart-page" class="cart-icon">
+                🛒 <span class="cart-count">0</span>
+            </a>
         </div>
-    </li>
-</ul>
+    </nav>
 
+    <!-- Mobile Dropdown Menu -->
+    <div id="navMenu" class="dropdown-menu" style="display: none;">
+        <a href="#" onclick="showSection('about')">About Us</a>
+        <a href="#" onclick="showSection('who-we-are')">Who We Are</a>
+        <a href="#" onclick="showSection('services')">Services</a>
+        <a href="#" onclick="showSection('ecommerce')">E-Commerce</a>
+        <a href="#" onclick="showSection('mission')">Mission & Vision</a>
+        <a href="#" onclick="showSection('projects')">Projects</a>
+        <a href="#" onclick="showSection('tutorials')">Tutorials</a>
+        <a href="#" onclick="showSection('order')">AppOrders</a>
+        <a href="#" onclick="showSection('courses')">Registration</a>
+        <a href="#" onclick="showSection('mobile-development')">Mobile Development</a>
+        <a href="#" onclick="showSection('contact-content')">Contact</a>
+    </div>
 
+</header>
 
-            <!-- Right-side Icons -->
-            <div class="nav-icons">
-                <div class="menu-translate-container">
-                    <div class="menu-icon" onclick="toggleMenu()">☰</div>
-                    <div class="translate-icon" onclick="toggleTranslate()">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="Translate" width="24"
-                            height="24">
-                    </div>
-                </div>
-                <div class="translate-container" id="translateBox">
-                    <select class="lang-selector" id="languageSwitcher" onchange="translateLanguage()">
-                        <option value="en">EN</option>
-                        <option value="am">AM</option>
-                        <option value="om">OM</option>
-                        <option value="ti">TI</option>
-                        <option value="ar">AR</option>
-                        <option value="fr">FR</option>
-                    </select>
-                    <div id="google_translate_element" class="translate-box"></div>
-                </div>
+<!-- JavaScript for Search Function -->
+<script>
+    function searchFunction() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let menuItems = document.querySelectorAll(".nav-menu li a, .dropdown-content a");
 
-                <a href="https://www.nextsynergytech.online/cart-page" class="cart-icon">
-                    🛒 <span class="cart-count">0</span>
-                </a>
+        menuItems.forEach(item => {
+            let text = item.textContent.toLowerCase();
+            if (text.includes(input)) {
+                item.style.display = "block";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    }
+</script>
 
-                <!-- <button class="login-btn">Log In</button> -->
-            </div>
+<!-- CSS for Search Bar -->
+<style>
+    .search-container {
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+    }
 
-            <!-- Mobile Menu Icon -->
-            <!-- <div class="menu-icon" onclick="toggleMenu()">☰ Menu</div> -->
-        </nav>
+    .search-container input {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+    }
 
-        <!-- Mobile Dropdown Menu -->
-        <div id="navMenu" class="dropdown-menu" style="display: none;">
-            <a href="#" onclick="showSection('about')">About Us</a>
-            <a href="#" onclick="showSection('who-we-are')">Who We Are</a>
-            <a href="#" onclick="showSection('services')">Services</a>
-            <a href="#" onclick="showSection('ecommerce')">E-Commerce</a>
-            <a href="#" onclick="showSection('mission')">Mission & Vision</a>
-            <a href="#" onclick="showSection('projects')">Projects</a>
-            <a href="#" onclick="showSection('tutorials')">Tutorials</a>
-            <a href="#" onclick="showSection('order')">AppOrders</a>
-            <a href="#" onclick="showSection('courses')">Registration</a>
-            <a href="#" onclick="showSection('mobile-development')">Mobile Development</a>
-            <a href="#" onclick="showSection('contact-content')">Contact</a>
+    .search-container button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        margin-left: 5px;
+    }
+</style>
 
-        </div>
-
-    </header> <br><br><br><br>
 
     
    
