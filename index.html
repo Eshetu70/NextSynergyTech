@@ -675,6 +675,35 @@
     border-radius: 3px;
 }
 
+/* 📱 MOBILE RESPONSIVE DESIGN */
+@media screen and (max-width: 768px) {
+    .search-container {
+        width: 90%; /* Makes it responsive */
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px;
+    }
+
+    .search-container input {
+        width: 180px; /* Smaller input for mobile */
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .search-container button {
+        font-size: 14px;
+        padding: 4px 8px;
+        border: 1px solid cyan;
+    }
+
+    .search-popup {
+        width: 90%;
+        bottom: -65px; /* Adjusts placement for mobile */
+    }
+}
+
+
 /* 🔥 ANIMATION */
 @keyframes fadeIn {
     from {
