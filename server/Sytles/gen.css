@@ -144,53 +144,82 @@ h1, h2, h3 {
     background-color: #ffbe0b;
 }
 /* Services Section */
+/* 🟢 SERVICE CARDS - RESPONSIVE DESIGN */
 .service-card {
     background: #14213d;
     color: white;
-    padding: 20px;
-    width: 250px;
-    height: 350px; /* Fixed Height */
-    margin: 10px;
+    padding: 15px;
+    width: 90%; /* Makes it responsive on mobile */
+    max-width: 300px; /* Standard max width */
+    height: auto; /* Dynamic height */
+    margin: 10px auto; /* Centers the card */
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     text-align: center;
-    transition: transform 0.3s ease-in-out;
-    overflow: hidden; /* Ensures content does not spill outside */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 255, 255, 0.3); /* Futuristic glow */
 }
 
+/* ICON STYLE */
 .service-card i {
     font-size: 2rem;
     color: #fca311;
     margin-bottom: 10px;
 }
 
+/* CARD HEADINGS */
 .service-card h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
-    white-space: nowrap; /* Prevents breaking into multiple lines */
-    overflow: hidden; /* Hides text if it's too long */
-    text-overflow: ellipsis; /* Adds "..." when text overflows */
-    max-width: 90%; /* Ensures text doesn't touch card edges */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+    white-space: nowrap;
 }
 
+/* CARD DESCRIPTION */
 .service-card p {
     font-size: 0.95rem;
     line-height: 1.4;
     padding: 0 10px;
-    overflow: hidden; /* Ensures the text doesn't spill out */
-    text-overflow: ellipsis; /* If needed, adds "..." to overflowing text */
-    white-space: normal; /* Allows wrapping */
-    word-wrap: break-word; /* Ensures long words break properly */
-    max-height: 120px; /* Limits paragraph height */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
+    max-height: 120px;
 }
 
+/* HOVER EFFECT */
 .service-card:hover {
     transform: scale(1.05);
+    box-shadow: 0px 6px 15px rgba(0, 255, 255, 0.5);
 }
 
+/* 📱 MOBILE RESPONSIVENESS */
+@media screen and (max-width: 768px) {
+    .service-card {
+        width: 95%; /* Makes it fit well on small screens */
+        max-width: 280px; /* Slightly smaller for mobile */
+        padding: 12px;
+    }
 
-/* Moving Animation */
+    .service-card i {
+        font-size: 1.8rem; /* Smaller icons on mobile */
+    }
+
+    .service-card h3 {
+        font-size: 1rem;
+    }
+
+    .service-card p {
+        font-size: 0.9rem;
+        max-height: 100px;
+    }
+}
+
+/* 🔄 MOVING ANIMATION */
 @keyframes moveLeftRight {
     0% { transform: translateX(0); }
     50% { transform: translateX(-50%); }
@@ -199,6 +228,8 @@ h1, h2, h3 {
 
 .moving-cards {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     animation: moveLeftRight 12s linear infinite alternate;
 }
 
