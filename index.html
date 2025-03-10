@@ -679,28 +679,39 @@
 /* 📱 MOBILE RESPONSIVE DESIGN */
 @media screen and (max-width: 768px) {
     .search-container {
-        width: 25%; /* Makes it responsive */
-        bottom: -35px; /* Pushes it further down for mobile */
+        width: 90%; /* Makes it fit properly on mobile */
+        max-width: 250px; /* Prevents it from becoming too wide */
+        bottom: -45px; /* Pushes it further down for mobile */
         left: 50%;
         transform: translateX(-50%);
-        padding: 5px;
+        padding: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .search-container input {
-        width: 50px; /* Smaller input width for mobile */
+        width: 100px; /* Prevents overflow */
+        max-width: 120px; /* Ensures proper width */
         font-size: 12px;
         padding: 6px;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Adds "..." when text overflows */
+        white-space: nowrap; /* Prevents wrapping */
     }
 
     .search-container button {
         font-size: 12px;
-        padding: 4px 6px;
+        padding: 4px 8px;
         border: 1px solid cyan;
     }
 
     .search-popup {
-        width: 85%;
-        bottom: -100px; /* Pushes results further down */
+        width: 90%; /* Ensures popup fits properly */
+        max-width: 300px; /* Prevents it from stretching too wide */
+        bottom: -120px; /* Pushes results further down */
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 
