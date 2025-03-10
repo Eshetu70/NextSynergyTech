@@ -1210,31 +1210,165 @@
                 <li>Training and hiring students through our educational programs</li>
             </ul>
         </section>
-        <section id="ecommerce" class="section">
-            <h2>E-Commerce Solutions</h2>
-            <img src="e_comer.png" alt="E-Commerce">
-            <h3>Our company provides cutting-edge e-commerce solutions to empower businesses and streamline online
-                sales. Our e-commerce platforms offer:</h3>
+      <section id="ecommerce" class="tech-ecommerce-section">
+    <!-- E-Commerce Header -->
+    <div class="ecommerce-header">
+        <h2>Next-Gen E-Commerce Solutions</h2>
+        <p>Empowering businesses with AI-driven, blockchain-secured, and cloud-scalable solutions.</p>
+    </div>
+    
+    <!-- E-Commerce Image & Features -->
+    <div class="ecommerce-content">
+        <figure class="ecommerce-image-container">
+            <img src="image/e_commerce_future.jpg" alt="Future of E-Commerce">
+            <figcaption class="overlay-text">Redefining Digital Commerce...</figcaption>
+        </figure>
+        
+        <div class="ecommerce-description">
+            <h3>Revolutionizing Online Retail with Cutting-Edge Technology</h3>
             <ul>
-                <li>Customized online store development with advanced UI/UX design</li>
-                <li>AI-powered search and recommendation systems</li>
-                <li>Seamless and secure payment gateway integration</li>
-                <li>Automated order and inventory management</li>
-                <li>SEO and digital marketing strategies to enhance brand visibility</li>
-                <li>Multi-vendor marketplace solutions with scalable features</li>
-
+                <li><strong>AI-Powered Shopping:</strong> Personalized recommendations and predictive analytics.</li>
+                <li><strong>Blockchain Security:</strong> Secure transactions and decentralized payment options.</li>
+                <li><strong>Augmented Reality (AR):</strong> Virtual try-ons and interactive product showcases.</li>
+                <li><strong>Autonomous Fulfillment:</strong> AI-managed inventory and drone-based deliveries.</li>
+                <li><strong>Seamless Payment Integration:</strong> Crypto-friendly, biometric authentication, and instant checkout.</li>
+                <li><strong>Omnichannel Experience:</strong> Unified digital and in-store shopping ecosystem.</li>
             </ul>
-            <section id="ecommerce-services">
-                <h3>Our E-Commerce Services</h3>
-                <ul>
-                    <li><a href="https://www.nextsynergytech.online/" target="_blank">Visit Our Online Store</a></li>
-                </ul>
-            </section>
+        </div>
+    </div>
+    
+    <!-- E-Commerce Services -->
+    <section id="ecommerce-services">
+        <h3>Discover Our Digital Commerce Innovations</h3>
+        <ul>
+            <li><a href="https://www.nextsynergytech.online/" target="_blank">Explore Our AI-Powered Marketplace</a></li>
+        </ul>
+    </section>
+</section>
 
+<!-- Styling for E-Commerce Section -->
+<style>
+    .tech-ecommerce-section {
+        background: linear-gradient(135deg, #001F3F, #003366, #0055A4);
+        padding: 50px 30px;
+        border-radius: 15px;
+        box-shadow: 0px 0px 30px rgba(0, 255, 255, 0.8);
+        color: white;
+        text-align: center;
+    }
 
-            <p>We ensure our clients receive user-friendly, scalable, and high-security e-commerce platforms to grow
-                their online businesses effectively.</p>
-        </section>
+    .ecommerce-header h2 {
+        font-size: 2.5rem;
+        color: cyan;
+        text-shadow: 0px 0px 10px rgba(0, 255, 255, 1);
+    }
+
+    .ecommerce-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .ecommerce-image-container {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .ecommerce-image-container img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0px 4px 20px rgba(0, 255, 255, 0.7);
+    }
+
+    .overlay-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: cyan;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 10px 15px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.8);
+        width: 80%;
+        animation: glowEffect 1.5s infinite alternate;
+    }
+
+    @keyframes glowEffect {
+        0% { box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.5); }
+        100% { box-shadow: 0px 0px 20px rgba(0, 255, 255, 1); }
+    }
+
+    .ecommerce-description ul {
+        text-align: left;
+        margin: 20px auto;
+        max-width: 600px;
+    }
+
+    .ecommerce-description li {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        padding: 10px;
+        border-left: 4px solid cyan;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        margin-bottom: 10px;
+        box-shadow: 0px 2px 10px rgba(0, 255, 255, 0.3);
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 768px) {
+        .ecommerce-content {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+</style>
+
+<!-- JavaScript for Dynamic Features -->
+<script>
+    const ecommerceTexts = [
+        "AI-driven recommendations for personalized shopping",
+        "Blockchain-based security ensuring trust and transparency",
+        "Seamless omnichannel experience bridging online and in-store shopping",
+        "Next-gen AR and VR for immersive product visualization",
+        "Automated fulfillment using AI-powered logistics"
+    ];
+
+    let index = 0;
+    let textElement = document.querySelector(".overlay-text");
+
+    function typeEcommerceText(text, i = 0) {
+        if (i < text.length) {
+            textElement.textContent += text.charAt(i);
+            setTimeout(() => typeEcommerceText(text, i + 1), 50);
+        } else {
+            setTimeout(eraseEcommerceText, 3000);
+        }
+    }
+
+    function eraseEcommerceText() {
+        let text = textElement.textContent;
+        if (text.length > 0) {
+            textElement.textContent = text.substring(0, text.length - 1);
+            setTimeout(eraseEcommerceText, 30);
+        } else {
+            index = (index + 1) % ecommerceTexts.length;
+            setTimeout(() => typeEcommerceText(ecommerceTexts[index]), 500);
+        }
+    }
+
+    typeEcommerceText(ecommerceTexts[index]);
+</script>
+
 
 
         <section id="mission" class="section">
