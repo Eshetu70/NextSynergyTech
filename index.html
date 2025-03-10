@@ -676,30 +676,31 @@
 }
 
 /* 📱 MOBILE RESPONSIVE DESIGN */
+/* 📱 MOBILE RESPONSIVE DESIGN */
 @media screen and (max-width: 768px) {
     .search-container {
-        width: 90%; /* Makes it responsive */
-        bottom: -5px;
+        width: 65%; /* Makes it responsive */
+        bottom: -35px; /* Pushes it further down for mobile */
         left: 50%;
         transform: translateX(-50%);
         padding: 5px;
     }
 
     .search-container input {
-        width: 180px; /* Smaller input for mobile */
-        font-size: 14px;
-        padding: 8px;
+        width: 120px; /* Smaller input width for mobile */
+        font-size: 12px;
+        padding: 6px;
     }
 
     .search-container button {
-        font-size: 14px;
-        padding: 4px 8px;
+        font-size: 12px;
+        padding: 4px 6px;
         border: 1px solid cyan;
     }
 
     .search-popup {
-        width: 90%;
-        bottom: -65px; /* Adjusts placement for mobile */
+        width: 85%;
+        bottom: -100px; /* Pushes results further down */
     }
 }
 
