@@ -4,16 +4,17 @@
 
 
     /* Footer Section */
-    .footer-section {
-        background-color: #0d1b2a;
-        color: white;
-        padding: 30px 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        position: relative;
-    }
+  .footer-section {
+    background: linear-gradient(135deg, #0F3460, #1A1A2E, #16213E);
+    padding: 50px 20px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    box-shadow: 0px -5px 20px rgba(0, 255, 255, 0.3); /* Neon glow at the top */
+}
     .footer-logo img {
         width: 150px;
     }
@@ -293,5 +294,103 @@ h1, h2, h3 {
 
 
 
+
+
+
+/* FOOTER SECTION - Futuristic Tech Theme */
+.footer-section {
+    background: linear-gradient(135deg, #0F3460, #1A1A2E, #16213E);
+    padding: 40px 20px;
+    color: white;
+    text-align: center;
+    box-shadow: 0px -5px 20px rgba(0, 255, 255, 0.3); /* Neon glow at the top */
+}
+
+/* FOOTER LOGO CONTAINER */
+.footer-logo {
+    display: flex;
+    flex-direction: column; /* Stack elements */
+    align-items: center;
+    gap: 20px;
+}
+
+/* LOGO FRAME - Tech Boundaries */
+.logo-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5); /* Tech glowing effect */
+    border: 2px solid rgba(0, 255, 255, 0.7);
+    transition: all 0.3s ease-in-out;
+}
+
+.logo-frame img {
+    width: 160px;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* HOVER EFFECT */
+.logo-frame:hover {
+    box-shadow: 0px 0px 25px rgba(0, 255, 255, 0.8);
+    transform: scale(1.05);
+}
+
+/* SOCIAL ICONS */
+.social-icon {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 24px;
+}
+
+.social-icon a {
+    color: cyan;
+    transition: all 0.3s ease-in-out;
+}
+
+.social-icon a:hover {
+    color: #00E0FF;
+    transform: scale(1.2);
+}
+
+/* FOOTER CONTENT - Clean and Readable */
+.footer-content {
+    max-width: 600px;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.3);
+}
+
+/* MOBILE RESPONSIVENESS */
+@media screen and (max-width: 768px) {
+    .footer-section {
+        padding: 30px 10px;
+    }
+
+    .logo-frame {
+        padding: 8px;
+    }
+
+    .logo-frame img {
+        width: 140px;
+    }
+
+    .social-icon {
+        font-size: 20px;
+        gap: 10px;
+    }
+
+    .footer-content {
+        font-size: 13px;
+    }
+}
 
     
