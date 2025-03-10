@@ -125,62 +125,102 @@
 }
 
 /* Mobile Menu Icon */
+/* Mobile Menu Icon */
+/* Mobile Menu Icon */
 .menu-icon {
     display: flex;
     cursor: pointer;
-    font-size: 1.3em; /* Reduced size */
+    font-size: 1.5em;
     color: white;
+    justify-content: flex-end;
+    position: relative;
 }
 
 /* Dropdown Menu */
 .dropdown-menu {
     position: absolute;
-    top: 50px;
-    left: 0;
-    background: rgba(0, 0, 0, 0.9);
-    background: linear-gradient(45deg, #ff4500, #900C3F);
-    border-radius: 5px;
-    padding: 8px;
+    top: 60px; /* Pushes dropdown lower */
+    right: 0; /* Aligns to the right under the menu icon */
+    background: linear-gradient(135deg, #1A1A2E, #16213E, #0F3460); /* Tech-inspired gradient */
+    border-radius: 8px;
+    padding: 12px;
     display: none;
     flex-direction: column;
-    width: 160px;
-    z-index: 20;
+    width: 260px; /* Slightly wider for balance */
+    z-index: 25;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease-in-out;
 }
 
+/* Active State */
 .dropdown-menu.active {
     display: flex;
 }
 
+/* Menu Links */
 .dropdown-menu a {
     display: block;
-    padding: 6px 10px;
-    color: white;
+    padding: 12px;
+    color: #D4E6F1; /* Light blue for readability */
     text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
+.dropdown-menu a:last-child {
+    border-bottom: none;
+}
+
+/* Hover Effects */
 .dropdown-menu a:hover {
-    background: teal;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    color: #00E0FF; /* Neon cyan */
+}
+
+/* Contact Section */
+.contact-info {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 13px;
+    color: white;
+    text-align: center;
+}
+
+/* Contact Links */
+.contact-info a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    color: #D4E6F1;
+    text-decoration: none;
+    font-size: 14px;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: #00E0FF; /* Neon blue */
 }
 
 /* Responsive - Mobile View */
 @media screen and (max-width: 768px) {
-    .nav-menu {
-        display: none;
-    }
-
-    .menu-icon {
-        display: block;
-    }
-
     .dropdown-menu {
         position: fixed;
-        top: 50px;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.9);
+        top: 70px; /* Extra spacing for better appearance */
+        right: 15px;
+        width: 260px;
+        background: linear-gradient(135deg, #1A1A2E, #16213E, #0F3460);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
         z-index: 25;
+        border-radius: 10px;
     }
 }
+
 /* Translator Icon and Box */
 .translate-icon {
     position: absolute;
@@ -202,19 +242,6 @@
     border-radius: 4px;
 }
 
-/* Mobile Menu Icon */
-.mobile-menu-icon {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    z-index: 5;
-    cursor: pointer;
-    color: #fff;
-    font-size: 24px;
-    padding: 10px;
-    text-align: center;
-}
 
 /* Navigation Menu Animation */
 
@@ -224,6 +251,7 @@ nav {
     padding: 1px 0;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     animation: navGlow 5s infinite alternate;
+    
     
 }
 
@@ -239,7 +267,10 @@ nav ul li a {
     color: #fff;
     font-size: 18px;
     font-weight: bold;
-    text-transform: uppercase;
+    color: #D4E6F1; /* Light blue for readability */
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
     text-decoration: none;
     transition: 0.3s;
 }
@@ -251,27 +282,7 @@ nav ul li a:hover {
     border-radius: 5px;
 }
 
-/* Responsive - Mobile View */
-@media screen and (max-width: 768px) {
-    .nav-menu {
-        display: none;
-    }
-    .menu-icon {
-        display: block;
-    }
-    .dropdown-menu {
-        position: fixed;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background: linear-gradient(45deg, #ff4500, #900C3F);
-        box-shadow: 0 15px 40px rgba(255, 69, 0, 1);
-        z-index: 25;
-    }
-    .theme-icons {
-        z-index: 5;
-    }
-}
+
 
 
 /* Logo */

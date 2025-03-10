@@ -440,36 +440,39 @@
                 <img src="image/LOGOS.jpg" alt="Logo">
             </a>
         </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchFunction()">
+            <button onclick="searchFunction()">🔍</button>
+        </div>
     </div>
     <h1 class="magic-heading">Next Synergy Tech</h1>
 
     <!-- Navigation Bar -->
     <nav class="nav-bar">
-        <div class="logo">
+       <div class="logo">
             <a href="/">
                 <img src="image/LOGOS.jpg" alt="Logo">
             </a>
-        </div>
+        </div> 
 
         <!-- Search Bar -->
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchFunction()">
-            <button onclick="searchFunction()">🔍</button>
-        </div>
+        
           <div id="searchResults" class="search-popup"></div>
         <!-- Desktop Navigation Menu -->
         <ul class="nav-menu">
             <li><a href="#" onclick="showSection('about')">About Us</a></li>
-            <li><a href="#" onclick="showSection('who-we-are')">Who We Are</a></li>
+           
             <li><a href="#" onclick="showSection('services')">Services</a></li>
             <li><a href="#" onclick="showSection('ecommerce')">E-Commerce</a></li>
-            <li><a href="#" onclick="showSection('mission')">Mission & Vision</a></li>
+             <li><a href="#" onclick="showSection('tutorials')">Tutorials</a></li>
             <li><a href="#" onclick="showSection('projects')">Projects</a></li>
             <li class="dropdown">
                 <a href="#" class="dropbtn">More ▼</a>
                 <div class="dropdown-content">
+                    <a href="#" onclick="showSection('mission')">Mission & Vision</a>
+                    <a href="#" onclick="showSection('who-we-are')">Who We Are</a>
                     <a href="#" onclick="showSection('order')">AppOrders</a>
-                    <a href="#" onclick="showSection('tutorials')">Tutorials</a>
+                   
                     <a href="#" onclick="showSection('courses')">Registration</a>
                     <a href="#" onclick="showSection('mobile-development')">Mobile Development</a>
                     <a href="#" onclick="showSection('contact-content')">Contact</a>
@@ -487,14 +490,7 @@
                 </div>
             </div>
             <div class="translate-container" id="translateBox">
-                <select class="lang-selector" id="languageSwitcher" onchange="translateLanguage()">
-                    <option value="en">EN</option>
-                    <option value="am">AM</option>
-                    <option value="om">OM</option>
-                    <option value="ti">TI</option>
-                    <option value="ar">AR</option>
-                    <option value="fr">FR</option>
-                </select>
+                
                 <div id="google_translate_element" class="translate-box"></div>
             </div>
 
@@ -517,6 +513,14 @@
         <a href="#" onclick="showSection('courses')">Registration</a>
         <a href="#" onclick="showSection('mobile-development')">Mobile Development</a>
         <a href="#" onclick="showSection('contact-content')">Contact</a>
+
+        <div class="contact-info">
+            <p>Contact:</p>
+            <a href="tel:+17044888465">📞 +1704-488-8465</a>
+            <a href="https://web.facebook.com/eshetu.teshome.798" target="_blank">📘 Facebook</a>
+            <a href="https://www.linkedin.com/in/eshetuwekjira/" target="_blank">🔗 LinkedIn</a>
+            <a href="https://github.com/Eshetu70" target="_blank">🐙 GitHub</a>
+        </div>
     </div>
 
 </header> <br><br><br>
@@ -568,68 +572,172 @@
 
 <!-- CSS for Search Bar and Results -->
 <style>
-    .search-container {
-        display: flex;
-        align-items: center;
-        margin-left: 15px;
-        z-index: 9999;
+   /* Search Bar - Technology Inspired */
+/* Search Bar - Technology Inspired */
+/* SEARCH BAR - TECHNOLOGY INSPIRED */
+.search-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 30px; /* Keeps the search bar in place */
+    left: 195px; /* Moves search bar to the left */
+    z-index: 99999; /* Ensures it's on top */
+    background: linear-gradient(135deg, #0F3460, #1A1A2E, #16213E);
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.6);
+}
+
+/* SEARCH INPUT */
+.search-container input {
+    padding: 10px;
+    border: 1px solid cyan;
+    border-radius: 5px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: cyan;
+    font-size: 16px;
+    width: 250px; /* Slightly wider for better usability */
+    transition: all 0.3s ease-in-out;
+}
+
+/* SEARCH INPUT FOCUS EFFECT */
+.search-container input:focus {
+    border-color: #00E0FF;
+    box-shadow: 0 0 10px rgba(0, 224, 255, 0.8);
+}
+
+/* SEARCH BUTTON */
+.search-container button {
+    background: none;
+    border: 2px solid cyan;
+    color: cyan;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* SEARCH BUTTON HOVER */
+.search-container button:hover {
+    background: cyan;
+    color: black;
+    box-shadow: 0px 0px 10px cyan;
+}
+
+/* 🔥 FUTURISTIC SEARCH RESULTS POPUP */
+.search-popup {
+    display: none;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid cyan;
+    width: 400px; /* Increased width */
+    padding: 20px;
+    box-shadow: 0px 5px 15px rgba(0, 255, 255, 0.6);
+    top: 60px;
+    left: 20px; /* Ensures alignment to the left */
+    z-index: 999;
+    border-radius: 8px;
+    animation: fadeIn 0.3s ease-in-out;
+    text-align: left; /* Ensures left-aligned content */
+}
+
+/* SEARCH RESULT ITEMS */
+.search-result-item {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease-in-out;
+    text-align: left; /* Left-aligned text */
+}
+
+/* SEARCH RESULT LINKS */
+.search-result-item a {
+    text-decoration: none;
+    color: cyan;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    display: block;
+    text-align: left; /* Ensures text starts from left */
+}
+
+/* SEARCH RESULT HOVER */
+.search-result-item:hover {
+    background: rgba(0, 255, 255, 0.1);
+    box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.3);
+}
+
+/* HIGHLIGHT MATCHING TEXT */
+.highlight {
+    background-color: rgba(255, 255, 0, 0.6);
+    padding: 2px;
+    border-radius: 3px;
+}
+
+/* 🔥 ANIMATION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
     }
-
-    .search-container input {
-        padding: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        outline: none;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-
-    .search-container button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 18px;
-        margin-left: 5px;
-    }
-
-    .search-popup {
-        display: none;
-        position: absolute;
-        background: white;
-        border: 1px solid #ccc;
-        max-width: 300px;
-        padding: 10px;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-        top: 50px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 999;
-    }
-
-    .search-result-item {
-        padding: 5px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .search-result-item a {
-        text-decoration: none;
-        color: #333;
-    }
-
-    .highlight {
-        background-color: yellow;
-    }
+}
 
 
+    /* TECHNOLOGY-STYLE LOGO CONTAINER */
 .logo-container {
     position: absolute;
-    top: -10px; /* Moves logo higher */
-    left: 0px; /* Moves it to the extreme left */
-    z-index: 1100; /* Higher than navbar to keep it visible */
+    top: 10px; /* Adjusted for better positioning */
+    left: 20px; /* Slightly away from the extreme left */
+    z-index: 1100; /* Keeps it visible above navbar */
+    padding: 10px;
+    border-radius: 12px; /* Smooth edges */
+    background: linear-gradient(135deg, #0F3460, #1A1A2E, #16213E); /* Dark futuristic background */
+    box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.5); /* Glowing neon effect */
+    border: 2px solid rgba(0, 255, 255, 0.8); /* Glowing cyan border */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
 }
 
+/* LOGO IMAGE - TECHNOLOGY BOUNDARIES */
 .logo-container img {
-    width: 200px; /* Increase logo size */
+    width: 200px; /* Slightly larger for emphasis */
     height: auto;
+    display: block;
+    max-height: 150px;
+    border-radius: 10px; /* Rounded futuristic look */
+    transition: all 0.3s ease-in-out;
 }
+
+/* HOVER EFFECT - GLOWING TECH FRAME */
+.logo-container:hover {
+    box-shadow: 0px 0px 30px rgba(0, 255, 255, 0.8); /* Stronger glow effect */
+    border-color: #00E0FF; /* Brighter neon color */
+    transform: scale(1.05); /* Slight increase for a modern touch */
+}
+
+/* MOBILE RESPONSIVENESS */
+@media screen and (max-width: 768px) {
+    .logo-container {
+        left: 10px; /* Slightly inward on small screens */
+        padding: 5px;
+        box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5);
+    }
+
+    .logo-container img {
+        width: 160px; /* Smaller for mobile */
+        max-height: 120px;
+    }
+}
+
+
+   
 
 </style>
 
