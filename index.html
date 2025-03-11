@@ -699,24 +699,35 @@
 @media screen and (max-width: 768px) {
     .search-container {
         position: absolute;
-        bottom: -10px; /* Moves it to the very bottom */
-        left: 0px; /* Moves it to the left end */
-       
+        bottom: 0px; /* Moves it to the very bottom */
+        left: 0px; /* Aligns it to the left */
+        width: 100%; /* Makes it full width */
         padding: 10px;
-        /* Ensures padding doesn’t add extra width */
+        box-sizing: border-box; /* Prevents extra width issues */
         display: flex;
-        justify-content: flex-start; /* Aligns content to the left */
-       
-         /* Glowing effect at the bottom */
+        justify-content: flex-start; /* Aligns input and button to the left */
+        background: none !important; /* Removes background */
+        box-shadow: none !important; /* Removes shadow */
     }
 
     .search-container input {
         width: 80%; /* Adjust width */
         font-size: 16px;
+        background: none; /* Removes input background */
+        border: 1px solid cyan; /* Keeps the border for visibility */
+        color: cyan;
+    }
+
+    .search-container input:focus {
+        border-color: cyan;
+        box-shadow: none; /* No glow effect */
     }
 
     .search-container button {
         margin-left: 10px;
+        background: none;
+        border: 1px solid cyan; /* Keeps button border */
+        color: cyan;
     }
 }
 /* 🔥 ANIMATION */
