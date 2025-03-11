@@ -694,7 +694,18 @@
     padding: 2px;
     border-radius: 3px;
 }
-
+/* Mobile Responsive Fix */
+@media screen and (max-width: 768px) {
+    .search-container {
+        position: absolute;
+        top: auto; /* Remove the top positioning */
+        bottom: 5px; /* Push it to the bottom */
+        left: 50%; /* Center it horizontally */
+        transform: translateX(-50%); /* Ensure it's properly centered */
+        width: 90%; /* Make it responsive */
+        max-width: 400px; /* Prevent it from becoming too wide */
+    }
+}
 /* 🔥 ANIMATION */
 @keyframes fadeIn {
     from {
