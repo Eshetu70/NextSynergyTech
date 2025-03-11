@@ -914,7 +914,7 @@
                     </div>
                 </div>
         </section>
-        <section id="about" class="tech-section">
+        <section id="about" class="section">
             <!-- LEFT SIDE: IMAGE WITH DYNAMIC TEXT -->
             <div class="tech-content">
                 <figure class="image-container">
@@ -1055,7 +1055,7 @@
 
 
             /* FLEXBOX LAYOUT FOR SIDE-BY-SIDE */
-            .tech-section {
+            .section {
                 display: flex;
                 flex-direction: row; /* Side-by-side layout */
                 justify-content: space-between;
@@ -1134,7 +1134,7 @@
         
             /* RESPONSIVE DESIGN */
             @media screen and (max-width: 768px) {
-                .tech-section {
+                .section {
                     flex-direction: column; /* Stacks on small screens */
                     text-align: center;
                 }
@@ -1152,45 +1152,53 @@
         </style>
         
         <!-- JAVASCRIPT FOR AUTO-WRITING TECHNOLOGY TEXT -->
-        <script>
-            const techQuotes = [
-                "Artificial Intelligence is transforming industries worldwide.",
-                "Quantum computing is the future of complex problem-solving.",
-                "Blockchain technology is revolutionizing digital transactions.",
-                "Cybersecurity is more crucial than ever in our connected world.",
-                "The rise of IoT devices is changing the way we live and work.",
-                "5G technology is enhancing connectivity at an unprecedented speed.",
-                "Cloud computing is driving global business scalability.",
-                "Machine learning is making data-driven decision-making smarter.",
-                "Augmented Reality (AR) is blending digital and real-world experiences.",
-                "Robotics is automating industries for better efficiency and accuracy."
-            ];
-        
-            let index = 0;
-            let textElement = document.getElementById("dynamicText");
-        
-            function typeText(text, i = 0) {
-                if (i < text.length) {
-                    textElement.textContent += text.charAt(i);
-                    setTimeout(() => typeText(text, i + 1), 50);
-                } else {
-                    setTimeout(eraseText, 3000);
-                }
+        <!-- JAVASCRIPT FOR AUTO-WRITING TECHNOLOGY TEXT -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const techQuotes = [
+            "Artificial Intelligence is transforming industries worldwide.",
+            "Quantum computing is the future of complex problem-solving.",
+            "Blockchain technology is revolutionizing digital transactions.",
+            "Cybersecurity is more crucial than ever in our connected world.",
+            "The rise of IoT devices is changing the way we live and work.",
+            "5G technology is enhancing connectivity at an unprecedented speed.",
+            "Cloud computing is driving global business scalability.",
+            "Machine learning is making data-driven decision-making smarter.",
+            "Augmented Reality (AR) is blending digital and real-world experiences.",
+            "Robotics is automating industries for better efficiency and accuracy."
+        ];
+
+        let index = 0;
+        const textElement = document.getElementById("dynamicText");
+
+        if (!textElement) {
+            console.error("Element with ID 'dynamicText' not found.");
+            return;
+        }
+
+        function typeText(text, i = 0) {
+            if (i < text.length) {
+                textElement.textContent += text.charAt(i);
+                setTimeout(() => typeText(text, i + 1), 50);
+            } else {
+                setTimeout(eraseText, 3000);
             }
-        
-            function eraseText() {
-                let text = textElement.textContent;
-                if (text.length > 0) {
-                    textElement.textContent = text.substring(0, text.length - 1);
-                    setTimeout(eraseText, 30);
-                } else {
-                    index = (index + 1) % techQuotes.length;
-                    setTimeout(() => typeText(techQuotes[index]), 500);
-                }
+        }
+
+        function eraseText() {
+            let text = textElement.textContent;
+            if (text.length > 0) {
+                textElement.textContent = text.substring(0, text.length - 1);
+                setTimeout(eraseText, 30);
+            } else {
+                index = (index + 1) % techQuotes.length;
+                setTimeout(() => typeText(techQuotes[index]), 500);
             }
-        
-            typeText(techQuotes[index]);
-        </script>
+        }
+
+        typeText(techQuotes[index]);
+    });
+</script>
         
         
         
@@ -1210,191 +1218,218 @@
                 <li>Training and hiring students through our educational programs</li>
             </ul>
         </section>
-      <section id="ecommerce" class="tech-ecommerce-section">
-    <!-- E-Commerce Header -->
-    <div class="ecommerce-header">
-        <h2>Next-Gen E-Commerce Solutions</h2>
-        <p>Empowering businesses with AI-driven, blockchain-secured, and cloud-scalable solutions.</p>
-    </div>
-    
-    <!-- E-Commerce Image & Features -->
-    <div class="ecommerce-content">
-        <figure class="ecommerce-image-container">
-            <img src="image/e_commerce.webp" alt="Future of E-Commerce">
-            <figcaption class="overlay-text">Redefining Digital Commerce...</figcaption>
-        </figure>
+        <section id="ecommerce" class="section"> 
+            <!-- E-Commerce Header -->
+            <div class="ecommerce-header">
+                <h2>Next-Gen E-Commerce Solutions</h2>
+                <p>Empowering businesses with AI-driven, blockchain-secured, and cloud-scalable solutions.</p>
+            </div>
+            
+            <!-- E-Commerce Image & Features -->
+            <div class="ecommerce-content">
+                <figure class="ecommerce-image-container">
+                    <img src="image/e_commerce.webp" alt="Future of E-Commerce">
+                    <figcaption class="overlay-text"></figcaption>
+                </figure>
+                
+                <div class="ecommerce-description">
+                    <h3>🚀 Revolutionizing Online Retail with Cutting-Edge Technology</h3>
+                    <ul class="tech-list">
+                        <li><strong>🧠 AI-Powered Shopping:</strong> Personalized recommendations & predictive analytics.</li>
+                        <li><strong>🔗 Blockchain Security:</strong> Secure transactions & decentralized payment options.</li>
+                        <li><strong>🕶 Augmented Reality (AR):</strong> Virtual try-ons & interactive product showcases.</li>
+                        <li><strong>🚁 Autonomous Fulfillment:</strong> AI-managed inventory & drone-based deliveries.</li>
+                        <li><strong>💰 Seamless Payment Integration:</strong> Crypto-friendly, biometric authentication, & instant checkout.</li>
+                        <li><strong>🛍 Omnichannel Experience:</strong> Unified digital & in-store shopping ecosystem.</li>
+                        <li><strong>🎙 Voice Commerce:</strong> AI-powered voice shopping & chatbot assistants.</li>
+                        <li><strong>📡 5G-Powered Retail:</strong> Ultra-fast, real-time customer engagement.</li>
+                        <li><strong>⚡ Quantum Computing:</strong> Future-ready optimization of supply chains.</li>
+                    </ul>
+                </div>
+            </div>
         
-        <div class="ecommerce-description">
-            <h3>Revolutionizing Online Retail with Cutting-Edge Technology</h3>
-            <ul>
-                <li><strong>AI-Powered Shopping:</strong> Personalized recommendations and predictive analytics.</li>
-                <li><strong>Blockchain Security:</strong> Secure transactions and decentralized payment options.</li>
-                <li><strong>Augmented Reality (AR):</strong> Virtual try-ons and interactive product showcases.</li>
-                <li><strong>Autonomous Fulfillment:</strong> AI-managed inventory and drone-based deliveries.</li>
-                <li><strong>Seamless Payment Integration:</strong> Crypto-friendly, biometric authentication, and instant checkout.</li>
-                <li><strong>Omnichannel Experience:</strong> Unified digital and in-store shopping ecosystem.</li>
-            </ul>
-        </div>
-    </div>
-    
-    <!-- E-Commerce Services -->
-    <section id="ecommerce-services">
-        <h3>Discover Our Digital Commerce Innovations</h3>
-        <ul>
-            <li><a href="https://www.nextsynergytech.online/" target="_blank">Explore Our AI-Powered Marketplace</a></li>
-        </ul>
-    </section>
-</section>
+            <!-- ✅ Integrated E-Commerce Services Section -->
+            <section id="ecommerce-services">
+                <h3>🔹 Our E-Commerce Services</h3>
+                <ul class="service-list">
+                    <li><a href="https://www.nextsynergytech.online/" target="_blank">🌐 Visit Our Online Store</a></li>
+                    <li><a href="#">🔍 AI-Powered Product Search</a></li>
+                    <li><a href="#">💳 Secure Blockchain Payments</a></li>
+                    <li><a href="#">📦 Automated Order Fulfillment</a></li>
+                    <li><a href="#">🛒 AR-Powered Virtual Shopping</a></li>
+                </ul>
+            </section>
+        </section>
+        
+        <!-- ✅ Styling for E-Commerce Section -->
+        <style>
+            /* Section Styling */
+            .section {
+                background: linear-gradient(135deg, #001F3F, #003366, #0055A4);
+                padding: 50px 30px;
+                border-radius: 15px;
+                box-shadow: 0px 0px 30px rgba(0, 255, 255, 0.8);
+                color: white;
+                text-align: center;
+            }
+        
+            /* Header Styling */
+            .ecommerce-header h2 {
+                font-size: 2.8rem;
+                color: cyan;
+                text-shadow: 0px 0px 15px rgba(0, 255, 255, 1);
+            }
+        
+            .ecommerce-header p {
+                font-size: 1.3rem;
+                color: #cceeff;
+            }
+        
+            /* Centering Image & Text */
+            .ecommerce-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                gap: 30px;
+            }
+        
+            /* Image Container */
+            .ecommerce-image-container {
+                position: relative;
+                max-width: 100%;
+                width: 600px;
+                text-align: center;
+            }
+        
+            .ecommerce-image-container img {
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+                box-shadow: 0px 4px 20px rgba(0, 255, 255, 0.7);
+            }
+        
+            /* Auto-Writing Text Overlay */
+            .overlay-text {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: cyan;
+                text-align: center;
+                background: rgba(0, 0, 0, 0.7);
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 20px rgba(0, 255, 255, 1);
+                width: 90%;
+                max-width: 500px;
+            }
+        
+            /* Tech List */
+            .tech-list {
+                text-align: left;
+                margin: 20px auto;
+                max-width: 700px;
+                padding-left: 0;
+            }
+        
+            .tech-list li {
+                font-size: 1.2rem;
+                padding: 12px;
+                border-left: 4px solid cyan;
+                background: rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                margin-bottom: 10px;
+                box-shadow: 0px 2px 10px rgba(0, 255, 255, 0.3);
+                display: flex;
+                align-items: center;
+            }
+        
+            /* 🔥 Fixed: Bright Cyan Bold Text */
+            .tech-list li strong {
+                color: cyan;
+                text-shadow: 0px 0px 12px rgba(0, 255, 255, 1);
+            }
+        
+            /* Services List */
+            .service-list a {
+                font-size: 1.2rem;
+                color: cyan;
+                text-decoration: none;
+                background: rgba(0, 255, 255, 0.1);
+                padding: 10px 20px;
+                border-radius: 8px;
+                display: inline-block;
+                transition: background 0.3s ease;
+            }
+        
+            .service-list a:hover {
+                background: rgba(0, 255, 255, 0.3);
+            }
+        
+            /* Responsive Adjustments */
+            @media screen and (max-width: 768px) {
+                .overlay-text {
+                    font-size: 1.2rem;
+                    width: 90%;
+                }
+        
+                .ecommerce-image-container {
+                    width: 100%;
+                }
+            }
+        </style>
+        
+        <!-- ✅ JavaScript for Auto-Writing Text -->
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const ecommerceTexts = [
+                    "AI-driven personalized shopping experiences",
+                    "Blockchain-based security for trusted transactions",
+                    "Seamless omnichannel shopping with IoT integration",
+                    "Augmented Reality (AR) revolutionizing retail",
+                    "AI-powered supply chain optimization",
+                    "Voice commerce & AI chatbots enhancing customer service",
+                    "Autonomous drone deliveries powered by AI",
+                    "Neural network fraud detection for secure payments",
+                    "Crypto-friendly payments with biometric authentication",
+                    "Predictive analytics for smarter marketing"
+                ];
+        
+                let index = 0;
+                const textElement = document.querySelector(".overlay-text");
+        
+                function typeEcommerceText(text, i = 0) {
+                    if (i === 0) textElement.innerHTML = "";
+                    if (i < text.length) {
+                        textElement.innerHTML += `<span style="color: cyan;">${text.charAt(i)}</span>`;
+                        setTimeout(() => typeEcommerceText(text, i + 1), 50);
+                    } else {
+                        setTimeout(eraseEcommerceText, 3000);
+                    }
+                }
+        
+                function eraseEcommerceText() {
+                    if (textElement.textContent.length > 0) {
+                        textElement.textContent = textElement.textContent.slice(0, -1);
+                        setTimeout(eraseEcommerceText, 30);
+                    } else {
+                        index = (index + 1) % ecommerceTexts.length;
+                        setTimeout(() => typeEcommerceText(ecommerceTexts[index]), 500);
+                    }
+                }
+        
+                typeEcommerceText(ecommerceTexts[index]);
+            });
+        </script>
+        
+        
 
-<!-- Styling for E-Commerce Section -->
-<style>
-    .tech-ecommerce-section {
-        background: linear-gradient(135deg, #001F3F, #003366, #0055A4);
-        padding: 50px 30px;
-        border-radius: 15px;
-        box-shadow: 0px 0px 30px rgba(0, 255, 255, 0.8);
-        color: white;
-        text-align: center;
-    }
-     .ecommerce-description li strong {
-        display: block;
-        font-size: 1.1rem;
-        margin-bottom: 5px;
-    }
-
-    @media screen and (max-width: 768px) {
-    .ecommerce-description ul {
-        padding-left: 0;
-        max-width: 100%;
-    }
-
-    .ecommerce-description li {
-        font-size: 1rem;
-        line-height: 1.5;
-        padding: 8px;
-        border-left: 3px solid cyan;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-    }
-
-    .ecommerce-description li strong {
-        display: block;
-        font-size: 1.1rem;
-        margin-bottom: 5px;
-    }
-}
-
-    .ecommerce-header h2 {
-        font-size: 2.5rem;
-        color: cyan;
-        text-shadow: 0px 0px 10px rgba(0, 255, 255, 1);
-    }
-
-    .ecommerce-content {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-
-    .ecommerce-image-container {
-        position: relative;
-        width: 100%;
-        max-width: 500px;
-    }
-
-    .ecommerce-image-container img {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-        box-shadow: 0px 4px 20px rgba(0, 255, 255, 0.7);
-    }
-
-    .overlay-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 1.4rem;
-        font-weight: bold;
-        color: cyan;
-        text-align: center;
-        background: rgba(0, 0, 0, 0.7);
-        padding: 10px 15px;
-        border-radius: 8px;
-        box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.8);
-        width: 80%;
-        animation: glowEffect 1.5s infinite alternate;
-    }
-
-    @keyframes glowEffect {
-        0% { box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.5); }
-        100% { box-shadow: 0px 0px 20px rgba(0, 255, 255, 1); }
-    }
-
-    .ecommerce-description ul {
-        text-align: left;
-        margin: 20px auto;
-        max-width: 600px;
-    }
-
-    .ecommerce-description li {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        padding: 10px;
-        border-left: 4px solid cyan;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-        margin-bottom: 10px;
-        box-shadow: 0px 2px 10px rgba(0, 255, 255, 0.3);
-    }
-
-    /* Responsive Design */
-    @media screen and (max-width: 768px) {
-        .ecommerce-content {
-            flex-direction: column;
-            text-align: center;
-        }
-    }
-</style>
-
-<!-- JavaScript for Dynamic Features -->
-<script>
-    const ecommerceTexts = [
-        "AI-driven recommendations for personalized shopping",
-        "Blockchain-based security ensuring trust and transparency",
-        "Seamless omnichannel experience bridging online and in-store shopping",
-        "Next-gen AR and VR for immersive product visualization",
-        "Automated fulfillment using AI-powered logistics"
-    ];
-
-    let index = 0;
-    let textElement = document.querySelector(".overlay-text");
-
-    function typeEcommerceText(text, i = 0) {
-        if (i < text.length) {
-            textElement.textContent += text.charAt(i);
-            setTimeout(() => typeEcommerceText(text, i + 1), 50);
-        } else {
-            setTimeout(eraseEcommerceText, 3000);
-        }
-    }
-
-    function eraseEcommerceText() {
-        let text = textElement.textContent;
-        if (text.length > 0) {
-            textElement.textContent = text.substring(0, text.length - 1);
-            setTimeout(eraseEcommerceText, 30);
-        } else {
-            index = (index + 1) % ecommerceTexts.length;
-            setTimeout(() => typeEcommerceText(ecommerceTexts[index]), 500);
-        }
-    }
-
-    typeEcommerceText(ecommerceTexts[index]);
-</script>
+        
+        
 
 
 
@@ -1510,7 +1545,7 @@
                 and cloud computing.</p>
         </section>
 
-        <section id="order" class="tech-development-section">
+        <section id="order" class="section">
     <!-- Development Header -->
     <div class="development-header">
         <h1>AI-Driven Web & Mobile App Development</h1>
@@ -1564,7 +1599,7 @@
 
 <!-- Styling for AI-Powered Development Services -->
 <style>
-    .tech-development-section {
+    .section {
         background: linear-gradient(135deg, #0A192F, #1A1A2E, #16213E);
         padding: 50px 30px;
         border-radius: 15px;
@@ -1634,79 +1669,85 @@
 
 
 
-    <section id="tutorials" class="tech-development-section">
+<section id="tutorials" class="section">
     <!-- CEO & Founder Information -->
     <div class="founder-info">
-        <h1>🚀 CEO & Founder: Eshetu T. Wekjira</h1>
+        <h2> Meet the Visionary: <span class="highlight">Eshetu T. Wekjira</span></h2>
+        <p class="title">Founder & CEO | NextSynergy Tech</p>
         <img src="my.jpg" alt="Eshetu T. Wekjira" class="founder-image">
-    </div>
-    
-    <!-- Technology Tutorials Overview -->
-    <div class="development-header">
-        <h1>🔥 Cutting-Edge Technology Tutorials</h1>
-        <p>NextSynergy Tech integrates AI, blockchain, and cloud technologies to create future-ready solutions.</p>
+        <p class="motto">"Innovating the Future with AI, Blockchain, and Cloud Computing."</p>
     </div>
 
-    <h1>🔧 Key Technologies We Specialize In</h1>
-    <div class="development-content">
-        <div class="service">
-            <h2>🖥️ Programming Languages</h2>
-            <p>💎 Java – Secure enterprise applications.</p>
-            <p>🧠 Python – AI, ML, and data science.</p>
-            <p>⚡ Node.js – High-performance apps.</p>
-        </div>
-        <div class="service">
-            <h2>🎨 Front-End Frameworks</h2>
-            <p>⚛️ React.js – Dynamic UI development.</p>
-            <p>🅰️ Angular – Scalable front-end frameworks.</p>
-        </div>
-        <div class="service">
-            <h2>⚙️ Back-End Frameworks</h2>
-            <p>🚀 Express.js – Optimized Node.js backend.</p>
-        </div>
-        <div class="service">
-            <h2>💾 Databases & Management Systems</h2>
-            <p>📊 SQL & MySQL – Structured data management.</p>
-            <p>🌐 MongoDB – Real-time NoSQL solutions.</p>
-        </div>
+    <!-- NextSynergy Tech Overview -->
+    <div class="company-overview">
+        <h2>🌍 Transforming Digital Innovation</h2>
+        <p>NextSynergy Tech integrates AI, blockchain, and cloud computing to build next-gen solutions that empower businesses worldwide.</p>
     </div>
+
+    <!-- 🔧 Technologies We Specialize In -->
+    <section id="key-technologies" class="tech-horizontal-section">
+        <h2>🔧 Key Technologies Driving the Future</h2>
+        <div class="tech-row">
+            <!-- Programming Languages -->
+            <div class="tech-box">
+                <h2>🖥️ Programming Languages</h2>
+                <p>💎 <strong>Java</strong> – Enterprise-grade applications.</p>
+                <p>🧠 <strong>Python</strong> – AI, ML, and data analytics.</p>
+                <p>⚡ <strong>Node.js</strong> – High-speed web services.</p>
+            </div>
+            
+            <!-- Front-End Development -->
+            <div class="tech-box">
+                <h2>🎨 Front-End Development</h2>
+                <p>⚛️ <strong>React.js</strong> – Dynamic UI/UX.</p>
+                <p>🅰️ <strong>Angular</strong> – Scalable front-end solutions.</p>
+            </div>
     
-    <h1>📚 Featured Courses</h1>
+            <!-- Back-End & Databases -->
+            <div class="tech-box">
+                <h2>⚙️ Back-End & Databases</h2>
+                <p>🚀 <strong>Express.js</strong> – Optimized Node.js backend.</p>
+                <p>📊 <strong>SQL & MySQL</strong> – Secure data management.</p>
+                <p>🌐 <strong>MongoDB</strong> – NoSQL real-time applications.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 📚 Featured Courses -->
+    <h2>📚 Learn with NextSynergy Tech</h2>
     <ul class="course-list">
         <li>🖥️ Full-Stack Development – Master React.js, Node.js & Express.js.</li>
         <li>🏢 Enterprise Java Development – Spring Boot & microservices.</li>
-        <li>🤖 AI & Data Science – Master machine learning & deep learning.</li>
-        <li>⚙️ Advanced Node.js – Optimized API and backend development.</li>
-        <li>🔍 Database Optimization – SQL security and MySQL performance.</li>
+        <li>🤖 AI & Data Science – Machine learning & deep learning.</li>
+        <li>⚙️ Advanced Node.js – API & backend optimizations.</li>
+        <li>🔍 Database Optimization – SQL security & MySQL performance.</li>
     </ul>
 
-    <h1>🌍 Why Choose NextSynergy Tech?</h1>
-    <ul class="course-list">
+    <!-- 🌍 Why Choose NextSynergy Tech -->
+    <h2>🌍 Why Choose NextSynergy Tech?</h2>
+    <ul class="tech-benefits">
         <li>🤖 AI-Driven Learning – Personalized adaptive courses.</li>
-        <li>💼 Real-World Projects – Practical hands-on experience.</li>
-        <li>📈 Career Boost – Networking and job placement assistance.</li>
-        <li>🎓 Expert Mentors – Guidance from industry leaders.</li>
+        <li>💼 Real-World Projects – Practical industry experience.</li>
+        <li>📈 Career Growth – Job placement & mentorship.</li>
+        <li>🎓 Expert Mentors – Learn from top industry leaders.</li>
     </ul>
 
-    <h1>🚀 Explore Cutting-Edge Technologies</h1>
-    <ul class="icon-list">
-        <li><a href="https://www.java.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" alt="Java Logo">Java</a></li>
-        <li><a href="https://www.python.org" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">Python</a></li>
-        <li><a href="https://nodejs.org" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js Logo">Node.js</a></li>
-        <li><a href="https://reactjs.org" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React.js Logo">React.js</a></li>
-        <li><a href="https://angular.io" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg" alt="Angular Logo">Angular</a></li>
-        <li><a href="https://expressjs.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" alt="Express.js Logo">Express.js</a></li>
-        <li><a href="https://www.mysql.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/en/d/dd/MySQL_logo.svg" alt="MySQL Logo">MySQL</a></li>
+    <!-- 🚀 Explore Technologies with Images -->
+    <h2>🚀 Explore Cutting-Edge Technologies</h2>
+    <ul class="tech-icons">
+        <li><a href="https://www.java.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" alt="Java">Java</a></li>
+        <li><a href="https://www.python.org" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python">Python</a></li>
+        <li><a href="https://nodejs.org" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js">Node.js</a></li>
+        <li><a href="https://reactjs.org" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React.js">React.js</a></li>
+        <li><a href="https://angular.io" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg" alt="Angular">Angular</a></li>
+        <li><a href="https://expressjs.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" alt="Express.js">Express.js</a></li>
+        <li><a href="https://www.mysql.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/en/d/dd/MySQL_logo.svg" alt="MySQL">MySQL</a></li>
     </ul>
-    
-    <p>🚀 Explore more resources: <a href="https://github.com/Eshetu70?tab=repositories" target="_blank">Visit GitHub</a></p>
-    <p>📚 Access tutorials: <a href="https://webpages.charlotte.edu/ewekjira/itis3135/projects/index.html" target="_blank">Visit Tutorials</a></p>
 </section>
 
-
-<!-- Styling for Tech Tutorials -->
+<!-- ✅ Styling for Professional & Futuristic Tech Section -->
 <style>
-    .tech-tutorial-section {
+    .section {
         background: linear-gradient(135deg, #0A192F, #1A1A2E, #16213E);
         padding: 50px;
         border-radius: 15px;
@@ -1715,34 +1756,129 @@
         text-align: center;
     }
 
-    .founder-info .founder-image {
-        width: 150px;
-        height: 150px;
+    .founder-info h1 {
+        font-size: 2.5rem;
+        color: cyan;
+    }
+
+    .founder-info .highlight {
+        font-weight: bold;
+        color: cyan;
+        text-shadow: 0px 0px 10px cyan;
+    }
+
+    .founder-image {
+        width: 180px;
+        height: 180px;
         border-radius: 50%;
         display: block;
-        margin: 0 auto 20px;
+        margin: 20px auto;
+        border: 4px solid cyan;
+    }
+    #tutorials h2{
+        font-size: 1.5rem;
+        color: cyan;
     }
 
-    .course-list li {
+    .company-overview p {
+        font-size: 1.3rem;
+        color: #cceeff;
+    }
+
+    .tech-box {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 10px rgba(0, 255, 255, 0.5);
+        margin: 10px 0;
+    }
+
+    .course-list li, .tech-benefits li {
+        font-size: 1.2rem;
         text-align: left;
-        font-size: 1.1rem;
         padding: 10px;
         border-left: 4px solid cyan;
+        margin-bottom: 10px;
         background: rgba(0, 0, 0, 0.2);
         border-radius: 5px;
-        margin-bottom: 10px;
         box-shadow: 0px 2px 10px rgba(0, 255, 255, 0.3);
     }
-
-    .icon-list img {
+  
+    .tech-icons img {
         width: 40px;
         margin-right: 10px;
     }
 
-    .icon-list a {
+    .tech-icons a {
+        font-size: 1.2rem;
         color: cyan;
         text-decoration: none;
         font-weight: bold;
+    }
+
+    .tech-horizontal-section {
+        background: linear-gradient(135deg, #0A192F, #1A1A2E, #16213E);
+        padding: 50px;
+        border-radius: 15px;
+        box-shadow: 0px 0px 30px rgba(0, 255, 255, 0.8);
+        color: white;
+        text-align: center;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .tech-horizontal-section h1 {
+        font-size: 2.5rem;
+        color: cyan;
+        text-shadow: 0px 0px 10px cyan;
+        margin-bottom: 30px;
+    }
+
+    .tech-row {
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .tech-box {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 10px rgba(0, 255, 255, 0.5);
+        width: 30%;
+        min-width: 280px;
+        text-align: left;
+    }
+
+    .tech-box h2 {
+        font-size: 1.4rem;
+        color: cyan;
+        text-shadow: 0px 0px 10px rgba(0, 255, 255, 1);
+        margin-bottom: 10px;
+    }
+
+    .tech-box p {
+        font-size: 1.2rem;
+        color: #cceeff;
+        margin: 5px 0;
+    }
+
+    /* Responsive for Mobile */
+    @media screen and (max-width: 900px) {
+        .tech-row {
+            flex-direction: column;
+            align-items: center;
+        }
+        .tech-box {
+            width: 80%;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .tech-box {
+            width: 100%;
+        }
     }
 </style>
 
@@ -2277,6 +2413,9 @@
         setInterval(moveIcons, 1500);
     });
 </script>
+
+
+
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
