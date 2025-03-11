@@ -658,7 +658,7 @@
     box-shadow: 0px 5px 15px rgba(0, 255, 255, 0.6);
     top: 60px;
     left: 20px; /* Ensures alignment to the left */
-    z-index: 999;
+    z-index: 99999;
     border-radius: 8px;
     animation: fadeIn 0.3s ease-in-out;
     text-align: left; /* Ensures left-aligned content */
@@ -695,15 +695,16 @@
     border-radius: 3px;
 }
 /* Mobile Responsive Fix */
+/* Adjust Search Bar */
 @media screen and (max-width: 768px) {
     .search-container {
         position: absolute;
-        top: auto; /* Remove the top positioning */
-        bottom: 12px; /* Push it to the bottom */
-        left: 50%; /* Center it horizontally */
-        transform: translateX(-50%); /* Ensure it's properly centered */
+        bottom: 0px; /* Moves it to the absolute bottom */
+        left: 50%; /* Centers it horizontally */
+        transform: translateX(-50%); /* Ensures proper alignment */
         width: 90%; /* Make it responsive */
-        max-width: 400px; /* Prevent it from becoming too wide */
+        max-width: 400px; /* Prevents it from being too wide */
+        z-index: 9999; /* Ensures it's above other elements */
     }
 }
 /* 🔥 ANIMATION */
