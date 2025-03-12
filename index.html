@@ -1187,7 +1187,7 @@
         </style>
         
         <!-- JAVASCRIPT FOR AUTO-WRITING TECHNOLOGY TEXT -->
-        <!-- JAVASCRIPT FOR AUTO-WRITING TECHNOLOGY TEXT -->
+<!-- JAVASCRIPT FOR AUTO-WRITING TECHNOLOGY TEXT -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const techQuotes = [
@@ -1213,7 +1213,7 @@
 
         function typeText(text, i = 0) {
             if (i < text.length) {
-                textElement.textContent += text.charAt(i);
+                textElement.textContent = text.substring(0, i + 1); // Ensures correct writing
                 setTimeout(() => typeText(text, i + 1), 50);
             } else {
                 setTimeout(eraseText, 3000);
@@ -1234,6 +1234,7 @@
         typeText(techQuotes[index]);
     });
 </script>
+
         
         
         
