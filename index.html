@@ -242,104 +242,6 @@
         
 
 
-        #who-we-are h2,
-        #who-we-are h3,
-        #who-we-are h3 {
-            text-align: center;
-        }
-
-        #who-we-are p {
-            font-style: italic;
-
-            text-align: left;
-            /* Ensures paragraphs are left-aligned */
-        }
-
-        /* Responsive styling for mobile screens */
-        @media screen and (max-width: 768px) {
-            #who-we-are p {
-                text-align: left;
-                /* Ensures paragraphs remain left-aligned on mobile */
-            }
-        }
-
-
-
-
-        .who-we-are-container {
-    text-align: center;
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 600px;
-    background: #0d1b2a;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative; /* Ensure child elements align properly */
-}
-
-.dropdown-content {
-    display: none;
-    background: white;
-    border: 1px solid #ccc;
-    padding: 15px;
-    width: 90%; /* Adjust width */
-    border-radius: 5px;
-    text-align: left;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-}
-
-        .founder-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-
-        .dropdowns {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .dropdown-btn {
-            width: 90%;
-            padding: 12px;
-            background: #004080;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin: 10px 0;
-            border-radius: 5px;
-            font-size: 16px;
-            text-align: left;
-        }
-
-       
-
-        .dropdown-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .dropdown-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .dropdown-list li:last-child {
-            border-bottom: none;
-        }
-
-        #about h2 {
-    margin: 0 auto;  /* Remove extra spacing */
-    padding: 0;  /* Remove extra padding */
-    display: block;
-}
-
 /* Hide Mobile Dropdown Menu */
 @media screen and (max-width: 768px) {
     .nav-menu {
@@ -869,10 +771,11 @@
             <!-- Board Members Section -->
             <div class="who-we-are-container">
                 <div class="board-member">
-                    <img src="board1.jpg" alt="John Doe" class="member-image">
-                    <h3>John Doe</h3>
-                    <h4><strong>Chief Technology Officer</strong></h4>
-                    <p>John has over 15 years of experience in AI, cybersecurity, and software engineering.</p>
+                    <img src="image/Ayman.jpg" alt="Ayman Boukharraz" class="member-image">
+                    <h3>Ayman Boukharraz</h3>
+                    <h4><strong>NextSynergy Tech: Chief Technology Officer</strong></h4>
+                    <p>
+                    <p> Ayman specializes in Leadership Development Program, cybersecurity, and software engineering </p>
                 </div>
 
                 <div class="dropdowns">
@@ -880,15 +783,15 @@
                     <div id="education-john" class="dropdown-content">
                         <ul>
                             <li>📌 MIT - M.S. Artificial Intelligence</li>
-                            <li>📌 Stanford University - B.S. Computer Science</li>
+                            <li>📌 <strong>University of North Carolina at Charlotte</strong> - B.S. Software Engineering</li>
                         </ul>
                     </div>
 
                     <button class="dropdown-btn" onclick="toggleDropdown('experience-john')">💼 Job Experience</button>
                     <div id="experience-john" class="dropdown-content">
                         <ul>
-                            <li>🚀 Google - AI Research Engineer</li>
-                            <li>💻 NextSynergy Tech - CTO</li>
+                            <li>🚀 Truist - Leadership Development Program</li>
+                            <li>💻 NextSynergy Tech - Chief Technology Officer</li>
                         </ul>
                     </div>
                 </div>
@@ -896,10 +799,10 @@
 
             <div class="who-we-are-container">
                 <div class="board-member">
-                    <img src="board2.jpg" alt="Jane Smith" class="member-image">
-                    <h3>Jane Smith</h3>
+                    <img src="image/robe.jpg" alt="Jane Smith" class="member-image">
+                    <h3>Robel Mamo</h3>
                     <h4><strong>Chief Financial Officer</strong></h4>
-                    <p>Jane brings extensive financial expertise, specializing in investment strategy and business
+                    <p>Robel Mamo brings extensive financial expertise, specializing in investment strategy and business
                         growth.</p>
                 </div>
 
@@ -907,7 +810,7 @@
                     <button class="dropdown-btn" onclick="toggleDropdown('education-jane')">🎓 Education</button>
                     <div id="education-jane" class="dropdown-content">
                         <ul>
-                            <li>📌 Harvard University - MBA in Finance</li>
+                            <li>📌 Maryland University - MBA in Finance and Management</li>
                             <li>📌 Yale University - B.S. Economics</li>
                         </ul>
                     </div>
@@ -949,6 +852,168 @@
                     </div>
                 </div>
         </section>
+
+        <style>
+/* ============================
+   🌟 General Section Styling
+============================ */
+#who-we-are {
+    background: linear-gradient(135deg, #001F3F, #003366, #0055A4);
+    padding: 50px 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 30px rgba(0, 255, 255, 0.8);
+    color: white;
+    text-align: center;
+    max-width: 900px;
+    margin: auto;
+    font-family: "Arial", sans-serif;
+}
+
+/* ============================
+   🏆 Headings & Typography
+============================ */
+#who-we-are h2, 
+#who-we-are h3, 
+#who-we-are h4 {
+    text-align: center;
+    color: cyan;
+    margin-bottom: 10px;
+}
+
+#who-we-are p {
+    font-style: italic;
+    text-align: left;
+    color: white;
+    line-height: 1.6;
+}
+#education ul li strong {
+    color: cyan;
+}
+#education-john ul li strong {
+    color: cyan;
+}
+#education-jane ul li strong {
+    color: cyan;
+}
+/* ============================
+   📱 Responsive Adjustments
+============================ */
+@media screen and (max-width: 768px) {
+    #who-we-are p {
+        text-align: left;
+    }
+}
+
+/* ============================
+   👤 Profile Card Container
+============================ */
+.who-we-are-container {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 600px;
+    background: #0d1b2a;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* Ensure child elements align properly */
+}
+
+/* ============================
+   🖼️ Profile Image Styling
+============================ */
+.founder-image, .member-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid cyan;
+    margin-bottom: 10px;
+}
+
+/* ============================
+   📌 Dropdown Container
+============================ */
+.dropdowns {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* ============================
+   🔘 Dropdown Button
+============================ */
+.dropdown-btn {
+    width: 90%;
+    padding: 12px;
+    background: #004080;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: left;
+    transition: background 0.3s ease;
+}
+#experience ul li strong {
+    color: cyan;
+    
+}
+.dropdown-btn:hover {
+    background: #003366;
+}
+
+/* ============================
+   📋 Dropdown Content
+============================ */
+.dropdown-content {
+    display: none;
+    
+    padding: 15px;
+    width: 100%;
+    border-radius: 5px;
+    text-align: left;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 5px;
+}
+
+/* ============================
+   📑 Dropdown List Items
+============================ */
+.dropdown-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown-list li:last-child {
+    border-bottom: none;
+}
+
+/* ============================
+   🌟 Animation for Smooth Toggle
+============================ */
+@keyframes fadeSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-content {
+    animation: fadeSlideDown 0.3s ease-in-out;
+}
+
+
+        </style>
         <section id="about" class="section">
             <!-- LEFT SIDE: IMAGE WITH DYNAMIC TEXT -->
             <div class="tech-content">
