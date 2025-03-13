@@ -15,6 +15,17 @@
     gap: 30px;
     box-shadow: 0px -5px 20px rgba(0, 255, 255, 0.3); /* Neon glow at the top */
 }
+
+.footer-section  ul li {
+    font-size: 1.2rem;
+    padding: 12px;
+    border-left: 4px solid cyan;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 255, 255, 0.3);
+    color: white;
+}
     .footer-logo img {
         width: 150px;
     }
