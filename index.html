@@ -1417,6 +1417,44 @@
                     width: 100%;
                 }
             }
+
+
+            /* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .overlay-text {
+        font-size: 1.2rem;
+        width: 90%;
+    }
+
+    .ecommerce-image-container {
+        width: 100%;
+    }
+
+    /* Ensure lists do not overflow */
+    .tech-list, .service-list {
+        max-width: 100%;
+        width: 90%;
+        padding: 0;
+        margin: 0 auto;
+    }
+
+    .tech-list li, .service-list a {
+        font-size: 1rem; /* Reduce font size for better readability */
+        padding: 10px;
+    }
+
+    /* Adjust strong text to prevent text overflow */
+    .tech-list li strong {
+        font-size: 1rem;
+    }
+
+    /* Ensure text remains within the screen */
+    .ecommerce-description h3 {
+        font-size: 1.2rem;
+        padding: 0 10px;
+    }
+}
+
         </style>
         
         <!-- ✅ JavaScript for Auto-Writing Text -->
