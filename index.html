@@ -1635,7 +1635,7 @@
     </head>
     <body>
     
-        <section id="projects">
+        <section id="projects"  class="section">
             <h2>Our Projects</h2>
             <img src="image/images.jpg" alt="Our Projects">
             <p>NextSynergy Tech is at the forefront of digital innovation, delivering scalable and secure technological solutions across multiple industries.</p>
@@ -2103,55 +2103,164 @@ document.addEventListener("DOMContentLoaded", () => {
 </style>
 
 
-        <section id="courses" class="section">
+<style>
+    /* General Section Styling */
+    #courses {
+        background: linear-gradient(135deg, #000428, #004e92);
+        padding: 50px 20px;
+        border-radius: 15px;
+        box-shadow: 0px 0px 30px rgba(0, 255, 255, 0.8);
+        color: white;
+        text-align: center;
+        max-width: 1100px;
+        margin: auto;
+        font-family: Arial, sans-serif;
+    }
 
-            <h2>Course Registration</h2>
-            <div class="containe">
-                <div class="course-card">
-                    <h2>Web Design & Development</h2>
-                    <p>Master the foundations of web development and build interactive, responsive websites. Topics
-                        include:</p>
-                    <ul>
-                        <li>HTML, CSS & JavaScript for front-end development</li>
-                        <li>AJAX & jQuery for dynamic user interfaces</li>
-                        <li>JSON & XML for structured data management</li>
-                        <li>Responsive Web Design techniques</li>
-                        <li>Website optimization and SEO best practices</li>
-                    </ul>
-                    <p class="prerequisites">📝 Prerequisites: No prior programming experience required.</p>
-                    <a href="https://www.nextsynergytech.online/regisstrations" class="register-button">Register</a>
-                </div>
+    /* Heading Styling */
+    #courses h2 {
+        font-size: 28px;
+        text-shadow: 0px 0px 15px rgba(0, 255, 255, 1);
+        margin-bottom: 20px;
+    }
 
-                <div class="course-card">
-                    <h2>Advanced Programming</h2>
-                    <p>Gain proficiency in advanced coding techniques and full-stack development. Topics include:</p>
-                    <ul>
-                        <li>Object-Oriented Programming (OOP) with Java</li>
-                        <li>SQL & Database Management (MySQL, PostgreSQL)</li>
-                        <li>Backend development with Express.js & Node.js</li>
-                        <li>RESTful API development and integration</li>
-                        <li>Testing and debugging methodologies</li>
-                    </ul>
-                    <p class="prerequisites">📝 Prerequisites: Basic knowledge of HTML, CSS, and JavaScript.</p>
-                    <a href="https://www.nextsynergytech.online/regisstrations" class="register-button">Register</a>
-                </div>
+    /* Course Container */
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
 
-                <div class="course-card">
-                    <h2>Mobile Application Development</h2>
-                    <p>Learn how to design and develop cross-platform mobile applications. Topics include:</p>
-                    <ul>
-                        <li>UI/UX design principles for mobile apps</li>
-                        <li>JavaScript & APIs for mobile functionalities</li>
-                        <li>Cross-platform development using React Native or Flutter</li>
-                        <li>Integration with Firebase and cloud services</li>
-                        <li>Performance optimization and debugging techniques</li>
-                    </ul>
-                    <p class="prerequisites">📝 Prerequisites: Completion of Web Design & Development and Advanced
-                        Programming.</p>
-                    <a href="https://www.nextsynergytech.online/regisstrations" class="register-button">Register</a>
-                </div>
-            </div>
-        </section>
+    /* Course Card Styling */
+    .course-card {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 12px;
+        padding: 20px;
+        width: 320px;
+        box-shadow: 0px 3px 15px rgba(0, 255, 255, 0.4);
+        transition: transform 0.3s ease-in-out;
+        text-align: left;
+    }
+
+    .course-card:hover {
+        transform: scale(1.05);
+    }
+
+    /* Course Titles */
+    .course-card h2 {
+        color: cyan;
+        font-size: 22px;
+        text-align: center;
+    }
+
+    /* Course List */
+    .course-card ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .course-card ul li {
+        padding: 5px 0;
+    }
+
+    /* Prerequisite Styling */
+    .prerequisites {
+        font-weight: bold;
+        color: #00ffff;
+    }
+
+    /* Register Button */
+    .register-button {
+        display: block;
+        width: 100%;
+        text-align: center;
+        background: cyan;
+        color: #001F3F;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-top: 10px;
+        transition: background 0.3s ease;
+    }
+
+    .register-button:hover {
+        background: #00cccc;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+
+
+<section id="courses" class="section">
+<h2>NextSynergy Tech - World-Class Software Development Courses</h2>
+<p>Master cutting-edge technologies with hands-on projects guided by industry experts.</p>
+
+<div class="container">
+    <div class="course-card">
+        <h2>🌐 Web Development & UI/UX</h2>
+        <p>Build highly responsive and interactive websites using the latest industry technologies.</p>
+        <ul>
+            <li>🖥️ HTML, CSS3, JavaScript (ES6+), and TypeScript</li>
+            <li>🎨 Advanced UI/UX with TailwindCSS & Material UI</li>
+            <li>🔄 API Integration & Asynchronous Programming</li>
+            <li>📱 Responsive & Mobile-First Web Design</li>
+            <li>⚡ Performance Optimization & SEO Best Practices</li>
+        </ul>
+        <p class="prerequisites">📝 Prerequisites: No prior coding experience required.</p>
+        <a href="https://www.nextsynergytech.online/registrations" class="register-button">Register Now</a>
+    </div>
+
+    <div class="course-card">
+        <h2>⚙️ Full-Stack Development & Cloud Engineering</h2>
+        <p>Master backend and cloud technologies for scalable applications.</p>
+        <ul>
+            <li>🚀 Backend with Node.js, Express.js & FastAPI</li>
+            <li>💾 Databases: PostgreSQL, MongoDB & Firebase</li>
+            <li>🔗 RESTful APIs & GraphQL for scalable systems</li>
+            <li>☁️ Cloud Deployment with AWS & Docker</li>
+            <li>🔐 Security Best Practices & Authentication (OAuth, JWT)</li>
+        </ul>
+        <p class="prerequisites">📝 Prerequisites: Basic knowledge of JavaScript, HTML, and CSS.</p>
+        <a href="https://www.nextsynergytech.online/registrations" class="register-button">Register Now</a>
+    </div>
+
+    <div class="course-card">
+        <h2>📱 Mobile App Development</h2>
+        <p>Develop high-performance mobile applications for iOS & Android.</p>
+        <ul>
+            <li>📲 Cross-platform development using Flutter & React Native</li>
+            <li>🖌️ UI/UX Design with Material Design & Cupertino</li>
+            <li>⚡ State Management (Redux, Provider, Riverpod)</li>
+            <li>☁️ Cloud & API Integration (Firebase, Supabase)</li>
+            <li>🛠️ Debugging, Testing & Performance Optimization</li>
+        </ul>
+        <p class="prerequisites">📝 Prerequisites: Web Development & Full-Stack course recommended.</p>
+        <a href="https://www.nextsynergytech.online/registrations" class="register-button">Register Now</a>
+    </div>
+
+    <div class="course-card">
+        <h2>🤖 Artificial Intelligence & Machine Learning</h2>
+        <p>Explore AI, deep learning, and automation with real-world applications.</p>
+        <ul>
+            <li>🧠 Python for AI (NumPy, Pandas, Matplotlib)</li>
+            <li>⚙️ Machine Learning Algorithms (Scikit-learn, TensorFlow, PyTorch)</li>
+            <li>🗃️ Data Engineering & Model Deployment (AWS SageMaker, GCP AI)</li>
+            <li>📊 Computer Vision & Natural Language Processing (NLP)</li>
+            <li>🔄 AI Automation & Predictive Analytics</li>
+        </ul>
+        <p class="prerequisites">📝 Prerequisites: Basic Python knowledge recommended.</p>
+        <a href="https://www.nextsynergytech.online/registrations" class="register-button">Register Now</a>
+    </div>
+</div>
+</section>
 
 
         <div class="container">
