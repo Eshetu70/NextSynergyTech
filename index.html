@@ -2729,11 +2729,12 @@ document.addEventListener("DOMContentLoaded", () => {
         /* Moving Logos */
         .moving-logos {
             display: flex;
-            width: max-content; /* Ensures it expands with content */
+            width: 200%; /* Expand to allow smooth scrolling */
             animation: scrollLeft 25s linear infinite;
             will-change: transform;
             transform: translate3d(0, 0, 0);
         }
+        
 
         .moving-logos a {
             display: inline-block;
@@ -2807,20 +2808,24 @@ document.addEventListener("DOMContentLoaded", () => {
         addLogos(); // Call function to insert logos
 
         // ✅ JavaScript Backup Animation for Browsers that Don't Support CSS Animations
-        function animateLogosFallback() {
+        function animateLogos() {
             let scrollAmount = 0;
-            function scrollLogos() {
-                scrollAmount -= 1; // Speed of scrolling
+            function scroll() {
+                scrollAmount -= 1; // Adjust speed
                 container.style.transform = `translateX(${scrollAmount}px)`;
-
                 if (Math.abs(scrollAmount) >= container.scrollWidth / 2) {
                     scrollAmount = 0;
                 }
-
-                requestAnimationFrame(scrollLogos);
+                requestAnimationFrame(scroll);
             }
-            requestAnimationFrame(scrollLogos);
+            requestAnimationFrame(scroll);
         }
+        
+        // Use JavaScript animation for mobile devices
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            animateLogos();
+        }
+        
 
         // Check if CSS animation is running, if not, use JavaScript animation
         setTimeout(() => {
