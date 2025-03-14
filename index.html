@@ -2702,13 +2702,13 @@ document.addEventListener("DOMContentLoaded", () => {
             text-align: center;
             overflow: hidden;
         }
-    
+
         .partner-section h2 {
             font-size: 2rem;
             color: #fca311;
             margin-bottom: 20px;
         }
-    
+
         /* Scrolling Container */
         .partner-container {
             overflow: hidden;
@@ -2720,7 +2720,7 @@ document.addEventListener("DOMContentLoaded", () => {
             white-space: nowrap;
             padding: 10px 0;
         }
-    
+
         /* Moving Logos */
         .moving-logos {
             display: flex;
@@ -2729,31 +2729,31 @@ document.addEventListener("DOMContentLoaded", () => {
             will-change: transform;
             transform: translate3d(0, 0, 0);
         }
-    
+
         .moving-logos a {
             display: inline-block;
             margin: 0 30px;
             transition: transform 0.3s ease-in-out, filter 0.3s;
         }
-    
+
         .moving-logos img {
             height: 80px;
             max-width: 100%; /* Ensure it scales properly */
             filter: brightness(0.9);
             transition: transform 0.3s ease-in-out;
         }
-    
+
         .moving-logos a:hover {
             transform: scale(1.2);
             filter: brightness(1.2) drop-shadow(0 0 10px cyan);
         }
-    
+
         /* Smooth Scrolling Animation */
         @keyframes scrollLeft {
             0% { transform: translateX(0); }
             100% { transform: translateX(-100%); } /* Ensures full loop */
         }
-    
+
         /* Mobile Optimization */
         @media (max-width: 768px) {
             .moving-logos img {
@@ -2764,7 +2764,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     </style>
-    
+
+
     <section class="partner-section">
         <h2>Our Technology Partners</h2>
         <div class="partner-container">
@@ -2773,7 +2774,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         </div>
     </section>
-    
+
     <script>
         // Partner links and logos
         const partners = [
@@ -2782,9 +2783,9 @@ document.addEventListener("DOMContentLoaded", () => {
             { url: "https://www.ethiotelecom.et/", logo: "image/Ethiotelcom_Logo-1024x597.jpg" },
             { url: "https://www.apple.com/safari/", logo: "image/th.jpg" }
         ];
-    
+
         const container = document.getElementById("logoContainer");
-    
+
         // Function to add logos and duplicate them for smooth scrolling
         function addLogos() {
             container.innerHTML = ""; // Clear existing content
@@ -2793,35 +2794,38 @@ document.addEventListener("DOMContentLoaded", () => {
                     let anchor = document.createElement("a");
                     anchor.href = partner.url;
                     anchor.target = "_blank";
-    
+
                     let img = document.createElement("img");
                     img.src = partner.logo;
                     img.alt = "Partner Logo";
-    
+                    img.onerror = function() { 
+                        this.src = "image/placeholder.jpg"; // Fallback image in case of error
+                    };
+
                     anchor.appendChild(img);
                     container.appendChild(anchor);
                 });
             }
         }
-    
+
         addLogos(); // Call function to insert logos
-    
+
         // ✅ JavaScript Backup Animation for Browsers that Don't Support CSS Animations
         function animateLogosFallback() {
             let scrollAmount = 0;
             function scrollLogos() {
                 scrollAmount -= 1; // Speed of scrolling
                 container.style.transform = `translateX(${scrollAmount}px)`;
-    
+
                 if (Math.abs(scrollAmount) >= container.scrollWidth / 2) {
                     scrollAmount = 0;
                 }
-    
+
                 requestAnimationFrame(scrollLogos);
             }
             requestAnimationFrame(scrollLogos);
         }
-    
+
         // Check if CSS animation is running, if not, use JavaScript animation
         setTimeout(() => {
             let computedStyle = window.getComputedStyle(container);
