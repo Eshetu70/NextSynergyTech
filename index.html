@@ -2643,10 +2643,10 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
     </section>
 
-
+   
      <!-- Hero Section -->
      <section class="hero-section">
-        <h1>NextSynergy Technologies</h1>
+        <h2>NextSynergy Technologies</h2>
         <p>Empower your business with our cutting-edge technology solutions, expert software development, and tailored IT services. Get started today!</p>
         <div class="cta-buttons">
             <a href="/about" class="cta-button">Explore More</a>
@@ -2690,9 +2690,119 @@ document.addEventListener("DOMContentLoaded", () => {
         
     </section>
 
+ 
+    <style>
+       
+        .partner-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #001F3F, #003366, #0055A4);
+            color: cyan;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        .partner-section  h2{
+        font-size: 2rem;
+        color: #fca311;
+        margin-bottom: 10px;
+       }
+       .hero-section p{
+     max-width: 600px;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.3);
+}
+  .hero-section h2{
+    font-size: 2rem;
+    color: #fca311;
+    margin-bottom: 10px;
+  }
+       
+        .partner-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 10px 0;
+        }
+        .moving-logos {
+            display: flex;
+            animation: scrollLeft 30s linear infinite;
+        }
+        .moving-logos a {
+            display: inline-block;
+            margin: 0 40px;
+            transition: transform 0.3s ease-in-out, filter 0.3s;
+        }
+        .moving-logos img {
+            height: 80px;
+            filter: brightness(0.9);
+        }
+        .moving-logos a:hover {
+            transform: scale(1.2);
+            filter: brightness(1.2) drop-shadow(0 0 10px cyan);
+        }
+        @keyframes scrollLeft {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+    </style>
 
+    <section class="partner-section">
+        <h2>Our Technology Partners</h2>
+        <div class="partner-container">
+            <div class="moving-logos" id="logoContainer">
+                <!-- Logos will be inserted dynamically -->
+            </div>
+        </div>
+    </section>
 
+    <script>
+        // Partner links and logos
+        const partners = [
+            { url: "https://www.charlotte.edu/", logo: "image/OIP.jpg" },
+            { url: "https://awashbank.com/", logo: "image/Awash-bank-logo.jpg" },
+            { url: "https://www.ethiotelecom.et/", logo: "image/Ethiotelcom_Logo-1024x597.jpg" },
+            { url: " https://www.apple.com/safari/", logo: "image/th.jpg" }
+        ];
 
+        const container = document.getElementById("logoContainer");
+
+        // Append logos dynamically with links
+        partners.forEach(partner => {
+            let anchor = document.createElement("a");
+            anchor.href = partner.url;
+            anchor.target = "_blank";
+
+            let img = document.createElement("img");
+            img.src = partner.logo;
+            img.alt = "Partner Logo";
+            
+            anchor.appendChild(img);
+            container.appendChild(anchor);
+        });
+
+        // Duplicate logos to ensure smooth scrolling
+        partners.forEach(partner => {
+            let anchor = document.createElement("a");
+            anchor.href = partner.url;
+            anchor.target = "_blank";
+
+            let img = document.createElement("img");
+            img.src = partner.logo;
+            img.alt = "Partner Logo";
+            
+            anchor.appendChild(img);
+            container.appendChild(anchor);
+        });
+    </script>
      
 
     
