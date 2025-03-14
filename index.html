@@ -2692,7 +2692,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
  
     <style>
-       
+        /* Styling for Partner Section */
         .partner-section {
             margin-top: 40px;
             padding: 20px;
@@ -2700,58 +2700,68 @@ document.addEventListener("DOMContentLoaded", () => {
             color: cyan;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            text-align: center;
         }
-        .partner-section  h2{
-        font-size: 2rem;
-        color: #fca311;
-        margin-bottom: 10px;
-       }
-       .hero-section p{
-     max-width: 600px;
-    font-size: 14px;
-    line-height: 1.6;
-    text-align: left;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.3);
-}
-  .hero-section h2{
-    font-size: 2rem;
-    color: #fca311;
-    margin-bottom: 10px;
-  }
-       
+
+        .partner-section h2 {
+            font-size: 2rem;
+            color: #fca311;
+            margin-bottom: 20px;
+        }
+
+       .hero-section h2 {
+            font-size: 2rem;
+            color: #fca311;
+            margin-bottom: 20px;
+        }
+        /* Scrolling Container */
         .partner-container {
             overflow: hidden;
-            white-space: nowrap;
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
             padding: 10px 0;
         }
+
+        /* Moving Logos */
         .moving-logos {
             display: flex;
-            animation: scrollLeft 30s linear infinite;
+            width: max-content; /* Ensures it expands with content */
+            animation: scrollLeft 25s linear infinite;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
         }
+
         .moving-logos a {
             display: inline-block;
             margin: 0 40px;
             transition: transform 0.3s ease-in-out, filter 0.3s;
         }
+
         .moving-logos img {
             height: 80px;
             filter: brightness(0.9);
         }
+
         .moving-logos a:hover {
             transform: scale(1.2);
             filter: brightness(1.2) drop-shadow(0 0 10px cyan);
         }
+
+        /* Smooth Scrolling Animation */
         @keyframes scrollLeft {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .moving-logos img {
+                height: 60px; /* Adjust smaller for mobile */
+            }
         }
     </style>
 
@@ -2759,7 +2769,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <h2>Our Technology Partners</h2>
         <div class="partner-container">
             <div class="moving-logos" id="logoContainer">
-                <!-- Logos will be inserted dynamically -->
+                <!-- Logos will be added dynamically -->
             </div>
         </div>
     </section>
@@ -2770,40 +2780,58 @@ document.addEventListener("DOMContentLoaded", () => {
             { url: "https://www.charlotte.edu/", logo: "image/OIP.jpg" },
             { url: "https://awashbank.com/", logo: "image/Awash-bank-logo.jpg" },
             { url: "https://www.ethiotelecom.et/", logo: "image/Ethiotelcom_Logo-1024x597.jpg" },
-            { url: " https://www.apple.com/safari/", logo: "image/th.jpg" }
+            { url: "https://www.apple.com/safari/", logo: "image/th.jpg" }
         ];
 
         const container = document.getElementById("logoContainer");
 
-        // Append logos dynamically with links
-        partners.forEach(partner => {
-            let anchor = document.createElement("a");
-            anchor.href = partner.url;
-            anchor.target = "_blank";
+        // Function to add logos and duplicate them for smooth scrolling
+        function addLogos() {
+            container.innerHTML = ""; // Clear existing content
+            for (let i = 0; i < 2; i++) { // Duplicate for seamless scrolling
+                partners.forEach(partner => {
+                    let anchor = document.createElement("a");
+                    anchor.href = partner.url;
+                    anchor.target = "_blank";
 
-            let img = document.createElement("img");
-            img.src = partner.logo;
-            img.alt = "Partner Logo";
-            
-            anchor.appendChild(img);
-            container.appendChild(anchor);
-        });
+                    let img = document.createElement("img");
+                    img.src = partner.logo;
+                    img.alt = "Partner Logo";
 
-        // Duplicate logos to ensure smooth scrolling
-        partners.forEach(partner => {
-            let anchor = document.createElement("a");
-            anchor.href = partner.url;
-            anchor.target = "_blank";
+                    anchor.appendChild(img);
+                    container.appendChild(anchor);
+                });
+            }
+        }
 
-            let img = document.createElement("img");
-            img.src = partner.logo;
-            img.alt = "Partner Logo";
-            
-            anchor.appendChild(img);
-            container.appendChild(anchor);
-        });
+        addLogos(); // Call function to insert logos
+
+        // ✅ JavaScript Backup Animation for Browsers that Don't Support CSS Animations
+        function animateLogosFallback() {
+            let scrollAmount = 0;
+            function scrollLogos() {
+                scrollAmount -= 1; // Speed of scrolling
+                container.style.transform = `translateX(${scrollAmount}px)`;
+
+                if (Math.abs(scrollAmount) >= container.scrollWidth / 2) {
+                    scrollAmount = 0;
+                }
+
+                requestAnimationFrame(scrollLogos);
+            }
+            requestAnimationFrame(scrollLogos);
+        }
+
+        // Check if CSS animation is running, if not, use JavaScript animation
+        setTimeout(() => {
+            let computedStyle = window.getComputedStyle(container);
+            let transformValue = computedStyle.getPropertyValue("transform");
+            if (transformValue === "none") {
+                console.log("Using JavaScript Animation Backup");
+                animateLogosFallback();
+            }
+        }, 3000);
     </script>
-     
 
     
 
