@@ -2875,6 +2875,244 @@ document.addEventListener("DOMContentLoaded", () => {
     </script>
     
 
+    <style>
+       
+
+        h3 {
+            font-size: 1.5rem;
+            color: #fca311;
+            margin-bottom: 15px;
+        }
+
+       
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        ul {
+            text-align: left;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        li {
+            font-size: 1.1rem;
+            margin: 8px 0;
+        }
+
+        /* Show the section by default */
+        #tech-services {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .content-section {
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            p, li {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    
+    <!-- Technology Services Section -->
+    <section id="tech-services" class="section">
+        <h2>Our Services</h2>
+        <img src="serv0.png" alt="Services">
+        
+        <h3>Empowering the Future with Cutting-Edge Technology Solutions</h3>
+        <p>
+            At our core, we are dedicated to transforming the digital landscape with innovative and robust technology solutions. 
+            Our team of highly skilled professionals specializes in <strong>custom mobile and web application development</strong>, ensuring businesses and individuals harness 
+            the full power of digital transformation. Whether you need a dynamic website, a scalable e-commerce platform, or a high-performance mobile application, 
+            we deliver tailor-made solutions designed for efficiency, security, and seamless user experience. Our <strong>network-based applications</strong> provide secure enterprise solutions, 
+            allowing businesses to operate with confidence in an interconnected world.
+        </p>
+
+        <h3>Advanced Cybersecurity & Cloud Infrastructure</h3>
+        <p>
+            Cybersecurity and data protection are at the forefront of our services. We offer <strong>blockchain integration, advanced encryption, and AI-powered security solutions</strong> 
+            to safeguard critical data from cyber threats. Our expert team ensures businesses remain resilient against cyberattacks with 
+            <strong>state-of-the-art cybersecurity frameworks and real-time threat monitoring</strong>. Additionally, our <strong>cloud computing and infrastructure services</strong> help enterprises scale efficiently, 
+            ensuring optimal performance, flexibility, and cost-effectiveness while maintaining industry-leading security standards.
+        </p>
+
+        <h3>Training, IT Consulting & Workforce Development</h3>
+        <p>
+            Beyond software and infrastructure, we are committed to shaping the future of technology through education and workforce development. 
+            Our specialized <strong>IT training programs</strong> equip students and professionals with hands-on skills in <strong>software development, AI, cybersecurity, and cloud computing</strong>, 
+            bridging the gap between education and employment. We believe in fostering innovation, which is why we not only provide 
+            <strong>expert consulting for businesses looking to enhance their IT systems</strong> but also help nurture the next generation of tech professionals through training and mentorship.
+        </p>
+
+        <h3>Comprehensive Technology Solutions</h3>
+        <p>
+            From AI-driven applications to enterprise-grade IT solutions, we empower businesses and individuals to <strong>leverage cutting-edge technology for success</strong>. 
+            Whether you're looking to develop a groundbreaking app, strengthen your IT infrastructure, or enhance your organization's security, 
+            our <strong>comprehensive technology solutions</strong> will help you stay ahead in the digital era. Let’s build the future—together. 🚀
+        </p>
+
+        <h3>Our Expertise Includes:</h3>
+        <ul>
+            <li>Custom mobile and web application development</li>
+            <li>Network-based applications for secure enterprise solutions</li>
+            <li>AI-powered software development</li>
+            <li>Blockchain and cybersecurity solutions</li>
+            <li>Cloud computing and infrastructure services</li>
+            <li>Training and hiring students through our educational programs</li>
+        </ul>
+    </section>
+
+    <section id="faq-section" class="section">
+        <h2>Frequently Asked Questions (FAQ)</h2>
+    
+        <div class="faq-item">
+            <h3 onclick="toggleAnswer(this)">1. What services does Next Synergy Tech provide?</h3>
+            <p>We specialize in software development, mobile applications, cybersecurity, AI-driven solutions, IT consulting, cloud computing, and enterprise infrastructure.</p>
+        </div>
+    
+        <div class="faq-item">
+            <h3 onclick="toggleAnswer(this)">2. How can I get in touch with your team?</h3>
+            <p>You can reach out via our <a href="#" onclick="showSection('contact-content')">Contact</a> page or email us directly at support@nextsynergytech.com.</p>
+        </div>
+    
+        <div class="faq-item">
+            <h3 onclick="toggleAnswer(this)">3. Do you provide training or internship programs?</h3>
+            <p>Yes! We offer IT training, mentorship, and internship programs for students and professionals looking to enhance their technical skills.</p>
+        </div>
+    
+        <div class="faq-item">
+            <h3 onclick="toggleAnswer(this)">4. What industries do you work with?</h3>
+            <p>We provide solutions for industries including healthcare, finance, e-commerce, education, and enterprise IT infrastructure.</p>
+        </div>
+    
+        <div class="faq-item">
+            <h3 onclick="toggleAnswer(this)">5. Can I request a custom software or mobile app?</h3>
+            <p>Absolutely! We develop custom web and mobile applications based on your business needs and requirements.</p>
+        </div>
+    </section>
+    
+    <style>
+        /* ======= General FAQ Section Styling ======= */
+        #faq-section {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #001F3F, #003366, #0055A4);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            text-align: left;
+            font-family: 'Arial', sans-serif;
+        }
+    
+        /* ======= FAQ Title Styling ======= */
+        #faq-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #fca311;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+        }
+      .footer-bottom p{
+        text-align: center;
+      }
+        /* ======= FAQ Item Styling ======= */
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+        }
+    
+        /* ======= FAQ Questions Styling ======= */
+        .faq-item h3 {
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 8px;
+            transition: 0.3s ease-in-out;
+            position: relative;
+        }
+    
+        .faq-item h3:hover {
+            transform: translateX(10px);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+    
+        /* ======= FAQ Answer Styling ======= */
+        .faq-item p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 5px;
+            display: none; /* Hidden by default */
+            transition: max-height 0.3s ease-out;
+        }
+    
+        /* ======= Link Styling ======= */
+        #faq-section a {
+            color: #00c6ff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+    
+        #faq-section a:hover {
+            text-decoration: underline;
+            color: cyan;
+        }
+    
+        /* ======= Responsive Design ======= */
+        @media (max-width: 768px) {
+            #faq-section {
+                padding: 15px;
+            }
+    
+            #faq-section h2 {
+                font-size: 1.8rem;
+            }
+    
+            .faq-item h3 {
+                font-size: 1.3rem;
+            }
+    
+            .faq-item p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    
+    <script>
+        function toggleAnswer(question) {
+            let answer = question.nextElementSibling; // Get the paragraph right after the clicked h3
+            
+            if (answer.style.display === "block") {
+                answer.style.display = "none"; // Hide the answer
+            } else {
+                // Hide all answers first
+                document.querySelectorAll(".faq-item p").forEach(p => {
+                    p.style.display = "none";
+                });
+    
+                answer.style.display = "block"; // Show the selected answer
+            }
+        }
+    </script>
     
 
 <!-- Footer Start -->
@@ -2901,10 +3139,13 @@ document.addEventListener("DOMContentLoaded", () => {
         <h3>Quick Links</h3>
         <ul>
             <li><i class="fa-solid fa-chevron-right"></i> <a href="#" onclick="showSection('about')">About Next Synergy Tech</a></li>
-            <li><i class="fa-solid fa-chevron-right"></i> <a href="/service">Our Services</a></li>
-            <li><i class="fa-solid fa-chevron-right"></i> <a href="/faq">FAQ’S</a></li>
+            <li><i class="fa-solid fa-chevron-right"></i> <a href="#" onclick="showSection('tech-services')">Our Services</a></li>
+            
+            <li><i class="fa-solid fa-chevron-right"></i> <a href="#" onclick="showSection('faq-section')">FAQ’S</a></li>
             <li><i class="fa-solid fa-chevron-right"></i> 
                 <a href="#" onclick="showSection('projects')">Our Projects</a>
+                
+                
             </li>
             <li><i class="fa-solid fa-chevron-right"></i> <a href="/career">Careers</a></li>
         </ul>
