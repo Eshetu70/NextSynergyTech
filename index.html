@@ -2755,12 +2755,39 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         /* Mobile Optimization */
-        @media (max-width: 768px) {
-            .moving-logos img {
-                height: 50px; /* Smaller for mobile */
+         /* Mobile Optimization */
+         @media (max-width: 768px) {
+            .partner-section {
+                padding: 15px;
             }
+
+            .moving-logos {
+                width: 100%;
+                animation-duration: 15s; /* Speed up for smaller screens */
+            }
+
+            .moving-logos img {
+                height: 50px; /* Smaller images on mobile */
+                max-width: 80px;
+            }
+
             .moving-logos a {
-                margin: 0 20px;
+                margin: 0 15px; /* Less margin for compact display */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .partner-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .moving-logos img {
+                height: 40px;
+                max-width: 70px;
+            }
+
+            .moving-logos a {
+                margin: 0 10px;
             }
         }
     </style>
