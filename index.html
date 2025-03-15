@@ -3145,9 +3145,6 @@ document.addEventListener("DOMContentLoaded", () => {
             color: #00aaff;
             text-decoration: none;
         }
-        #software-development p a:hover {
-            text-decoration: underline;
-        }
         #software-development  ul {
             list-style-type: none;
             padding-left: 0;
@@ -3163,18 +3160,31 @@ document.addEventListener("DOMContentLoaded", () => {
             background: #007bff;
             transform: scale(1.05);
         }
-        #software-development  .sprint-cycle {
-            background: #0f3460;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 5px solid #00aaff;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-        #software-development  .sprint-cycle:hover {
-            background: #007bff;
-            color: #fff;
-        }
+    
+    .sprint-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    .sprint-phase {
+        background: #0f3460;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        flex: 1 1 calc(33.333% - 20px);
+        min-width: 200px;
+        transition: 0.3s;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .sprint-phase:hover {
+        background: #007bff;
+        transform: scale(1.05);
+    }
+    .sprint-phase h4 {
+        color: #00e6e6;
+        margin-bottom: 10px;
+    }
         #software-development button {
             display: block;
             background-color: #00aaff;
@@ -3211,37 +3221,92 @@ document.addEventListener("DOMContentLoaded", () => {
         #software-development ul li strong {
             color: cyan;
         }
+
+        .tech-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .tech-category {
+            background: #0f3460;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1 1 calc(33.333% - 20px);
+            min-width: 200px;
+            transition: 0.3s;
+        }
+        .tech-category span {
+            display: block;
+            font-size: 16px;
+            color: #00e6e6;
+            margin-top: 5px;
+        }
+        .tech-category:hover {
+            background: #007bff;
+            transform: scale(1.05);
+         transform: scale(1.05);
+        }
+        
+
+    
+    .sdlc-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    .sdlc-phase {
+        background: #0f3460;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        flex: 1 1 calc(33.333% - 20px);
+        min-width: 200px;
+        transition: 0.3s;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .sdlc-phase:hover {
+        background: #007bff;
+        transform: scale(1.05);
+    }
+    .sdlc-phase h4 {
+        color: #00e6e6;
+        margin-bottom: 10px;
+    }
     </style>
 
     <section id="software-development" class="section">
         <h2>Software Development Lifecycle & Sprint Cycle</h2>
-        <h3>Understanding the Software Development Lifecycle (SDLC)</h3>
-        <ul>
-            <li><strong>Requirement Analysis:</strong> Understanding stakeholder needs.</li>
-            <li><strong>Planning:</strong> Creating roadmaps, defining resources, and setting goals.</li>
-            <li><strong>Design:</strong> Architectural and UI/UX design.</li>
-            <li><strong>Development:</strong> Coding, integrating APIs, and functionality building.</li>
-            <li><strong>Testing:</strong> Ensuring software reliability, security, and performance.</li>
-            <li><strong>Deployment:</strong> Releasing software for end-users.</li>
-            <li><strong>Maintenance:</strong> Updating and improving based on feedback.</li>
-        </ul>
+        <h2>Understanding the Software Development Lifecycle (SDLC)</h2>
+        <div class="sdlc-container">
+            <div class="sdlc-phase"><h4>Requirement Analysis</h4><p>Understanding stakeholder needs and project scope.</p></div>
+            <div class="sdlc-phase"><h4>Planning</h4><p>Creating roadmaps, defining resources, and setting project goals.</p></div>
+            <div class="sdlc-phase"><h4>Design</h4><p>Developing architectural blueprints and UI/UX designs.</p></div>
+            <div class="sdlc-phase"><h4>Development</h4><p>Writing code, integrating APIs, and building functionality.</p></div>
+            <div class="sdlc-phase"><h4>Testing</h4><p>Ensuring reliability, security, and performance through rigorous testing.</p></div>
+            <div class="sdlc-phase"><h4>Deployment</h4><p>Releasing the software to end-users with monitoring in place.</p></div>
+            <div class="sdlc-phase"><h4>Maintenance</h4><p>Continuous improvement and updates based on user feedback.</p></div>
+        </div>
+   
         
         <h3>Agile Sprint Cycle: Day-by-Day Breakdown</h3>
-        <div class="sprint-cycle"><h4>Day 1: Sprint Planning & Requirement Analysis</h4><p>Define project goals, user stories, and sprint backlog.</p></div>
-        <div class="sprint-cycle"><h4>Day 2: System & UI/UX Design</h4><p>Create wireframes, prototypes, and database structures.</p></div>
-        <div class="sprint-cycle"><h4>Day 3: Development Begins</h4><p>Start coding frontend, backend, and database integration.</p></div>
-        <div class="sprint-cycle"><h4>Day 4: Testing & QA</h4><p>Conduct unit tests, integration tests, and security assessments.</p></div>
-        <div class="sprint-cycle"><h4>Day 5: Deployment & Sprint Review</h4><p>Deploy final product, collect feedback, and plan improvements.</p></div>
-        
+        <div class="sprint-container">
+            <div class="sprint-phase"><h4>Day 1: Sprint Planning & Requirement Analysis</h4><p>Define project goals, user stories, and sprint backlog.</p></div>
+            <div class="sprint-phase"><h4>Day 2: System & UI/UX Design</h4><p>Create wireframes, prototypes, and database structures.</p></div>
+            <div class="sprint-phase"><h4>Day 3: Development Begins</h4><p>Start coding frontend, backend, and database integration.</p></div>
+            <div class="sprint-phase"><h4>Day 4: Testing & QA</h4><p>Conduct unit tests, integration tests, and security assessments.</p></div>
+            <div class="sprint-phase"><h4>Day 5: Deployment & Sprint Review</h4><p>Deploy final product, collect feedback, and plan improvements.</p></div>
+        </div>
         <h3>Technologies We Use</h3>
-        <ul>
-            <li><strong>Frontend:</strong> HTML, CSS, JavaScript, React, Vue.js</li>
-            <li><strong>Backend:</strong> Node.js, Django, Flask, Spring Boot</li>
-            <li><strong>Database:</strong> MySQL, PostgreSQL, MongoDB, Firebase</li>
-            <li><strong>Testing:</strong> Jest, Selenium, Mocha, Postman</li>
-            <li><strong>Cloud & DevOps:</strong> AWS, Docker, Kubernetes, CI/CD pipelines</li>
-            <li><strong>Security:</strong> Blockchain, OAuth, JWT, SSL Encryption</li>
-        </ul>
+        <div class="tech-container">
+            <div class="tech-category"><strong>Frontend:</strong> <span>HTML, CSS, JavaScript, React, Vue.js</span></div>
+            <div class="tech-category"><strong>Backend:</strong> <span>Node.js, Django, Flask, Spring Boot</span></div>
+            <div class="tech-category"><strong>Database:</strong> <span>MySQL, PostgreSQL, MongoDB, Firebase</span></div>
+            <div class="tech-category"><strong>Testing:</strong> <span>Jest, Selenium, Mocha, Postman</span></div>
+            <div class="tech-category"><strong>Cloud & DevOps:</strong> <span>AWS, Docker, Kubernetes, CI/CD pipelines</span></div>
+        </div>
         
         <button onclick="toggleDetails()">Show More Details</button>
         <div id="extra-info">
