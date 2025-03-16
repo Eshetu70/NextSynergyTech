@@ -1064,17 +1064,75 @@
             </style>
             
             <!-- RIGHT SIDE: EMBEDDED HIGH-TECH VIDEO -->
+            <style>
+                
+                
+                .translate-options {
+                    margin-top: 15px;
+                }
+                .dropdown-container {
+                    margin-top: 15px;
+                    
+                }
+                .video-dropdown {
+                    padding: 12px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    background: #001f3f; /* Dark Blue */
+                    color: cyan;
+                    border: none;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    transition: 0.3s;
+                    box-shadow: 0px 4px 10px rgba(0, 170, 255, 0.4);
+                }
+                .video-dropdown:hover {
+                    background: linear-gradient(90deg, #007bff, #00f7ff);
+                    transform: scale(1.05);
+                    box-shadow: 0px 4px 15px rgba(0, 170, 255, 0.6);
+                }
+                #technology-video h3 {
+                    color: cyan;
+                }
+
+            </style>
+            
             <section id="technology-video" class="video-section">
                 <h2>Explore Futuristic Technologies</h2>
                 <div class="video-container">
-                    <iframe width="560" height="315" 
-                        src="https://www.youtube.com/embed/SzMiJFOa6w8" 
+                    <iframe id="video-frame" width="560" height="315" 
+                        src="https://www.youtube.com/embed/SzMiJFOa6w8?cc_load_policy=1" 
                         title="20 Emerging Technologies That Will Change The World" 
                         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
                     </iframe>
                 </div>
+                <div class="dropdown-container">
+                    <h3>Choose a Video</h3>
+                    <select id="video-select" class="video-dropdown" onchange="changeVideo(this.value)">
+                        <option value="SzMiJFOa6w8">Technology Video</option>
+                        <option value="j5v8D-alAKE">Agile Development</option>
+                        <option value="Z9QbYZh1YXY">Sprint Cycle</option>
+                        <option value="mgxDfCTIgJQ">Infinite-Minded Innovation</option>
+                        <option value="iwRneX7GIGI">Database Engineering Course</option>
+                        <option value="kd33UVZhnAA">Google Data Center Security</option>
+                         <option value="mKN_yxab1FA">The Power of Satellite Data</option>
+                         <option value="073GYKU5z60">Google's Data Storage Infrastructure</option>
+                         <option value="0e3GPea1Tyg">$456,000 Squid Game in Real Life!</option>
+                         <option value="G5rhGNbrV9I">Learning Google Cloud for AWS and Azure Professionals</option>
+                        <option value="dQw4w9WgXcQ">Surprise Video</option>
+                    </select>
+                </div>
             </section>
+            
+            <script>
+                function changeVideo(videoId) {
+                    let iframe = document.getElementById("video-frame");
+                    iframe.src = "https://www.youtube.com/embed/" + videoId + "?cc_load_policy=1&autoplay=1";
+                }
+            </script>
+            
+            
             
             <!-- Super Amazing Tech-Themed Styling -->
             <style>
