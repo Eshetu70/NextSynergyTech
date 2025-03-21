@@ -397,6 +397,7 @@
                    
                     <a href="#" onclick="showSection('courses')">Registration</a>
                     <a href="#" onclick="showSection('mobile-development')">Mobile Development</a>
+                    <a href="#" onclick="showSection('testimonials')">Testimonial</a>
                     <a href="#" onclick="showSection('contact-content')">Contact</a>
                 </div>
             </li>
@@ -2628,8 +2629,147 @@ document.addEventListener("DOMContentLoaded", () => {
     
         <a href="mailto:eshetuwek1@gmail.com" class="cta-button">📩 Send Us an Email</a>
     </section>
-
-
+    <style>
+        
+    
+        #testimonials .section {
+          padding: 40px 20px;
+          max-width: 1000px;
+          margin: auto;
+        }
+    
+        #testimonials  h1 {
+          font-size: 2.5rem;
+          text-align: center;
+          margin-bottom: 40px;
+          color: #007acc;
+        }
+    
+       
+        #testimonials .project h2 a {
+          color: cyan;
+          text-decoration: none;
+          font-size: 1.5rem;
+        }
+    
+        #testimonials  .project h2 a:hover {
+          color: #007acc;
+          text-decoration: underline;
+        }
+    
+        #testimonials .tech {
+          font-weight: bold;
+          color: #007acc;
+        }
+    
+        #testimonials   .github {
+          text-align: center;
+          margin-top: 40px;
+          font-size: 1.1rem;
+        }
+    
+        #testimonials  .github a {
+          color: cyan;
+          font-weight: bold;
+          text-decoration: none;
+          transition: color 0.3s;
+        }
+    
+        .github a:hover {
+          color: #007acc;
+        }
+    
+        #testimonials  .testimonials {
+          text-align: center;
+          margin-top: 60px;
+        }
+    
+        #testimonials .testimonials h2 {
+          font-size: 2rem;
+          color: #007acc;
+        }
+    
+        #testimonials .testimonial {
+          background: #16213e;
+          margin: 15px auto;
+          padding: 15px 25px;
+          border-left: 5px solid #007acc;
+          max-width: 700px;
+          font-style: italic;
+          border-radius: 8px;
+        }
+    
+        /* Cool animation on load */
+        #testimonials .project,
+        .testimonial {
+          opacity: 0;
+          transform: translateY(40px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+    
+       #testimonials .fade-in {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+      </style>
+    
+    
+      <section id="testimonials" class="section">
+        <h1>Next Synergy Tech | Technologies & Project Portfolio</h1>
+    
+        <div class="project">
+          <h2><a href="https://gedascmi.com" target="_blank">GEDA SCMI</a></h2>
+          <p><span class="tech">Technologies:</span> React, Node.js, MongoDB, Express.js</p>
+          <p>Developed a scalable platform for a nonprofit organization with donation and contact systems.</p>
+        </div>
+    
+        <div class="project">
+          <h2><a href="https://www.communitykitchenclt.org/" target="_blank">Community Kitchen CLT</a></h2>
+          <p><span class="tech">Technologies:</span> HTML, CSS, JavaScript, React</p>
+          <p>Built a responsive, accessible website supporting local food distribution efforts.</p>
+        </div>
+    
+        <div class="project">
+          <h2><a href="https://nextsynergytech.com" target="_blank">Next Synergy Tech</a></h2>
+          <p><span class="tech">Technologies:</span> React, Node.js, Express, MySQL</p>
+          <p>Worked on service forms, dashboards, and secure authentication for a business solutions platform.</p>
+        </div>
+    
+        <div class="project">
+          <h2><a href="https://eshetu70.github.io/WeSupportAmericans/" target="_blank">We Support Americans</a></h2>
+          <p><span class="tech">Technologies:</span> HTML, CSS, JavaScript</p>
+          <p>Created a digital platform for veterans and military families with a clean, mobile-friendly design.</p>
+        </div>
+    
+        <div class="github">
+          <p>Explore more on <a href="https://github.com/Eshetu70" target="_blank">GitHub →</a></p>
+        </div>
+    
+        <div class="testimonials">
+          <h2>Client Feedback</h2>
+          <div class="testimonial">"Next Synergy Tech consistently delivered high-quality, innovative solutions tailored to our mission."</div>
+          <div class="testimonial">"The team’s full-stack expertise—from front-end design to backend architecture—exceeded expectations."</div>
+          <div class="testimonial">"We were impressed with the professionalism, clarity, and reliability throughout every project."</div>
+        </div>
+      </section>
+    
+      <script>
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.project, .testimonial');
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('fade-in');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.2
+        });
+    
+        fadeElements.forEach(el => observer.observe(el));
+      </script>
+   
     </div>
 
 
@@ -3557,6 +3697,8 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("atlassian-video-container").style.display = "block";
         }
     </script>
+
+
 
 <!-- Footer Start -->
 <footer class="footer-section">
