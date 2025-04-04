@@ -3718,8 +3718,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     <style>
 
-        /* Core Styling */
-#infrastructure-services, #managed-services {
+/* Core Section Styling */
+#infrastructure-services,
+#managed-services,
+#system-integration,
+#training-development {
     background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
     color: #ffffff;
     padding: 60px 20px;
@@ -3731,26 +3734,32 @@ document.addEventListener("DOMContentLoaded", () => {
     line-height: 1.7;
 }
 
-/* Heading Styles */
-#infrastructure-services h2, #managed-services h2 {
+/* Section Titles */
+#infrastructure-services h2,
+#managed-services h2,
+#system-integration h2,
+#training-development h2 {
     font-size: 3rem;
     text-align: center;
     margin-bottom: 30px;
     color: #00e6e6;
 }
 
-#infrastructure-services h3, #managed-services h3 {
+#infrastructure-services h3,
+#managed-services h3,
+#system-integration h3,
+#training-development h3 {
     font-size: 1.8rem;
     color: #ffd700;
     margin-top: 40px;
     margin-bottom: 15px;
 }
-#infrastructure-services ul li strong, #managed-services ul li strong {
-    color: #ffd700;
-    font-weight: bold;
-}
-/* Image Styling */
-#infrastructure-services img, #managed-services img {
+
+/* Images */
+#infrastructure-services img,
+#managed-services img,
+#system-integration img,
+#training-development img, #cybersecurity-services img {
     display: block;
     max-width: 100%;
     height: auto;
@@ -3759,60 +3768,118 @@ document.addEventListener("DOMContentLoaded", () => {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Paragraph Styling */
-#infrastructure-services p, #managed-services p {
+/* Paragraphs */
+#infrastructure-services p,
+#managed-services p,
+#system-integration p,
+#training-development p, #cybersecurity-services p {
     font-size: 1.1rem;
     margin-bottom: 20px;
 }
 
-/* List Styling */
-#infrastructure-services ul, #managed-services ul {
-    padding-left: 20px;
+/* Lists */
+#infrastructure-services ul,
+#managed-services ul,
+#system-integration ul,
+#training-development ul {
+    padding-left: 0;
     list-style: none;
 }
 
-#infrastructure-services li, #managed-services li {
+#infrastructure-services li,
+#managed-services li,
+#system-integration li,
+#training-development li {
     position: relative;
-    padding-left: 30px;
-    margin-bottom: 12px;
+    padding-left: 35px;
+    margin-bottom: 18px;
     font-size: 1.05rem;
 }
 
+/* Strong above text on mobile */
+#infrastructure-services li strong,
+#managed-services li strong,
+#system-integration li strong,
+#training-development li strong, #cybersecurity-services li strong {
+    display: block;
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1.05rem;
+    margin-bottom: 4px;
+}
+
+/* Emoji markers */
 #infrastructure-services li::before {
     content: "🔥";
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 1.2rem;
 }
 
 #managed-services li::before {
     content: "⚙️";
+}
+#cybersecurity-services li::before {
+    content: "🔒";
+}
+
+#system-integration li::before {
+    content: "🔗";
+}
+
+#training-development li::before {
+    content: "🎓";
+}
+
+#infrastructure-services li::before,
+#managed-services li::before,
+#system-integration li::before,
+#training-development li::before, #cybersecurity-services li::before {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 0.2rem;
     font-size: 1.2rem;
 }
 
-/* Responsive Tweaks */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
-    #infrastructure-services, #managed-services {
+    #infrastructure-services,
+    #managed-services,
+    #system-integration,
+    #training-development, #cybersecurity-services {
         padding: 40px 15px;
     }
 
-    #infrastructure-services h2, #managed-services h2 {
-        font-size: 2.4rem;
+    #infrastructure-services h2,
+    #managed-services h2,
+    #system-integration h2,
+    #training-development h2, #cybersecurity-services h2 {
+        font-size: 2.2rem;
     }
 
-    #infrastructure-services h3, #managed-services h3 {
-        font-size: 1.5rem;
+    #infrastructure-services h3,
+    #managed-services h3,
+    #system-integration h3,
+    #training-development h3, #cybersecurity-services h3 {
+        font-size: 1.4rem;
     }
 
-    #infrastructure-services  p,
-    #infrastructure-services li {
+    #infrastructure-services p,
+    #managed-services p,
+    #system-integration p,
+    #training-development p,
+    #infrastructure-services li,
+    #managed-services li,
+    #system-integration li,
+    #training-development li, #cybersecurity-services li {
+        font-size: 1rem;
+    }
+
+    #infrastructure-services li strong,
+    #managed-services li strong,
+    #system-integration li strong,
+    #training-development li strong, #cybersecurity-services li strong {
         font-size: 1rem;
     }
 }
+
 
     </style>
 
@@ -3850,6 +3917,107 @@ document.addEventListener("DOMContentLoaded", () => {
             knowing your IT is in expert hands — so you can focus on innovation and growth.
         </p>
     </section>
+
+    <section id="system-integration" class="section">
+        <h2>System Integration</h2>
+        <img src="image/Integration Services.png" alt="System Integration Services">
+    
+        <h3>Connecting Systems for Seamless Business Performance</h3>
+        <p>
+            In today's complex digital environment, isolated systems lead to inefficiencies and data silos. Our System Integration 
+            services ensure your applications, platforms, and data sources work together in harmony. By unifying disconnected IT 
+            systems, we enable real-time data flow, improved collaboration, and smarter decision-making.
+        </p>
+    
+        <h3>Key Capabilities We Offer:</h3>
+        <ul>
+            <li> <strong>API Integration:</strong> Seamless integration between applications using RESTful and SOAP APIs</li>
+            <li> <strong>Enterprise Application Integration (EAI):</strong> Unified communication between CRM, ERP, HR, and other enterprise systems</li>
+            <li> <strong>Data Synchronization:</strong> Real-time data exchange and replication between platforms</li>
+            <li> <strong>Cloud & On-Prem Integration:</strong> Hybrid architecture support for maximum flexibility</li>
+            <li> <strong>Legacy System Modernization:</strong> Connecting outdated systems with modern platforms</li>
+            <li> <strong>IoT & Device Integration:</strong> Streamlining device data into central systems for monitoring and control</li>
+            <li> <strong>Middleware Solutions:</strong> Custom middleware to enable communication between incompatible systems</li>
+            <li> <strong>Data Warehousing Integration:</strong> Consolidating data from multiple sources into unified analytics platforms</li>
+            <li> <strong>Security & Compliance:</strong> Encrypted data transfers and access control across integrated systems</li>
+            <li> <strong>Workflow Automation:</strong> Automating business processes across systems for enhanced efficiency</li>
+        </ul>
+    
+        <h3>Integration that Drives Digital Transformation</h3>
+        <p>
+            We help organizations unlock the full potential of their technology by ensuring every system works together—securely and efficiently. 
+            Whether you're connecting cloud services, modernizing legacy apps, or enabling data intelligence through unified platforms, 
+            our System Integration solutions are built to power your digital journey.
+        </p>
+    </section>
+
+    <section id="training-development" class="section">
+        <h2>Training & Development</h2>
+        <img src="image/training.png" alt="Training and Development">
+    
+        <h3>Empowering Talent with Skills for Tomorrow</h3>
+        <p>
+            Our Training and Development programs are designed to bridge the gap between education and real-world skills. 
+            We provide hands-on learning experiences in today’s most in-demand technologies, ensuring students, professionals, 
+            and teams are equipped to succeed in a fast-paced digital environment. From beginner to advanced levels, our programs 
+            are tailored to support growth, innovation, and long-term success.
+        </p>
+    
+        <h3>Key Areas We Train In:</h3>
+        <ul>
+            <li> <strong>Full-Stack Web Development:</strong> HTML, CSS, JavaScript, React, Node.js, databases, and more</li>
+            <li> <strong>Cloud Computing:</strong> AWS, Microsoft Azure, and Google Cloud Platform training</li>
+            <li> <strong>Cybersecurity:</strong> Network defense, ethical hacking, threat detection, and secure coding</li>
+            <li> <strong>DevOps & CI/CD:</strong> Automation, pipelines, GitHub Actions, Jenkins, and containerization with Docker & Kubernetes</li>
+            <li> <strong>Data Analytics & AI:</strong> Machine learning, Python, data visualization, and business intelligence</li>
+            <li> <strong>Blockchain & Web3:</strong> Smart contracts, Ethereum development, and decentralized systems</li>
+            <li> <strong>Professional Certifications:</strong> CompTIA, AWS Certified, Microsoft, Cisco, and more</li>
+            <li> <strong>Soft Skills & Leadership:</strong> Communication, collaboration, project management, and team leadership</li>
+            <li> <strong>Custom Corporate Training:</strong> Tailored tech bootcamps and upskilling for teams and enterprises</li>
+            <li> <strong>Workforce Development:</strong> Partnering with schools and communities to drive career opportunities</li>
+        </ul>
+    
+        <h3>Building a Tech-Savvy Workforce</h3>
+        <p>
+            Our goal is to create a pipeline of highly skilled talent ready to meet industry demands. 
+            Whether you're an individual looking to boost your career or an organization investing in your team, 
+            our comprehensive training and development solutions will unlock your potential and fuel long-term success.
+        </p>
+    </section>
+
+    <section id="cybersecurity-services" class="section">
+        <h2>Cybersecurity Services</h2>
+        <img src="image/security.png" alt="Cybersecurity Services">
+    
+        <h3>Protecting Your Digital Assets with Advanced Security</h3>
+        <p>
+            In an age of growing cyber threats, robust security is no longer optional—it's essential. Our Cybersecurity Services provide 
+            comprehensive protection for your systems, data, and users. With proactive monitoring, intelligent threat detection, and industry-best 
+            practices, we ensure your digital operations are secure, compliant, and resilient against attacks.
+        </p>
+    
+        <h3>Key Cybersecurity Solutions We Provide:</h3>
+        <ul>
+            <li>🛡️ <strong>Network Security:</strong> Firewalls, VPNs, intrusion detection/prevention systems (IDS/IPS)</li>
+            <li>🛡️ <strong>Endpoint Protection:</strong> Antivirus, EDR (Endpoint Detection & Response), and mobile device security</li>
+            <li>🛡️ <strong>Threat Intelligence & Monitoring:</strong> Real-time alerts, log analysis, and incident response</li>
+            <li>🛡️ <strong>Cloud Security:</strong> Secure configuration of cloud environments (AWS, Azure, GCP)</li>
+            <li>🛡️ <strong>Identity & Access Management (IAM):</strong> Multi-factor authentication (MFA), SSO, and privileged access controls</li>
+            <li>🛡️ <strong>Data Encryption:</strong> End-to-end encryption, secure data storage, and TLS/SSL implementation</li>
+            <li>🛡️ <strong>Compliance & Risk Management:</strong> Support for HIPAA, PCI-DSS, GDPR, ISO 27001, and NIST</li>
+            <li>🛡️ <strong>Security Awareness Training:</strong> Empowering staff to detect and avoid phishing and social engineering</li>
+            <li>🛡️ <strong>Penetration Testing & Vulnerability Assessments:</strong> Ethical hacking and security audits</li>
+            <li>🛡️ <strong>Zero Trust Architecture:</strong> Enforcing least privilege and verifying every access request</li>
+        </ul>
+    
+        <h3>Secure Today. Protect Tomorrow.</h3>
+        <p>
+            We help you stay ahead of cyber threats by integrating security into every layer of your technology stack. 
+            Whether you're a small business or a large enterprise, our cybersecurity services are tailored to your unique environment, 
+            ensuring confidence, compliance, and continuity.
+        </p>
+    </section>
+    
     
     <script>
         function toggleDetails() {
@@ -3915,9 +4083,9 @@ document.addEventListener("DOMContentLoaded", () => {
             
             <li><i class="fa-solid fa-server"></i> <a href="#" onclick="showSection('managed-services')">Managed Services</a></li>
             <li><i class="fa-solid fa-network-wired"></i> <a href="#" onclick="showSection('infrastructure-services')">Infrastructure Services</a></li>
-            <li><i class="fa-solid fa-cogs"></i> <a href="service-details.html?title=system-integration">System Integration</a></li>
-            <li><i class="fa-solid fa-chalkboard-teacher"></i> <a href="service-details.html?title=training-development">Training and Development</a></li>
-            <li><i class="fa-solid fa-shield-alt"></i> <a href="service-details.html?title=cybersecurity">Cybersecurity Services</a></li>
+            <li><i class="fa-solid fa-cogs"></i> <a href="#" onclick="showSection('system-integration')">System Integration</a></li>
+            <li><i class="fa-solid fa-chalkboard-teacher"></i> <a href="#" onclick="showSection('training-development')">Training and Development</a></li>
+            <li><i class="fa-solid fa-shield-alt"></i> <a href="#" onclick="showSection('cybersecurity-services')">Cybersecurity Services</a></li>
         </ul>
     </div>
 
