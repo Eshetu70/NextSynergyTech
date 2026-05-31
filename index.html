@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -741,11 +747,95 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,8,15,0.9)
 
 <script>
 // ===== STATE =====
-let loggedIn = false;
-let currentUser = {name:'Student',email:'student@email.com'};
+const API_BASE = window.location.origin.includes('localhost') || window.location.protocol.startsWith('http')
+  ? window.location.origin
+  : '';
+
+let authToken = localStorage.getItem('nst_token') || '';
+let currentUser = JSON.parse(localStorage.getItem('nst_user') || 'null');
+let loggedIn = !!authToken && !!currentUser;
+
+function authHeaders() {
+  return authToken ? { 'Authorization': 'Bearer ' + authToken } : {};
+}
+
+async function apiRequest(path, options = {}) {
+  const res = await fetch(API_BASE + path, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(options.headers || {}),
+      ...authHeaders()
+    }
+  });
+
+  let data = {};
+  try { data = await res.json(); } catch {}
+
+  if (!res.ok) {
+    throw new Error(data.error || data.message || 'Request failed');
+  }
+
+  return data;
+}
+
+function saveAuth(token, user) {
+  authToken = token;
+  currentUser = {
+    id: user.id,
+    name: `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.email,
+    firstName: user.firstName || '',
+    lastName: user.lastName || '',
+    email: user.email,
+    role: user.role || 'student',
+    enrolledCourses: user.enrolledCourses || [],
+    streak: user.streak || 0,
+    hoursWatched: user.hoursWatched || 0
+  };
+  loggedIn = true;
+  localStorage.setItem('nst_token', token);
+  localStorage.setItem('nst_user', JSON.stringify(currentUser));
+}
+
+function clearAuth() {
+  authToken = '';
+  currentUser = null;
+  loggedIn = false;
+  localStorage.removeItem('nst_token');
+  localStorage.removeItem('nst_user');
+}
+
+async function checkAuth() {
+  if (!authToken) {
+    clearAuth();
+    updateNavForAuth();
+    return;
+  }
+
+  try {
+    const user = await apiRequest('/api/auth/me');
+    currentUser = {
+      id: user._id || user.id,
+      name: `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.email,
+      firstName: user.firstName || '',
+      lastName: user.lastName || '',
+      email: user.email,
+      role: user.role || 'student',
+      enrolledCourses: user.enrolledCourses || [],
+      streak: user.streak || 0,
+      hoursWatched: user.hoursWatched || 0
+    };
+    loggedIn = true;
+    localStorage.setItem('nst_user', JSON.stringify(currentUser));
+  } catch (e) {
+    clearAuth();
+  }
+
+  updateNavForAuth();
+}
 
 // ===== COURSES DATA =====
-const courses = [
+const fallbackCourses = [
   {id:1,title:'AI & Machine Learning',desc:'Learn Python for AI, TensorFlow, ML algorithms and model deployment.',thumb:'🤖',bg:'#0d1f2e',tag:'ai',tagLabel:'AI & ML',price:'$199',free:false,lessons:42,vid:'SzMiJFOa6w8'},
   {id:2,title:'React + Node Full Stack',desc:'Build modern web apps with React, Node.js, Express, and MongoDB.',thumb:'⚛️',bg:'#1a1a08',tag:'web',tagLabel:'Web Dev',price:'$179',free:false,lessons:58,vid:'iwRneX7GIGI'},
   {id:3,title:'Cybersecurity Pro',desc:'Network security, ethical hacking, penetration testing and zero-trust.',thumb:'🔐',bg:'#1f0d1f',tag:'security',tagLabel:'Security',price:'$229',free:false,lessons:35,vid:'kd33UVZhnAA'},
@@ -757,7 +847,9 @@ const courses = [
   {id:9,title:'UI/UX Design for Devs',desc:'Design beautiful interfaces with Figma, CSS, and design systems.',thumb:'🎨',bg:'#1a0d1a',tag:'web',tagLabel:'Design',price:'Free',free:true,lessons:25,vid:'mKN_yxab1FA'},
 ];
 
-const tutorials = [
+let courses = [...fallbackCourses];
+
+const fallbackTutorials = [
   {title:'Tech Innovations 2025',vid:'SzMiJFOa6w8',thumb:'🚀',duration:'18 min',topic:'Emerging Tech',lessons:[{label:'Watch Full Video',vid:'SzMiJFOa6w8'}]},
   {title:'Agile Development Masterclass',vid:'j5v8D-alAKE',thumb:'🔄',duration:'22 min',topic:'Dev Methods',lessons:[{label:'Agile Overview',vid:'j5v8D-alAKE'},{label:'Sprint Planning',vid:'Z9QbYZh1YXY'}]},
   {title:'Full Stack Node.js API',vid:'iwRneX7GIGI',thumb:'⚙️',duration:'35 min',topic:'Backend',lessons:[{label:'REST APIs',vid:'iwRneX7GIGI'},{label:'Express Setup',vid:'UQrBgnm8bhU'}]},
@@ -768,6 +860,49 @@ const tutorials = [
   {title:'Cloud Infrastructure (AWS)',vid:'G5rhGNbrV9I',thumb:'☁️',duration:'33 min',topic:'Cloud',lessons:[{label:'AWS Basics',vid:'G5rhGNbrV9I'},{label:'EC2 & S3',vid:'kd33UVZhnAA'}]},
   {title:'Satellite Data & IoT',vid:'mKN_yxab1FA',thumb:'🛰️',duration:'15 min',topic:'IoT',lessons:[{label:'Watch Full',vid:'mKN_yxab1FA'}]},
 ];
+
+let tutorials = [...fallbackTutorials];
+
+async function loadLiveContent() {
+  try {
+    const apiCourses = await apiRequest('/api/courses');
+    if (Array.isArray(apiCourses) && apiCourses.length) {
+      courses = apiCourses.map(c => ({
+        id: c._id || c.id,
+        title: c.title,
+        desc: c.description || '',
+        thumb: c.thumbnail || '📚',
+        bg: '#0d1525',
+        tag: c.category || 'web',
+        tagLabel: (c.category || 'Course').replace(/\b\w/g, m => m.toUpperCase()),
+        price: c.isFree || Number(c.price || 0) === 0 ? 'Free' : '$' + Number(c.price || 0).toLocaleString(),
+        free: !!c.isFree || Number(c.price || 0) === 0,
+        lessons: Array.isArray(c.lessons) ? c.lessons.length : 0,
+        vid: (Array.isArray(c.lessons) && c.lessons[0] && c.lessons[0].videoUrl) ? c.lessons[0].videoUrl : 'SzMiJFOa6w8'
+      }));
+    }
+  } catch (e) {
+    console.warn('Using fallback courses:', e.message);
+  }
+
+  try {
+    const apiTutorials = await apiRequest('/api/tutorials');
+    if (Array.isArray(apiTutorials) && apiTutorials.length) {
+      tutorials = apiTutorials.map(t => ({
+        title: t.title,
+        vid: t.videoId,
+        thumb: t.thumbnail || '🎬',
+        duration: t.duration || '',
+        topic: t.topic || 'Tutorial',
+        lessons: Array.isArray(t.lessons) && t.lessons.length ? t.lessons : [{ label: 'Watch Full', vid: t.videoId }]
+      }));
+    }
+  } catch (e) {
+    console.warn('Using fallback tutorials:', e.message);
+  }
+
+  renderCourses('all');
+}
 
 // ===== PAGE ROUTING =====
 function showPage(id, el){
@@ -782,6 +917,17 @@ function showPage(id, el){
   if(id==='courses') renderCourses('all');
   if(id==='tutorials') renderTutorials();
   if(id==='dashboard') renderDashboard();
+  if(id==='order' && loggedIn && currentUser) {
+    const fullName = (currentUser.name || '').split(' ');
+    const first = currentUser.firstName || fullName[0] || '';
+    const last = currentUser.lastName || fullName.slice(1).join(' ') || '';
+    const fn = document.getElementById('of-fname');
+    const ln = document.getElementById('of-lname');
+    const em = document.getElementById('of-email');
+    if (fn && !fn.value) fn.value = first;
+    if (ln && !ln.value) ln.value = last;
+    if (em && !em.value) em.value = currentUser.email || '';
+  }
 }
 
 // ===== COURSES =====
@@ -789,7 +935,7 @@ function renderCourses(filter){
   const grid = document.getElementById('coursesGrid');
   const filtered = filter==='all' ? courses : filter==='free' ? courses.filter(c=>c.free) : courses.filter(c=>c.tag===filter);
   grid.innerHTML = filtered.map(c=>`
-    <div class="course-card" onclick="handleCourseClick(${c.id})">
+    <div class="course-card" onclick="handleCourseClick('${c.id}')">
       <div class="cc-thumb" style="background:${c.bg};">${c.thumb}</div>
       <div class="cc-body">
         <div class="cc-tags"><span class="cc-tag" style="background:rgba(0,229,255,0.1);color:var(--cyan);">${c.tagLabel}</span>${c.free?'<span class="cc-tag" style="background:rgba(6,214,160,0.1);color:var(--green);">Free</span>':''}</div>
@@ -805,7 +951,7 @@ function filterCourses(tag,btn){
   renderCourses(tag);
 }
 function handleCourseClick(id){
-  const c = courses.find(x=>x.id===id);
+  const c = courses.find(x => String(x.id) === String(id));
   if(loggedIn || c.free){
     openVideoModal(c.vid, c.title);
   } else {
@@ -851,40 +997,83 @@ function closeVideoModal(){
 }
 
 // ===== AUTH =====
-function doLogin(){
-  const email = document.getElementById('login-email').value;
+async function doLogin(){
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
   const pass = document.getElementById('login-pass').value;
-  if(!email||!pass){showToast('Please fill in all fields.','error');return;}
-  const name = email.split('@')[0].replace(/\./g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-  currentUser = {name,email};
-  loggedIn = true;
-  updateNavForAuth();
-  showToast(`Welcome back, ${name}! 👋`,'success');
-  setTimeout(()=>showPage('dashboard'),600);
+
+  if(!email || !pass){
+    showToast('Please enter email and password.','error');
+    return;
+  }
+
+  try {
+    const data = await apiRequest('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password: pass })
+    });
+
+    saveAuth(data.token, data.user);
+    updateNavForAuth();
+    showToast(`Welcome back, ${currentUser.firstName || currentUser.name}! 👋`,'success');
+    setTimeout(()=>showPage('dashboard'),600);
+  } catch (e) {
+    showToast('Login failed. Please register first or check your password.','error');
+  }
 }
-function doSignup(){
-  const fn = document.getElementById('su-fname').value;
-  const ln = document.getElementById('su-lname').value;
-  const email = document.getElementById('su-email').value;
+
+async function doSignup(){
+  const fn = document.getElementById('su-fname').value.trim();
+  const ln = document.getElementById('su-lname').value.trim();
+  const email = document.getElementById('su-email').value.trim().toLowerCase();
   const pass = document.getElementById('su-pass').value;
-  if(!fn||!ln||!email||!pass){showToast('Please fill in all fields.','error');return;}
-  currentUser = {name:fn+' '+ln, email};
-  loggedIn = true;
-  updateNavForAuth();
-  showToast(`Account created! Welcome, ${fn}! 🎉`,'success');
-  setTimeout(()=>showPage('dashboard'),600);
+  const goal = document.getElementById('su-goal').value;
+
+  if(!fn || !ln || !email || !pass){
+    showToast('Please fill in all fields.','error');
+    return;
+  }
+
+  if (pass.length < 6) {
+    showToast('Password must be at least 6 characters.','error');
+    return;
+  }
+
+  try {
+    const data = await apiRequest('/api/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({
+        firstName: fn,
+        lastName: ln,
+        email,
+        password: pass,
+        goal
+      })
+    });
+
+    saveAuth(data.token, data.user);
+    updateNavForAuth();
+    showToast(`Account created! Welcome, ${fn}! 🎉`,'success');
+    setTimeout(()=>showPage('dashboard'),600);
+  } catch (e) {
+    showToast(e.message || 'Registration failed. This email may already be registered.','error');
+  }
 }
+
 function doLogout(){
-  loggedIn = false;
+  clearAuth();
   updateNavForAuth();
   showToast('Logged out successfully.','success');
   setTimeout(()=>showPage('home'),400);
 }
+
 function updateNavForAuth(){
   const nr = document.getElementById('navRight');
-  if(loggedIn){
+  if(loggedIn && currentUser){
     const initials = currentUser.name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-    nr.innerHTML = `<div class="user-avatar" onclick="showPage('dashboard')" title="Dashboard">${initials}</div>`;
+    nr.innerHTML = `
+      <div class="user-avatar" onclick="showPage('dashboard')" title="Dashboard">${initials}</div>
+      <button class="btn-ghost" onclick="doLogout()">Logout</button>
+    `;
   } else {
     nr.innerHTML = `<button class="btn-ghost" onclick="showPage('login')">Log In</button><button class="btn-primary" onclick="showPage('signup')">Get Started</button>`;
   }
@@ -893,7 +1082,7 @@ function updateNavForAuth(){
 // ===== DASHBOARD =====
 function renderDashboard(){
   if(!loggedIn){showPage('login');return;}
-  document.getElementById('dashWelcome').textContent = `Welcome back, ${currentUser.name.split(' ')[0]} 👋`;
+  document.getElementById('dashWelcome').textContent = `Welcome back, ${(currentUser.name || currentUser.email).split(' ')[0]} 👋`;
   // profile
   document.getElementById('profileName').textContent = currentUser.name;
   document.getElementById('profileEmail').textContent = currentUser.email;
@@ -940,22 +1129,86 @@ function selectPackage(pkg){
   }
   document.querySelector('.order-form-wrap').scrollIntoView({behavior:'smooth',block:'start'});
 }
-function submitOrder(){
-  const fn = document.getElementById('of-fname').value;
-  const email = document.getElementById('of-email').value;
-  if(!fn||!email){showToast('Please fill in your name and email.','error');return;}
-  showToast(`✅ Request received! We'll contact ${fn} within 24 hours.`,'success');
-  document.querySelectorAll('.form-input,.form-textarea').forEach(el=>el.value='');
+async function submitOrder(){
+  if (!loggedIn || !authToken) {
+    showToast('Please register or login before submitting a project request.','error');
+    setTimeout(() => showPage('signup'), 700);
+    return;
+  }
+
+  const fn = document.getElementById('of-fname').value.trim();
+  const ln = document.getElementById('of-lname').value.trim();
+  const email = document.getElementById('of-email').value.trim().toLowerCase();
+  const phone = document.getElementById('of-phone').value.trim();
+  const packageName = document.getElementById('of-package').value;
+  const budget = document.getElementById('of-budget').value;
+  const description = document.getElementById('of-desc').value.trim();
+
+  if(!fn || !ln || !email || !description){
+    showToast('Please fill in first name, last name, email, and project description.','error');
+    return;
+  }
+
+  if(description.length < 10){
+    showToast('Project description must be at least 10 characters.','error');
+    return;
+  }
+
+  try {
+    await apiRequest('/api/orders', {
+      method: 'POST',
+      body: JSON.stringify({
+        firstName: fn,
+        lastName: ln,
+        email,
+        phone,
+        packageName,
+        budget,
+        description
+      })
+    });
+
+    showToast(`✅ Request received! We'll contact ${fn} within 24 hours.`,'success');
+    ['of-fname','of-lname','of-email','of-phone','of-desc'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+  } catch (e) {
+    showToast(e.message || 'Could not submit order. Please try again.','error');
+  }
 }
 
 // ===== PROFILE =====
-function saveProfile(){
-  currentUser.name = document.getElementById('profileNameInput').value;
-  currentUser.email = document.getElementById('profileEmailInput').value;
-  document.getElementById('profileName').textContent = currentUser.name;
-  document.getElementById('profileEmail').textContent = currentUser.email;
-  updateNavForAuth();
-  showToast('Profile updated!','success');
+async function saveProfile(){
+  if (!loggedIn || !currentUser) {
+    showToast('Please login first.','error');
+    return;
+  }
+
+  const fullName = document.getElementById('profileNameInput').value.trim();
+  const email = document.getElementById('profileEmailInput').value.trim().toLowerCase();
+  const [firstName, ...rest] = fullName.split(' ');
+  const lastName = rest.join(' ') || currentUser.lastName || '';
+
+  try {
+    const updated = await apiRequest('/api/auth/profile', {
+      method: 'PUT',
+      body: JSON.stringify({ firstName, lastName, email })
+    });
+
+    currentUser.name = `${updated.firstName || firstName} ${updated.lastName || lastName}`.trim();
+    currentUser.firstName = updated.firstName || firstName;
+    currentUser.lastName = updated.lastName || lastName;
+    currentUser.email = updated.email || email;
+    localStorage.setItem('nst_user', JSON.stringify(currentUser));
+
+    document.getElementById('profileName').textContent = currentUser.name;
+    document.getElementById('profileEmail').textContent = currentUser.email;
+    updateNavForAuth();
+    showToast('Profile updated!','success');
+  } catch (e) {
+    showToast(e.message || 'Could not update profile.','error');
+  }
 }
 
 // ===== TOAST =====
@@ -967,7 +1220,8 @@ function showToast(msg,type='success'){
 }
 
 // ===== INIT =====
-renderCourses('all');
+loadLiveContent();
+checkAuth();
 </script>
 </body>
 </html>
