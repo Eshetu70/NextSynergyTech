@@ -1403,322 +1403,122 @@ app.get('/admin/logout', (_req, res) => {
   res.redirect('/admin/login');
 });
 
-app.get('/admin', adminCookieAuth, (_req, res) => {
-  res.send(`<!DOCTYPE html>
+
+app.get('/admin', adminCookieAuth, async (_req, res) => {
+  try {
+    const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (m) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+    }[m]));
+
+    const fmtDate = (v) => {
+      try { return v ? new Date(v).toLocaleString() : '-'; } catch { return '-'; }
+    };
+
+    let users = [], orders = [], courses = [], tutorials = [], posts = [];
+
+    if (dbMode === 'mongodb-atlas') {
+      users = (await User.find().select('-password').sort({ createdAt: -1 }).lean()).map(safeUser);
+      orders = await Order.find().sort({ createdAt: -1 }).lean();
+      courses = await Course.find().sort({ createdAt: -1 }).lean();
+      tutorials = await Tutorial.find().sort({ createdAt: -1 }).lean();
+      posts = await OwnerPost.find().sort({ createdAt: -1 }).lean();
+    } else {
+      const db = readDb();
+      users = (db.users || []).map(safeUser).sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+      orders = [...(db.orders || [])].sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+      courses = [...(db.courses || [])].sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+      tutorials = [...(db.tutorials || [])].sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+      posts = [...(db.posts || [])].sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+    }
+
+    const noRow = (col) => `<tr><td colspan="${col}">No data found</td></tr>`;
+
+    const usersRows = users.length ? users.map((u) => `
+      <tr>
+        <td>${esc(`${u.firstName || ''} ${u.lastName || ''}`.trim() || 'Customer')}</td>
+        <td>${esc(u.email || '-')}</td>
+        <td>${esc(u.role || 'student')}</td>
+        <td>${esc(fmtDate(u.createdAt))}</td>
+      </tr>`).join('') : noRow(4);
+
+    const ordersRows = orders.length ? orders.map((o) => {
+      const id = String(o._id || o.id || '');
+      const status = String(o.status || 'pending');
+      const payment = String(o.paymentStatus || 'unpaid');
+      const selected = (v) => status === v ? 'selected' : '';
+      return `
+      <tr>
+        <td><b>${esc(`${o.firstName || ''} ${o.lastName || ''}`.trim() || 'Customer')}</b><div class="small">Created: ${esc(fmtDate(o.createdAt))}</div></td>
+        <td><b>Email:</b> ${esc(o.email || '-')}<br><b>Phone:</b> ${esc(o.phone || '-')}</td>
+        <td><b>${esc(o.packageName || '-')}</b><div class="small">Budget: ${esc(o.budget || '-')}<br>Payment: ${esc(payment)}</div></td>
+        <td class="desc-box">${esc(o.description || 'No description provided')}<br><br><span class="small"><b>Admin notes:</b> ${esc(o.adminNotes || '-')}</span></td>
+        <td class="order-actions">
+          <span class="status-pill">${esc(status)}</span>
+          <select id="status_${esc(id)}">
+            <option value="pending" ${selected('pending')}>pending</option>
+            <option value="in-progress" ${selected('in-progress')}>in-progress</option>
+            <option value="delivered" ${selected('delivered')}>delivered</option>
+            <option value="cancelled" ${selected('cancelled')}>cancelled</option>
+          </select>
+          <textarea id="note_${esc(id)}" placeholder="Admin notes">${esc(o.adminNotes || '')}</textarea>
+          <button class="mini-btn" onclick="updateOrder('${esc(id)}')">Update</button>
+          <button class="mini-btn danger" onclick="delOrder('${esc(id)}')">Delete</button>
+        </td>
+      </tr>`;
+    }).join('') : noRow(5);
+
+    const coursesRows = courses.length ? courses.map((c) => {
+      const id = String(c._id || c.id || '');
+      return `<tr><td>${esc(c.title || '-')}</td><td>${esc(c.category || '-')}</td><td>${c.isFree ? 'Free' : '$' + esc(c.price || 0)}</td><td><button class="danger" onclick="delCourse('${esc(id)}')">Delete</button></td></tr>`;
+    }).join('') : noRow(4);
+
+    const tutorialsRows = tutorials.length ? tutorials.map((t) => {
+      const id = String(t._id || t.id || '');
+      return `<tr><td>${esc(t.title || '-')}</td><td>${esc(t.topic || '-')}</td><td>${esc(t.videoId || '-')}</td><td><button class="danger" onclick="delTutorial('${esc(id)}')">Delete</button></td></tr>`;
+    }).join('') : noRow(4);
+
+    const postsRows = posts.length ? posts.map((p) => {
+      const id = String(p._id || p.id || '');
+      return `<tr><td>${esc(p.title || '-')}</td><td>${esc(p.category || '-')}</td><td>${esc(p.message || '-')}</td><td><button class="danger" onclick="delPost('${esc(id)}')">Delete</button></td></tr>`;
+    }).join('') : noRow(4);
+
+    res.send(`<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NextSynergy Admin Dashboard</title>
 <style>
 :root{--bg:#05080f;--surface:#141928;--border:rgba(255,255,255,.13);--cyan:#00e5ff;--red:#ff6b6b;--text:#f0f4ff;--muted:#8892aa}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;padding:24px}
-h1{color:var(--cyan);margin:0 0 6px}.sub{color:var(--muted);margin:0 0 20px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
-.btn,button,a.btn{background:var(--cyan);color:#000;border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block;margin:4px}
-.ghost{background:rgba(255,255,255,.08)!important;color:var(--text)!important;border:1px solid var(--border)!important}
-.danger{background:rgba(255,107,107,.18)!important;color:var(--red)!important;border:1px solid rgba(255,107,107,.35)!important}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0}
-.stat,.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px}.num{font-size:32px;font-weight:900;color:var(--cyan)}.label{font-size:13px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{margin-bottom:16px;overflow:auto}
-table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;font-size:14px;vertical-align:top}th{color:var(--muted);font-size:12px;text-transform:uppercase}
-input,textarea,select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--border);background:#0f1525;color:#fff;margin:6px 0}textarea{min-height:80px}
-.small{font-size:12px;color:var(--muted);line-height:1.45}.desc-box{max-width:360px;white-space:pre-wrap;line-height:1.45}.order-actions{min-width:190px}.mini-btn{padding:8px 10px;border-radius:8px;font-size:12px;margin-top:6px}.status-pill{display:inline-block;padding:4px 9px;border-radius:999px;background:rgba(0,229,255,.12);color:var(--cyan);font-size:12px;font-weight:800;margin-bottom:6px}
-.err{display:none;color:var(--red);background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.25);border-radius:10px;padding:12px;margin:12px 0}
-@media(max-width:800px){.grid{grid-template-columns:1fr}body{padding:14px}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;padding:24px}h1{color:var(--cyan);margin:0 0 6px}.sub{color:var(--muted);margin:0 0 20px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.btn,button,a.btn{background:var(--cyan);color:#000;border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block;margin:4px}.ghost{background:rgba(255,255,255,.08)!important;color:var(--text)!important;border:1px solid var(--border)!important}.danger{background:rgba(255,107,107,.18)!important;color:var(--red)!important;border:1px solid rgba(255,107,107,.35)!important}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0}.stat,.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px}.num{font-size:32px;font-weight:900;color:var(--cyan)}.label{font-size:13px;color:var(--muted)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{margin-bottom:16px;overflow:auto}table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;font-size:14px;vertical-align:top}th{color:var(--muted);font-size:12px;text-transform:uppercase}input,textarea,select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--border);background:#0f1525;color:#fff;margin:6px 0}textarea{min-height:80px}.small{font-size:12px;color:var(--muted);line-height:1.45}.desc-box{max-width:360px;white-space:pre-wrap;line-height:1.45}.order-actions{min-width:190px}.mini-btn{padding:8px 10px;border-radius:8px;font-size:12px;margin-top:6px}.status-pill{display:inline-block;padding:4px 9px;border-radius:999px;background:rgba(0,229,255,.12);color:var(--cyan);font-size:12px;font-weight:800;margin-bottom:6px}.err{display:none;color:var(--red);background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.25);border-radius:10px;padding:12px;margin:12px 0}.ok{color:#06d6a0;font-size:13px;margin-top:6px}@media(max-width:800px){.grid{grid-template-columns:1fr}body{padding:14px}table{min-width:900px}}
 </style>
 </head>
 <body>
-<div class="top">
-  <div>
-    <h1>NextSynergy Tech Admin</h1>
-    <p class="sub">Users, orders, courses, tutorials, and owner posts.</p>
-  </div>
-  <div>
-    <a class="btn ghost" href="/">Website</a>
-    <a class="btn ghost" href="/api/health">Health</a>
-    <button onclick="loadAll()">Refresh</button>
-    <button class="ghost" onclick="createTestOrder()">Create Test Order</button>
-    <a class="btn ghost" href="/api/debug/counts" target="_blank">Debug Counts</a>
-    <a class="btn danger" href="/admin/logout">Logout</a>
-  </div>
-</div>
-
+<div class="top"><div><h1>NextSynergy Tech Admin</h1><p class="sub">Server-rendered dashboard. DB: ${esc(dbMode)} / ${esc(dbMode === 'mongodb-atlas' ? mongoose.connection.name : MONGO_DB)}</p></div><div><a class="btn ghost" href="/">Website</a><a class="btn ghost" href="/api/health">Health</a><a class="btn ghost" href="/api/debug/counts">Counts</a><button onclick="location.reload()">Refresh</button><a class="btn danger" href="/admin/logout">Logout</a></div></div>
 <div id="error" class="err"></div>
-
-<div class="stats">
-  <div class="stat"><div class="num" id="usersCount">0</div><div class="label">Users</div></div>
-  <div class="stat"><div class="num" id="ordersCount">0</div><div class="label">Orders</div></div>
-  <div class="stat"><div class="num" id="coursesCount">0</div><div class="label">Courses</div></div>
-  <div class="stat"><div class="num" id="tutorialsCount">0</div><div class="label">Tutorials</div></div>
-  <div class="stat"><div class="num" id="postsCount">0</div><div class="label">Owner Posts</div></div>
-</div>
-
-<div class="grid">
-  <div class="card">
-    <h2>Add Course</h2>
-    <input id="courseTitle" placeholder="Course title">
-    <textarea id="courseDesc" placeholder="Description"></textarea>
-    <input id="courseCat" placeholder="Category e.g. web, ai, mobile">
-    <input id="coursePrice" type="number" placeholder="Price">
-    <input id="courseIcon" placeholder="Icon" value="📚">
-    <button onclick="addCourse()">Save Course</button>
-  </div>
-
-  <div class="card">
-    <h2>Add Tutorial</h2>
-    <input id="tutTitle" placeholder="Tutorial title">
-    <input id="tutVideo" placeholder="YouTube Video ID">
-    <input id="tutTopic" placeholder="Topic">
-    <input id="tutIcon" placeholder="Icon" value="🎬">
-    <button onclick="addTutorial()">Save Tutorial</button>
-  </div>
-</div>
-
-<div class="card">
-  <h2>Owner Posts</h2>
-  <div class="grid">
-    <div>
-      <input id="postTitle" placeholder="Post title">
-      <input id="postCategory" placeholder="Category" value="announcement">
-      <textarea id="postMessage" placeholder="Owner message"></textarea>
-      <input id="postImage" placeholder="Image URL optional">
-      <button onclick="addPost()">Add Owner Post</button>
-    </div>
-    <div><p class="sub">Public posts are available at /api/posts.</p></div>
-  </div>
-  <table><thead><tr><th>Title</th><th>Category</th><th>Message</th><th>Action</th></tr></thead><tbody id="postsBody"></tbody></table>
-</div>
-
-<div class="card"><h2>Users</h2><table><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th></tr></thead><tbody id="usersBody"></tbody></table></div>
-<div class="card"><h2>Orders</h2><p class="sub">View full customer request, phone number, budget, description, and update order status.</p><table><thead><tr><th>Customer</th><th>Contact</th><th>Package / Budget</th><th>Description</th><th>Status / Update</th></tr></thead><tbody id="ordersBody"></tbody></table></div>
-<div class="card"><h2>Courses</h2><table><thead><tr><th>Title</th><th>Category</th><th>Price</th><th>Action</th></tr></thead><tbody id="coursesBody"></tbody></table></div>
-<div class="card"><h2>Tutorials</h2><table><thead><tr><th>Title</th><th>Topic</th><th>Video ID</th><th>Action</th></tr></thead><tbody id="tutorialsBody"></tbody></table></div>
-
+<div class="stats"><div class="stat"><div class="num">${users.length}</div><div class="label">Users</div></div><div class="stat"><div class="num">${orders.length}</div><div class="label">Orders</div></div><div class="stat"><div class="num">${courses.length}</div><div class="label">Courses</div></div><div class="stat"><div class="num">${tutorials.length}</div><div class="label">Tutorials</div></div><div class="stat"><div class="num">${posts.length}</div><div class="label">Owner Posts</div></div></div>
+<div class="grid"><div class="card"><h2>Add Course</h2><input id="courseTitle" placeholder="Course title"><textarea id="courseDesc" placeholder="Description"></textarea><input id="courseCat" placeholder="Category e.g. web, ai, mobile"><input id="coursePrice" type="number" placeholder="Price"><input id="courseIcon" placeholder="Icon" value="📚"><button onclick="addCourse()">Save Course</button><div class="ok" id="courseOk"></div></div><div class="card"><h2>Add Tutorial</h2><input id="tutTitle" placeholder="Tutorial title"><input id="tutVideo" placeholder="YouTube Video ID"><input id="tutTopic" placeholder="Topic"><input id="tutIcon" placeholder="Icon" value="🎬"><button onclick="addTutorial()">Save Tutorial</button><div class="ok" id="tutOk"></div></div></div>
+<div class="card"><h2>Owner Posts</h2><div class="grid"><div><input id="postTitle" placeholder="Post title"><input id="postCategory" placeholder="Category" value="announcement"><textarea id="postMessage" placeholder="Owner message"></textarea><input id="postImage" placeholder="Image URL optional"><button onclick="addPost()">Add Owner Post</button><div class="ok" id="postOk"></div></div><div><p class="sub">Public posts are available at /api/posts.</p></div></div><table><thead><tr><th>Title</th><th>Category</th><th>Message</th><th>Action</th></tr></thead><tbody>${postsRows}</tbody></table></div>
+<div class="card"><h2>Users</h2><table><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th></tr></thead><tbody>${usersRows}</tbody></table></div>
+<div class="card"><h2>Orders</h2><p class="sub">View full customer request, phone number, budget, description, and update order status.</p><table><thead><tr><th>Customer</th><th>Contact</th><th>Package / Budget</th><th>Description</th><th>Status / Update</th></tr></thead><tbody>${ordersRows}</tbody></table></div>
+<div class="card"><h2>Courses</h2><table><thead><tr><th>Title</th><th>Category</th><th>Price</th><th>Action</th></tr></thead><tbody>${coursesRows}</tbody></table></div>
+<div class="card"><h2>Tutorials</h2><table><thead><tr><th>Title</th><th>Topic</th><th>Video ID</th><th>Action</th></tr></thead><tbody>${tutorialsRows}</tbody></table></div>
 <script>
-var token=(document.cookie.match(/nst_admin=([^;]+)/)||[])[1]||'';
-
-function esc(v){
-  return String(v||'').replace(/[&<>"']/g,function(m){
-    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m];
-  });
-}
-
-async function api(url,method,body){
-  // Send admin cookie with same-origin requests and also send Bearer token when readable.
-  var headers={'Content-Type':'application/json'};
-  if(token) {
-    headers['Authorization']='Bearer '+token;
-    headers['x-admin-token']=token;
-  }
-  var opt={
-    method:method||'GET',
-    headers:headers,
-    credentials:'include'
-  };
-  if(body) opt.body=JSON.stringify(body);
-  var r=await fetch(url,opt);
-  var d=await r.json().catch(function(){return {};});
-  if(!r.ok) throw new Error((d.error||('Request failed '+r.status))+' from '+url);
-  return d;
-}
-
-function showErr(e){
-  var b=document.getElementById('error');
-  b.textContent=e.message||e;
-  b.style.display='block';
-}
-
-function row(html,col){
-  return html || ('<tr><td colspan="'+col+'">No data found</td></tr>');
-}
-
-async function safeApi(url, fallback){
-  try{
-    return await api(url);
-  }catch(e){
-    console.warn('Failed loading:', url, e.message || e);
-    return fallback || [];
-  }
-}
-
-async function loadAll(){
-  try{
-    document.getElementById('error').style.display='none';
-
-    // Load each dashboard section separately.
-    // Important: one failed API should NOT make the whole dashboard stay at zero.
-    var users = await safeApi('/api/admin/users', []);
-    var orders = await safeApi('/api/admin/orders', []);
-    var courses = await safeApi('/api/courses', []);
-    var tutorials = await safeApi('/api/tutorials', []);
-    var posts = await safeApi('/api/admin/posts', []);
-
-    document.getElementById('usersCount').textContent = users.length;
-    document.getElementById('ordersCount').textContent = orders.length;
-    document.getElementById('coursesCount').textContent = courses.length;
-    document.getElementById('tutorialsCount').textContent = tutorials.length;
-    document.getElementById('postsCount').textContent = posts.length;
-
-    document.getElementById('usersBody').innerHTML = row(users.map(function(u){
-      var fullName = ((u.firstName || '') + ' ' + (u.lastName || '')).trim() || 'Customer';
-      return '<tr>'+
-        '<td>'+esc(fullName)+'</td>'+
-        '<td>'+esc(u.email || '-')+'</td>'+
-        '<td>'+esc(u.role || 'student')+'</td>'+
-        '<td>'+(u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '-')+'</td>'+
-      '</tr>';
-    }).join(''), 4);
-
-    document.getElementById('ordersBody').innerHTML = row(orders.map(function(o){
-      var id = o._id || o.id;
-      var customer = esc(((o.firstName || '') + ' ' + (o.lastName || '')).trim() || 'Customer');
-      var created = o.createdAt ? new Date(o.createdAt).toLocaleString() : '-';
-      var status = esc(o.status || 'pending');
-      var payment = esc(o.paymentStatus || 'unpaid');
-      return '<tr>'+
-        '<td><b>'+customer+'</b><div class="small">Created: '+created+'</div></td>'+
-        '<td><b>Email:</b> '+esc(o.email || '-')+'<br><b>Phone:</b> '+esc(o.phone || '-')+'</td>'+
-        '<td><b>'+esc(o.packageName || '-')+'</b><div class="small">Budget: '+esc(o.budget || '-')+'<br>Payment: '+payment+'</div></td>'+
-        '<td class="desc-box">'+esc(o.description || 'No description provided')+'<br><br><span class="small"><b>Admin notes:</b> '+esc(o.adminNotes || '-')+'</span></td>'+
-        '<td class="order-actions"><span class="status-pill">'+status+'</span><select id="status_'+id+'">'+
-          '<option value="pending" '+(status==='pending'?'selected':'')+'>pending</option>'+
-          '<option value="in-progress" '+(status==='in-progress'?'selected':'')+'>in-progress</option>'+
-          '<option value="delivered" '+(status==='delivered'?'selected':'')+'>delivered</option>'+
-          '<option value="cancelled" '+(status==='cancelled'?'selected':'')+'>cancelled</option>'+
-        '</select><textarea id="note_'+id+'" placeholder="Admin notes">'+esc(o.adminNotes || '')+'</textarea>'+
-        '<button class="mini-btn" onclick="updateOrder(\''+id+'\')">Update</button> '+
-        '<button class="mini-btn danger" onclick="delOrder(\''+id+'\')">Delete</button></td>'+
-      '</tr>';
-    }).join(''), 5);
-
-    document.getElementById('coursesBody').innerHTML = row(courses.map(function(c){
-      var id = c._id || c.id;
-      return '<tr><td>'+esc(c.title || '-')+'</td><td>'+esc(c.category || '-')+'</td><td>'+(c.isFree ? 'Free' : '$'+(c.price || 0))+'</td><td><button class="danger" onclick="delCourse(\''+id+'\')">Delete</button></td></tr>';
-    }).join(''), 4);
-
-    document.getElementById('tutorialsBody').innerHTML = row(tutorials.map(function(t){
-      var id = t._id || t.id;
-      return '<tr><td>'+esc(t.title || '-')+'</td><td>'+esc(t.topic || '-')+'</td><td>'+esc(t.videoId || '-')+'</td><td><button class="danger" onclick="delTutorial(\''+id+'\')">Delete</button></td></tr>';
-    }).join(''), 4);
-
-    document.getElementById('postsBody').innerHTML = row(posts.map(function(p){
-      var id = p._id || p.id;
-      return '<tr><td>'+esc(p.title || '-')+'</td><td>'+esc(p.category || '-')+'</td><td>'+esc(p.message || '-')+'</td><td><button class="danger" onclick="delPost(\''+id+'\')">Delete</button></td></tr>';
-    }).join(''), 4);
-
-  }catch(e){
-    showErr(e);
-  }
-}
-
-async function addCourse(){
-  try{
-    var title=document.getElementById('courseTitle').value.trim();
-    if(!title) return alert('Course title required');
-
-    var price=Number(document.getElementById('coursePrice').value)||0;
-    await api('/api/admin/courses','POST',{
-      title:title,
-      description:document.getElementById('courseDesc').value||'Course description',
-      category:document.getElementById('courseCat').value||'web',
-      price:price,
-      isFree:price===0,
-      thumbnail:document.getElementById('courseIcon').value||'📚',
-      published:true
-    });
-    loadAll();
-  }catch(e){showErr(e);}
-}
-
-async function addTutorial(){
-  try{
-    var title=document.getElementById('tutTitle').value.trim();
-    var videoId=document.getElementById('tutVideo').value.trim();
-    if(!title||!videoId) return alert('Title and Video ID required');
-
-    await api('/api/admin/tutorials','POST',{
-      title:title,
-      videoId:videoId,
-      topic:document.getElementById('tutTopic').value||'Tech',
-      thumbnail:document.getElementById('tutIcon').value||'🎬',
-      published:true,
-      isFree:true
-    });
-    loadAll();
-  }catch(e){showErr(e);}
-}
-
-async function addPost(){
-  try{
-    var title=document.getElementById('postTitle').value.trim();
-    var message=document.getElementById('postMessage').value.trim();
-    if(!title||!message) return alert('Post title and message required');
-
-    await api('/api/admin/posts','POST',{
-      title:title,
-      category:document.getElementById('postCategory').value||'announcement',
-      message:message,
-      imageUrl:document.getElementById('postImage').value||'',
-      published:true
-    });
-
-    document.getElementById('postTitle').value='';
-    document.getElementById('postMessage').value='';
-    document.getElementById('postImage').value='';
-    loadAll();
-  }catch(e){showErr(e);}
-}
-
-
-async function updateOrder(id){
-  try{
-    await api('/api/admin/orders/'+id+'/status','PUT',{
-      status:document.getElementById('status_'+id).value,
-      adminNotes:document.getElementById('note_'+id).value
-    });
-    loadAll();
-  }catch(e){showErr(e);}
-}
-
-async function delOrder(id){
-  if(confirm('Delete this order?')){
-    await api('/api/admin/orders/'+id,'DELETE');
-    loadAll();
-  }
-}
-
-async function delCourse(id){
-  if(confirm('Delete course?')){
-    await api('/api/admin/courses/'+id,'DELETE');
-    loadAll();
-  }
-}
-
-async function delTutorial(id){
-  if(confirm('Delete tutorial?')){
-    await api('/api/admin/tutorials/'+id,'DELETE');
-    loadAll();
-  }
-}
-
-async function delPost(id){
-  if(confirm('Delete post?')){
-    await api('/api/admin/posts/'+id,'DELETE');
-    loadAll();
-  }
-}
-
-async function createTestOrder(){
-  try{
-    await api('/api/debug/create-test-order','POST',{});
-    await loadAll();
-    alert('Test order created. If you see it in Orders, backend recording works and the website index.html is the part that was not submitting.');
-  }catch(e){showErr(e);}
-}
-
-loadAll();
+function showErr(e){var b=document.getElementById('error');b.textContent=(e&&e.message)||e;b.style.display='block';}
+async function api(url,method,body){var opt={method:method||'GET',credentials:'include',headers:{'Content-Type':'application/json'}};if(body)opt.body=JSON.stringify(body);var r=await fetch(url,opt);var d=await r.json().catch(function(){return {};});if(!r.ok)throw new Error(d.error||('Request failed '+r.status));return d;}
+async function addCourse(){try{await api('/api/admin/courses','POST',{title:document.getElementById('courseTitle').value.trim(),description:document.getElementById('courseDesc').value||'Course description',category:document.getElementById('courseCat').value||'web',price:Number(document.getElementById('coursePrice').value)||0,isFree:(Number(document.getElementById('coursePrice').value)||0)===0,thumbnail:document.getElementById('courseIcon').value||'📚',published:true});location.reload();}catch(e){showErr(e);}}
+async function addTutorial(){try{await api('/api/admin/tutorials','POST',{title:document.getElementById('tutTitle').value.trim(),videoId:document.getElementById('tutVideo').value.trim(),topic:document.getElementById('tutTopic').value||'Tech',thumbnail:document.getElementById('tutIcon').value||'🎬',published:true,isFree:true});location.reload();}catch(e){showErr(e);}}
+async function addPost(){try{await api('/api/admin/posts','POST',{title:document.getElementById('postTitle').value.trim(),category:document.getElementById('postCategory').value||'announcement',message:document.getElementById('postMessage').value.trim(),imageUrl:document.getElementById('postImage').value||'',published:true});location.reload();}catch(e){showErr(e);}}
+async function updateOrder(id){try{await api('/api/admin/orders/'+id+'/status','PUT',{status:document.getElementById('status_'+id).value,adminNotes:document.getElementById('note_'+id).value});location.reload();}catch(e){showErr(e);}}
+async function delOrder(id){if(confirm('Delete this order?')){try{await api('/api/admin/orders/'+id,'DELETE');location.reload();}catch(e){showErr(e);}}}
+async function delCourse(id){if(confirm('Delete course?')){try{await api('/api/admin/courses/'+id,'DELETE');location.reload();}catch(e){showErr(e);}}}
+async function delTutorial(id){if(confirm('Delete tutorial?')){try{await api('/api/admin/tutorials/'+id,'DELETE');location.reload();}catch(e){showErr(e);}}}
+async function delPost(id){if(confirm('Delete post?')){try{await api('/api/admin/posts/'+id,'DELETE');location.reload();}catch(e){showErr(e);}}}
 </script>
-</body>
-</html>`);
+</body></html>`);
+  } catch (err) {
+    console.error('Admin render error:', err);
+    return res.status(500).send('<h1>Admin dashboard error</h1><pre>' + String(err.stack || err.message || err) + '</pre>');
+  }
 });
 
 // Frontend root
