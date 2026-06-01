@@ -1195,8 +1195,9 @@ h1{color:var(--cyan);margin:0 0 6px}.sub{color:var(--muted);margin:0 0 20px}.top
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0}
 .stat,.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px}.num{font-size:32px;font-weight:900;color:var(--cyan)}.label{font-size:13px;color:var(--muted)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{margin-bottom:16px;overflow:auto}
-table{width:100%;border-collapse:collapse;min-width:620px}th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;font-size:14px;vertical-align:top}th{color:var(--muted);font-size:12px;text-transform:uppercase}
+table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;font-size:14px;vertical-align:top}th{color:var(--muted);font-size:12px;text-transform:uppercase}
 input,textarea,select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--border);background:#0f1525;color:#fff;margin:6px 0}textarea{min-height:80px}
+.small{font-size:12px;color:var(--muted);line-height:1.45}.desc-box{max-width:360px;white-space:pre-wrap;line-height:1.45}.order-actions{min-width:190px}.mini-btn{padding:8px 10px;border-radius:8px;font-size:12px;margin-top:6px}.status-pill{display:inline-block;padding:4px 9px;border-radius:999px;background:rgba(0,229,255,.12);color:var(--cyan);font-size:12px;font-weight:800;margin-bottom:6px}
 .err{display:none;color:var(--red);background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.25);border-radius:10px;padding:12px;margin:12px 0}
 @media(max-width:800px){.grid{grid-template-columns:1fr}body{padding:14px}}
 </style>
@@ -1262,7 +1263,7 @@ input,textarea,select{width:100%;padding:11px;border-radius:10px;border:1px soli
 </div>
 
 <div class="card"><h2>Users</h2><table><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th></tr></thead><tbody id="usersBody"></tbody></table></div>
-<div class="card"><h2>Orders</h2><table><thead><tr><th>Name</th><th>Email</th><th>Package</th><th>Status</th></tr></thead><tbody id="ordersBody"></tbody></table></div>
+<div class="card"><h2>Orders</h2><p class="sub">View full customer request, phone number, budget, description, and update order status.</p><table><thead><tr><th>Customer</th><th>Contact</th><th>Package / Budget</th><th>Description</th><th>Status / Update</th></tr></thead><tbody id="ordersBody"></tbody></table></div>
 <div class="card"><h2>Courses</h2><table><thead><tr><th>Title</th><th>Category</th><th>Price</th><th>Action</th></tr></thead><tbody id="coursesBody"></tbody></table></div>
 <div class="card"><h2>Tutorials</h2><table><thead><tr><th>Title</th><th>Topic</th><th>Video ID</th><th>Action</th></tr></thead><tbody id="tutorialsBody"></tbody></table></div>
 
@@ -1323,8 +1324,26 @@ async function loadAll(){
     }).join(''),4);
 
     document.getElementById('ordersBody').innerHTML=row(orders.map(function(o){
-      return '<tr><td>'+esc((o.firstName||'')+' '+(o.lastName||''))+'</td><td>'+esc(o.email)+'</td><td>'+esc(o.packageName)+'</td><td>'+esc(o.status||'pending')+'</td></tr>';
-    }).join(''),4);
+      var id=o._id||o.id;
+      var customer=esc(((o.firstName||'')+' '+(o.lastName||'')).trim()||'Customer');
+      var created=o.createdAt?new Date(o.createdAt).toLocaleString():'-';
+      var status=esc(o.status||'pending');
+      var payment=esc(o.paymentStatus||'unpaid');
+      return '<tr>'+
+        '<td><b>'+customer+'</b><div class="small">Created: '+created+'</div></td>'+
+        '<td><b>Email:</b> '+esc(o.email||'-')+'<br><b>Phone:</b> '+esc(o.phone||'-')+'</td>'+
+        '<td><b>'+esc(o.packageName||'-')+'</b><div class="small">Budget: '+esc(o.budget||'-')+'<br>Payment: '+payment+'</div></td>'+
+        '<td class="desc-box">'+esc(o.description||'No description provided')+'<br><br><span class="small"><b>Admin notes:</b> '+esc(o.adminNotes||'-')+'</span></td>'+
+        '<td class="order-actions"><span class="status-pill">'+status+'</span><select id="status_'+id+'">'+
+          '<option value="pending" '+(status==='pending'?'selected':'')+'>pending</option>'+
+          '<option value="in-progress" '+(status==='in-progress'?'selected':'')+'>in-progress</option>'+
+          '<option value="delivered" '+(status==='delivered'?'selected':'')+'>delivered</option>'+
+          '<option value="cancelled" '+(status==='cancelled'?'selected':'')+'>cancelled</option>'+
+        '</select><textarea id="note_'+id+'" placeholder="Admin notes">'+esc(o.adminNotes||'')+'</textarea>'+
+        '<button class="mini-btn" onclick="updateOrder(\''+id+'\')">Update</button> '+
+        '<button class="mini-btn danger" onclick="delOrder(\''+id+'\')">Delete</button></td>'+
+      '</tr>';
+    }).join(''),5);
 
     document.getElementById('coursesBody').innerHTML=row(courses.map(function(c){
       var id=c._id||c.id;
@@ -1402,6 +1421,24 @@ async function addPost(){
     document.getElementById('postImage').value='';
     loadAll();
   }catch(e){showErr(e);}
+}
+
+
+async function updateOrder(id){
+  try{
+    await api('/api/admin/orders/'+id+'/status','PUT',{
+      status:document.getElementById('status_'+id).value,
+      adminNotes:document.getElementById('note_'+id).value
+    });
+    loadAll();
+  }catch(e){showErr(e);}
+}
+
+async function delOrder(id){
+  if(confirm('Delete this order?')){
+    await api('/api/admin/orders/'+id,'DELETE');
+    loadAll();
+  }
 }
 
 async function delCourse(id){

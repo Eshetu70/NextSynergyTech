@@ -6,6 +6,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -857,6 +858,9 @@ const API_BASE =
     : 'https://nextsynergytech.onrender.com';
 console.log('NextSynergy API_BASE =', API_BASE);
 
+// Admin dashboard is hosted on Render because GitHub Pages cannot run Express routes like /admin.
+const ADMIN_URL = 'https://nextsynergytech.onrender.com/admin';
+
 let authToken = localStorage.getItem('nst_token') || '';
 let currentUser = JSON.parse(localStorage.getItem('nst_user') || 'null');
 let loggedIn = !!authToken && !!currentUser;
@@ -886,7 +890,7 @@ async function apiRequest(path, options = {}) {
     res = await fetch(url, config);
   } catch (networkError) {
     console.error('❌ NETWORK ERROR:', networkError);
-    throw new Error('Cannot reach Node server. Run node server.js and open http://localhost:5000');
+    throw new Error('Cannot reach NextSynergy server. Please make sure the Render server is running.');
   }
 
   const text = await res.text();
@@ -1439,7 +1443,7 @@ function secretAdminClick(){
   secretAdminTimer = setTimeout(() => { secretAdminClicks = 0; }, 1200);
   if (secretAdminClicks >= 3) {
     secretAdminClicks = 0;
-    window.location.href = '/admin';
+    window.location.href = ADMIN_URL;
   }
 }
 
@@ -1472,7 +1476,7 @@ checkAuth();
     timer = setTimeout(() => { count = 0; }, 1200);
     if (count >= 3) {
       count = 0;
-      window.location.href = '/admin';
+      window.location.href = ADMIN_URL;
     }
   });
 })();
