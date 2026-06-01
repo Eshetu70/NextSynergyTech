@@ -775,88 +775,105 @@ app.get('/api/posts', async (_req, res) => {
 });
 
 // Orders
-// Public customer order route. It records BOTH a customer user row and an order row.
+// PUBLIC customer order route: saves BOTH the customer user record and the order record.
+// This is the key fix so admin dashboard Users + Orders show customer requests.
 app.post('/api/orders', optionalAuth, async (req, res) => {
   try {
-    const { firstName, lastName, email, phone = '', packageName, budget = '', description } = req.body || {};
+    const {
+      firstName,
+      lastName,
+      email,
+      phone = '',
+      packageName,
+      budget = '',
+      description,
+    } = req.body || {};
 
-    const cleanFirst = String(firstName || '').trim();
-    const cleanLast = String(lastName || '').trim();
-    const cleanEmail = String(email || '').toLowerCase().trim();
-    const cleanPhone = String(phone || '').trim();
-    const cleanPackage = String(packageName || '').trim();
-    const cleanBudget = String(budget || '').trim();
-    const cleanDescription = String(description || '').trim();
-
-    if (!cleanFirst || !cleanLast || !cleanEmail || !cleanPackage || !cleanDescription) {
-      return res.status(422).json({ error: 'firstName, lastName, email, packageName, and description are required.' });
+    if (!firstName || !lastName || !email || !packageName || !description) {
+      return res.status(422).json({
+        error: 'firstName, lastName, email, packageName, and description are required.',
+      });
     }
 
-    if (cleanDescription.length < 10) {
+    if (String(description).trim().length < 10) {
       return res.status(422).json({ error: 'Project description must be at least 10 characters.' });
     }
 
+    const cleanEmail = String(email).toLowerCase().trim();
+    const cleanFirstName = String(firstName).trim();
+    const cleanLastName = String(lastName).trim();
+    const cleanPhone = String(phone || '').trim();
+
     if (dbMode === 'mongodb-atlas') {
-      // Create or update customer record so Users count also reflects website customers.
+      // 1) Create/update customer record so Admin → Users shows the customer.
       let customer = await User.findOne({ email: cleanEmail });
       if (!customer) {
         customer = await User.create({
-          firstName: cleanFirst,
-          lastName: cleanLast,
+          firstName: cleanFirstName,
+          lastName: cleanLastName,
           email: cleanEmail,
-          // Customer can reset/change password later. This avoids blocking order submission.
-          password: 'NST-' + crypto.randomBytes(8).toString('hex'),
+          // Auto password only for CRM record. Customer can register/reset later.
+          password: crypto.randomBytes(18).toString('hex'),
           role: 'student',
           isActive: true,
           goal: 'Ordered development service',
         });
       } else {
-        customer.firstName = customer.firstName || cleanFirst;
-        customer.lastName = customer.lastName || cleanLast;
+        customer.firstName = customer.firstName || cleanFirstName;
+        customer.lastName = customer.lastName || cleanLastName;
         customer.goal = customer.goal || 'Ordered development service';
         customer.isActive = customer.isActive !== false;
         await customer.save();
       }
 
+      // 2) Create order connected to that customer.
       const order = await Order.create({
-        user: req.user?.id || customer._id,
-        firstName: cleanFirst,
-        lastName: cleanLast,
+        user: customer._id,
+        firstName: cleanFirstName,
+        lastName: cleanLastName,
         email: cleanEmail,
         phone: cleanPhone,
-        packageName: cleanPackage,
-        budget: cleanBudget,
-        description: cleanDescription,
+        packageName,
+        budget,
+        description,
         status: 'pending',
         paymentStatus: 'unpaid',
-        paymentAmount: 0,
       });
 
+      console.log('✅ ORDER SAVED TO MONGODB:', String(order._id), cleanEmail, packageName);
+
       if (process.env.ADMIN_EMAIL) {
-        sendEmail(process.env.ADMIN_EMAIL, 'New Project Request — NextSynergy Tech',
-          `<h2>New order from ${cleanFirst} ${cleanLast}</h2><p><b>Email:</b> ${cleanEmail}</p><p><b>Phone:</b> ${cleanPhone || '-'}</p><p><b>Package:</b> ${cleanPackage}</p><p><b>Budget:</b> ${cleanBudget || '-'}</p><p><b>Description:</b> ${cleanDescription}</p>`);
+        sendEmail(
+          process.env.ADMIN_EMAIL,
+          'New Project Request — NextSynergy Tech',
+          `<h2>New order from ${cleanFirstName} ${cleanLastName}</h2>
+           <p><b>Email:</b> ${cleanEmail}</p>
+           <p><b>Phone:</b> ${cleanPhone || '-'}</p>
+           <p><b>Package:</b> ${packageName}</p>
+           <p><b>Budget:</b> ${budget || '-'}</p>
+           <p><b>Description:</b> ${description}</p>`
+        );
       }
 
-      const counts = { users: await User.countDocuments(), orders: await Order.countDocuments() };
-      console.log('✅ ORDER SAVED MongoDB:', { orderId: String(order._id), email: cleanEmail, counts });
-      return res.status(201).json({ message: 'Project request submitted!', order, counts });
+      return res.status(201).json({ message: 'Project request submitted!', customer: safeUser(customer), order });
     }
 
-    // JSON fallback: keep users and orders in the same local db.json file.
+    // JSON fallback mode. Good for local testing only; Render should use MongoDB for persistence.
     const db = readDb();
     db.users = Array.isArray(db.users) ? db.users : [];
     db.orders = Array.isArray(db.orders) ? db.orders : [];
 
     let customer = db.users.find((u) => String(u.email || '').toLowerCase().trim() === cleanEmail);
     if (!customer) {
-      const uid = newId();
+      const userId = newId();
       customer = {
-        id: uid,
-        _id: uid,
-        firstName: cleanFirst,
-        lastName: cleanLast,
+        id: userId,
+        _id: userId,
+        firstName: cleanFirstName,
+        lastName: cleanLastName,
         email: cleanEmail,
-        password: await bcrypt.hash('NST-' + crypto.randomBytes(8).toString('hex'), 12),
+        phone: cleanPhone,
+        password: await bcrypt.hash(crypto.randomBytes(18).toString('hex'), 12),
         role: 'student',
         goal: 'Ordered development service',
         isActive: true,
@@ -865,10 +882,10 @@ app.post('/api/orders', optionalAuth, async (req, res) => {
       };
       db.users.push(customer);
     } else {
-      customer.firstName = customer.firstName || cleanFirst;
-      customer.lastName = customer.lastName || cleanLast;
+      customer.firstName = customer.firstName || cleanFirstName;
+      customer.lastName = customer.lastName || cleanLastName;
+      customer.phone = customer.phone || cleanPhone;
       customer.goal = customer.goal || 'Ordered development service';
-      customer.isActive = customer.isActive !== false;
       customer.updatedAt = now();
     }
 
@@ -876,14 +893,14 @@ app.post('/api/orders', optionalAuth, async (req, res) => {
     const order = {
       id,
       _id: id,
-      user: req.user?.id || customer.id || customer._id || null,
-      firstName: cleanFirst,
-      lastName: cleanLast,
+      user: customer.id || customer._id || null,
+      firstName: cleanFirstName,
+      lastName: cleanLastName,
       email: cleanEmail,
       phone: cleanPhone,
-      packageName: cleanPackage,
-      budget: cleanBudget,
-      description: cleanDescription,
+      packageName,
+      budget,
+      description,
       status: 'pending',
       paymentStatus: 'unpaid',
       paymentAmount: 0,
@@ -892,14 +909,14 @@ app.post('/api/orders', optionalAuth, async (req, res) => {
       updatedAt: now(),
     };
 
-    db.orders.unshift(order);
+    db.orders.push(order);
     writeDb(db);
 
-    const counts = { users: db.users.length, orders: db.orders.length };
-    console.log('✅ ORDER SAVED JSON:', { orderId: id, email: cleanEmail, counts });
-    return res.status(201).json({ message: 'Project request submitted!', order, counts });
+    console.log('✅ ORDER SAVED TO JSON FALLBACK:', id, cleanEmail, packageName);
+
+    return res.status(201).json({ message: 'Project request submitted!', customer: safeUser(customer), order });
   } catch (err) {
-    console.error('Order error:', err);
+    console.error('❌ Order error:', err);
     return res.status(500).json({ error: err.message || 'Could not submit order.' });
   }
 });
