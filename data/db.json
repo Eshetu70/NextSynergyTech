@@ -1,0 +1,344 @@
+{
+  "users": [
+    {
+      "id": "50678054c9c6a842636d21a1",
+      "_id": "50678054c9c6a842636d21a1",
+      "firstName": "NextSynergy",
+      "lastName": "Admin",
+      "email": "admin@nextsynergytech.com",
+      "password": "$2a$12$KsaRGSnGN6RcXm9azeIA8OjrExw7BEiO3A5gS4YMDEkANCVr.EGtO",
+      "role": "admin",
+      "isActive": true,
+      "goal": "",
+      "enrolledCourses": [],
+      "streak": 0,
+      "hoursWatched": 0,
+      "createdAt": "2026-06-01T00:47:09.135Z",
+      "updatedAt": "2026-06-01T00:47:09.135Z"
+    }
+  ],
+  "courses": [
+    {
+      "title": "AI & Machine Learning",
+      "category": "ai",
+      "thumbnail": "🤖",
+      "description": "Learn Python for AI, TensorFlow, ML algorithms and model deployment. Build real projects from day one.",
+      "price": 199,
+      "isFree": false,
+      "level": "intermediate",
+      "instructor": "Eshetu T. Wekjira",
+      "tags": [
+        "python",
+        "ai",
+        "tensorflow",
+        "ml"
+      ],
+      "enrolled": 0,
+      "rating": 4.9,
+      "published": true,
+      "lessons": [
+        {
+          "title": "Introduction to AI & ML",
+          "videoUrl": "SzMiJFOa6w8",
+          "duration": "18 min",
+          "isFree": true,
+          "order": 1
+        },
+        {
+          "title": "Python for Data Science",
+          "videoUrl": "j5v8D-alAKE",
+          "duration": "25 min",
+          "isFree": true,
+          "order": 2
+        },
+        {
+          "title": "Building Your First ML Model",
+          "videoUrl": "mgxDfCTIgJQ",
+          "duration": "40 min",
+          "isFree": false,
+          "order": 3
+        }
+      ],
+      "id": "b8a154f0c289d14de4b7de14",
+      "_id": "8fb52c88e6988364e0ce3149",
+      "createdAt": "2026-06-01T00:47:08.857Z",
+      "updatedAt": "2026-06-01T00:47:08.857Z"
+    },
+    {
+      "title": "React + Node Full Stack",
+      "category": "web",
+      "thumbnail": "⚛️",
+      "description": "Build complete web applications with React, Node.js, Express, and MongoDB from scratch.",
+      "price": 179,
+      "isFree": false,
+      "level": "intermediate",
+      "instructor": "Eshetu T. Wekjira",
+      "tags": [
+        "react",
+        "nodejs",
+        "express",
+        "mongodb"
+      ],
+      "enrolled": 0,
+      "rating": 4.8,
+      "published": true,
+      "lessons": [
+        {
+          "title": "React Fundamentals",
+          "videoUrl": "iwRneX7GIGI",
+          "duration": "30 min",
+          "isFree": true,
+          "order": 1
+        },
+        {
+          "title": "Building a REST API with Node",
+          "videoUrl": "Oe421EPjeBE",
+          "duration": "45 min",
+          "isFree": false,
+          "order": 2
+        }
+      ],
+      "id": "87aeae2f08633b023d0217a5",
+      "_id": "98a4f7dbc21609827e37126a",
+      "createdAt": "2026-06-01T00:47:08.857Z",
+      "updatedAt": "2026-06-01T00:47:08.857Z"
+    },
+    {
+      "title": "Cybersecurity Pro",
+      "category": "security",
+      "thumbnail": "🔐",
+      "description": "Network security, ethical hacking, penetration testing, and zero-trust architecture.",
+      "price": 229,
+      "isFree": false,
+      "level": "advanced",
+      "instructor": "NextSynergy Team",
+      "tags": [
+        "cybersecurity",
+        "network",
+        "security"
+      ],
+      "enrolled": 0,
+      "rating": 4.9,
+      "published": true,
+      "lessons": [
+        {
+          "title": "Intro to Cybersecurity",
+          "videoUrl": "kd33UVZhnAA",
+          "duration": "20 min",
+          "isFree": true,
+          "order": 1
+        }
+      ],
+      "id": "1e01c7d0e066fc2cd600f6f8",
+      "_id": "ca3cc0258c2b990541fda332",
+      "createdAt": "2026-06-01T00:47:08.857Z",
+      "updatedAt": "2026-06-01T00:47:08.857Z"
+    },
+    {
+      "title": "Java Fundamentals",
+      "category": "web",
+      "thumbnail": "☕",
+      "description": "Core Java programming, OOP, data structures, and enterprise patterns. Beginner-friendly.",
+      "price": 0,
+      "isFree": true,
+      "level": "beginner",
+      "instructor": "Eshetu T. Wekjira",
+      "tags": [
+        "java",
+        "oop",
+        "programming"
+      ],
+      "enrolled": 0,
+      "rating": 4.7,
+      "published": true,
+      "lessons": [
+        {
+          "title": "Setting Up Java Environment",
+          "videoUrl": "UQrBgnm8bhU",
+          "duration": "15 min",
+          "isFree": true,
+          "order": 1
+        },
+        {
+          "title": "Java Classes and Objects",
+          "videoUrl": "tTR3Wn5Mbwg",
+          "duration": "22 min",
+          "isFree": true,
+          "order": 2
+        }
+      ],
+      "id": "3ca5a901ba274742efd067c4",
+      "_id": "23b4d792c4b2f4de63c58885",
+      "createdAt": "2026-06-01T00:47:08.857Z",
+      "updatedAt": "2026-06-01T00:47:08.857Z"
+    },
+    {
+      "title": "Mobile App Dev with React Native",
+      "category": "mobile",
+      "thumbnail": "📱",
+      "description": "Build cross-platform iOS & Android apps with React Native, hooks, and Firebase.",
+      "price": 189,
+      "isFree": false,
+      "level": "intermediate",
+      "instructor": "NextSynergy Team",
+      "tags": [
+        "mobile",
+        "react-native",
+        "firebase"
+      ],
+      "enrolled": 0,
+      "rating": 4.8,
+      "published": true,
+      "lessons": [
+        {
+          "title": "React Native Setup",
+          "videoUrl": "j5v8D-alAKE",
+          "duration": "20 min",
+          "isFree": true,
+          "order": 1
+        },
+        {
+          "title": "Firebase Integration",
+          "videoUrl": "Z9QbYZh1YXY",
+          "duration": "40 min",
+          "isFree": false,
+          "order": 2
+        }
+      ],
+      "id": "220ee5820af42f0d013d7d9f",
+      "_id": "21352eb57b896bd7d541e45c",
+      "createdAt": "2026-06-01T00:47:08.857Z",
+      "updatedAt": "2026-06-01T00:47:08.857Z"
+    },
+    {
+      "title": "Cloud Computing with AWS",
+      "category": "cloud",
+      "thumbnail": "☁️",
+      "description": "Deploy scalable infrastructure on AWS, Docker, Kubernetes and master DevOps pipelines.",
+      "price": 219,
+      "isFree": false,
+      "level": "advanced",
+      "instructor": "NextSynergy Team",
+      "tags": [
+        "aws",
+        "cloud",
+        "docker",
+        "devops"
+      ],
+      "enrolled": 0,
+      "rating": 4.9,
+      "published": true,
+      "lessons": [
+        {
+          "title": "AWS Overview & IAM",
+          "videoUrl": "G5rhGNbrV9I",
+          "duration": "25 min",
+          "isFree": true,
+          "order": 1
+        }
+      ],
+      "id": "ea680903efce9d7ca6ae70a4",
+      "_id": "557d5498d7f529ab1ebb1325",
+      "createdAt": "2026-06-01T00:47:08.857Z",
+      "updatedAt": "2026-06-01T00:47:08.857Z"
+    }
+  ],
+  "tutorials": [
+    {
+      "title": "Tech Innovations 2025",
+      "videoId": "SzMiJFOa6w8",
+      "thumbnail": "🚀",
+      "duration": "18 min",
+      "topic": "Emerging Tech",
+      "isFree": true,
+      "published": true,
+      "lessons": [
+        {
+          "label": "Watch Full",
+          "vid": "SzMiJFOa6w8"
+        }
+      ],
+      "id": "f10395f6f1e90350cb209fb9",
+      "_id": "7214c564bf78f01f29be9685",
+      "createdAt": "2026-06-01T00:47:08.857Z",
+      "updatedAt": "2026-06-01T00:47:08.857Z"
+    },
+    {
+      "title": "Agile Development Masterclass",
+      "videoId": "j5v8D-alAKE",
+      "thumbnail": "🔄",
+      "duration": "22 min",
+      "topic": "Dev Methods",
+      "isFree": true,
+      "published": true,
+      "lessons": [
+        {
+          "label": "Agile Overview",
+          "vid": "j5v8D-alAKE"
+        }
+      ],
+      "id": "86acdfd799ffebaff6950aa8",
+      "_id": "295e70c8f2385189da276fc1",
+      "createdAt": "2026-06-01T00:47:08.857Z",
+      "updatedAt": "2026-06-01T00:47:08.857Z"
+    },
+    {
+      "title": "Node.js REST API from Scratch",
+      "videoId": "Oe421EPjeBE",
+      "thumbnail": "⚙️",
+      "duration": "35 min",
+      "topic": "Backend",
+      "isFree": true,
+      "published": true,
+      "lessons": [
+        {
+          "label": "REST APIs",
+          "vid": "Oe421EPjeBE"
+        }
+      ],
+      "id": "3aaa832a3d52825fcef79b69",
+      "_id": "3032072caa31cac88617506b",
+      "createdAt": "2026-06-01T00:47:08.857Z",
+      "updatedAt": "2026-06-01T00:47:08.857Z"
+    },
+    {
+      "title": "Java OOP Complete Guide",
+      "videoId": "tTR3Wn5Mbwg",
+      "thumbnail": "☕",
+      "duration": "26 min",
+      "topic": "Java",
+      "isFree": true,
+      "published": true,
+      "lessons": [
+        {
+          "label": "Classes",
+          "vid": "tTR3Wn5Mbwg"
+        }
+      ],
+      "id": "be85f1a2ae73274cd1a21770",
+      "_id": "f801c01e5f7c0cacecaf50a1",
+      "createdAt": "2026-06-01T00:47:08.857Z",
+      "updatedAt": "2026-06-01T00:47:08.857Z"
+    },
+    {
+      "title": "AWS + Cloud Fundamentals",
+      "videoId": "G5rhGNbrV9I",
+      "thumbnail": "☁️",
+      "duration": "33 min",
+      "topic": "Cloud",
+      "isFree": true,
+      "published": true,
+      "lessons": [
+        {
+          "label": "AWS Basics",
+          "vid": "G5rhGNbrV9I"
+        }
+      ],
+      "id": "5959c8ee37d009ff35f1e3ce",
+      "_id": "a45e9f16f923c12b4d5173e4",
+      "createdAt": "2026-06-01T00:47:08.857Z",
+      "updatedAt": "2026-06-01T00:47:08.857Z"
+    }
+  ],
+  "orders": []
+}
