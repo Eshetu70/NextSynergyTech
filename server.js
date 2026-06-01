@@ -29,6 +29,8 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'NST_dev_secret_CHANGE_IN_PRODUCTION';
 const MONGO_URI = (process.env.MONGO_URI || '').trim();
 const MONGO_DB = (process.env.MONGO_DB_NAME || 'Next_Synergy_Tech').trim();
+const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || 'admin@nextsynergytech.com').toLowerCase().trim();
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Admin@NST2025';
 
 const publicDir = path.join(__dirname, 'public');
 const uploadsDir = path.join(__dirname, 'uploads');
@@ -339,6 +341,71 @@ async function sendEmail(to, subject, html) {
   }
 }
 
+// Ensure default admin exists on every server start
+async function ensureAdminUser() {
+  const adminEmail = ADMIN_EMAIL;
+  const adminPassword = ADMIN_PASSWORD;
+
+  if (!adminEmail || !adminPassword) {
+    console.warn('⚠️ ADMIN_EMAIL or ADMIN_PASSWORD missing — admin auto-create skipped.');
+    return;
+  }
+
+  if (dbMode === 'mongodb-atlas') {
+    let admin = await User.findOne({ email: adminEmail });
+    if (!admin) {
+      admin = new User({
+        firstName: 'NextSynergy',
+        lastName: 'Admin',
+        email: adminEmail,
+        password: adminPassword,
+        role: 'admin',
+        isActive: true,
+      });
+      await admin.save();
+      console.log(`✅ Admin user created in Atlas: ${adminEmail}`);
+      return;
+    }
+
+    admin.firstName = admin.firstName || 'NextSynergy';
+    admin.lastName = admin.lastName || 'Admin';
+    admin.role = 'admin';
+    admin.isActive = true;
+    admin.password = adminPassword; // reset to known admin password
+    await admin.save(); // pre-save hook hashes password
+    console.log(`✅ Admin user verified/reset in Atlas: ${adminEmail}`);
+    return;
+  }
+
+  const db = readDb();
+  db.users = Array.isArray(db.users) ? db.users : [];
+  let admin = db.users.find((u) => String(u.email || '').toLowerCase().trim() === adminEmail);
+
+  if (!admin) {
+    const id = newId();
+    admin = {
+      id,
+      _id: id,
+      firstName: 'NextSynergy',
+      lastName: 'Admin',
+      email: adminEmail,
+      role: 'admin',
+      isActive: true,
+      createdAt: now(),
+    };
+    db.users.push(admin);
+  }
+
+  admin.firstName = admin.firstName || 'NextSynergy';
+  admin.lastName = admin.lastName || 'Admin';
+  admin.role = 'admin';
+  admin.isActive = true;
+  admin.password = await bcrypt.hash(adminPassword, 12);
+  admin.updatedAt = now();
+  writeDb(db);
+  console.log(`✅ Admin user verified/reset in JSON fallback: ${adminEmail}`);
+}
+
 // Seed
 const SEED_COURSES = [
   {
@@ -407,25 +474,7 @@ async function seedDatabase() {
     await Course.insertMany(SEED_COURSES);
     await Tutorial.insertMany(SEED_TUTORIALS);
 
-    const adminEmail = 'admin@nextsynergytech.com';
-    let admin = await User.findOne({ email: adminEmail });
-    if (!admin) {
-      admin = new User({
-        firstName: 'NextSynergy',
-        lastName: 'Admin',
-        email: adminEmail,
-        password: 'Admin@NST2025',
-        role: 'admin',
-        isActive: true,
-      });
-      await admin.save();
-      console.log('✅ Admin user created in Atlas');
-    } else {
-      admin.role = 'admin';
-      admin.isActive = true;
-      await admin.save();
-      console.log('✅ Admin user updated in Atlas');
-    }
+    await ensureAdminUser();
   } else {
     const db = emptyDb();
     db.courses = SEED_COURSES.map((c) => ({ ...c, id: newId(), _id: newId(), createdAt: now(), updatedAt: now() }));
@@ -437,8 +486,8 @@ async function seedDatabase() {
       _id: id,
       firstName: 'NextSynergy',
       lastName: 'Admin',
-      email: 'admin@nextsynergytech.com',
-      password: await bcrypt.hash('Admin@NST2025', 12),
+      email: ADMIN_EMAIL,
+      password: await bcrypt.hash(ADMIN_PASSWORD, 12),
       role: 'admin',
       isActive: true,
       createdAt: now(),
@@ -450,8 +499,8 @@ async function seedDatabase() {
   }
 
   console.log('✅ Seed done');
-  console.log('Admin email: admin@nextsynergytech.com');
-  console.log('Admin password: Admin@NST2025\n');
+  console.log(`Admin email: ${ADMIN_EMAIL}`);
+  console.log(`Admin password: ${ADMIN_PASSWORD}\n`);
 }
 
 // API Routes
@@ -1096,8 +1145,8 @@ button{width:100%;margin-top:20px;padding:14px;background:#00e5ff;color:#000;bor
 <div class="card">
   <h1>NextSynergy Tech</h1>
   <div class="sub">Admin Dashboard Login</div>
-  <label>Email</label><input id="email" type="email" value="admin@nextsynergytech.com">
-  <label>Password</label><input id="password" type="password" value="Admin@NST2025" onkeydown="if(event.key==='Enter')login()">
+  <label>Email</label><input id="email" type="email" value="${ADMIN_EMAIL}">
+  <label>Password</label><input id="password" type="password" value="${ADMIN_PASSWORD}" onkeydown="if(event.key==='Enter')login()">
   <button onclick="login()">Sign In →</button>
   <div id="err" class="err"></div>
 </div>
@@ -1400,6 +1449,7 @@ app.use((err, _req, res, _next) => {
 // Boot
 async function start() {
   await connectDB();
+  await ensureAdminUser();
 
   app.listen(PORT, () => {
     console.log(`\n🚀 NextSynergy Tech: http://localhost:${PORT}`);
