@@ -1389,12 +1389,7 @@ function selectPackage(pkg){
   document.querySelector('.order-form-wrap').scrollIntoView({behavior:'smooth',block:'start'});
 }
 async function submitOrder(){
-  if (!loggedIn || !authToken) {
-    showToast('Please register or login before submitting a project request.','error');
-    setTimeout(() => showPage('signup'), 700);
-    return;
-  }
-
+  // Public order form: customers can submit project requests without creating an account.
   const fn = document.getElementById('of-fname').value.trim();
   const ln = document.getElementById('of-lname').value.trim();
   const email = document.getElementById('of-email').value.trim().toLowerCase();
