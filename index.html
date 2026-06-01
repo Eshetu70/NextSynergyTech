@@ -247,6 +247,75 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,8,15,0.9)
   .enrolled-grid{grid-template-columns:1fr;}
   .nav-links{display:none;}
 }
+
+
+/* ===== MOBILE MENU FIX ===== */
+.mobile-menu-btn{
+  display:none;
+  width:42px;
+  height:42px;
+  border-radius:10px;
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  color:var(--text);
+  font-size:22px;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+}
+.mobile-menu-panel{
+  display:none;
+  position:fixed;
+  top:64px;
+  left:0;
+  right:0;
+  z-index:999;
+  background:rgba(5,8,15,.98);
+  border-bottom:1px solid var(--border);
+  padding:16px 5% 22px;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+.mobile-menu-panel.open{display:block;}
+.mobile-menu-panel a,
+.mobile-menu-panel button{
+  width:100%;
+  display:block;
+  text-align:left;
+  padding:13px 14px;
+  margin-bottom:8px;
+  border-radius:10px;
+  background:var(--surface);
+  color:var(--text);
+  font-size:15px;
+  font-weight:600;
+  border:1px solid var(--border);
+}
+.mobile-menu-panel a:hover,
+.mobile-menu-panel button:hover{
+  border-color:var(--cyan);
+  color:var(--cyan);
+}
+.mobile-menu-panel .mobile-primary{
+  background:var(--cyan);
+  color:#000;
+  border-color:var(--cyan);
+  text-align:center;
+}
+.mobile-menu-panel .mobile-danger{color:var(--coral);}
+
+@media(max-width:900px){
+  .nav-links,
+  .nav-right{display:none!important;}
+  .mobile-menu-btn{display:flex;}
+  .nav-logo{font-size:17px;}
+  .hero{padding-top:30px;}
+  .hero-stats{flex-direction:column;gap:16px;}
+  #tutorialsGrid,
+  #dashVideosGrid{grid-template-columns:1fr!important;}
+  #page-about .section-inner > div[style*="grid-template-columns:1fr 1fr"],
+  #page-about div[style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important;}
+}
+
 .form-status{margin-top:12px;padding:10px;border-radius:8px;font-size:13px;display:none}.form-status.ok{display:block;background:rgba(6,214,160,.12);color:var(--green);border:1px solid rgba(6,214,160,.25)}.form-status.err{display:block;background:rgba(255,107,107,.12);color:var(--coral);border:1px solid rgba(255,107,107,.25)}
 </style>
 </head>
@@ -259,6 +328,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,8,15,0.9)
 <nav>
   <div class="nav-inner">
     <div class="nav-logo" onclick="secretAdminClick()" title="Click 3 times for admin">Next<span>Synergy</span> Tech</div>
+
     <div class="nav-links" id="navLinks">
       <a href="#" class="active" onclick="showPage('home',this)">Home</a>
       <a href="#" onclick="showPage('courses',this)">Courses</a>
@@ -266,12 +336,28 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,8,15,0.9)
       <a href="#" onclick="showPage('order',this)">Order</a>
       <a href="#" onclick="showPage('about',this)">About</a>
     </div>
+
     <div class="nav-right" id="navRight">
       <button class="btn-ghost" onclick="showPage('login')">Log In</button>
       <button class="btn-primary" onclick="showPage('signup')">Get Started</button>
     </div>
+
+    <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Open menu">☰</button>
   </div>
 </nav>
+
+<div class="mobile-menu-panel" id="mobileMenuPanel">
+  <a href="#" onclick="showPage('home'); closeMobileMenu()">🏠 Home</a>
+  <a href="#" onclick="showPage('courses'); closeMobileMenu()">📚 Courses</a>
+  <a href="#" onclick="showPage('tutorials'); closeMobileMenu()">🎬 Tutorials</a>
+  <a href="#" onclick="showPage('order'); closeMobileMenu()">🛠️ Order</a>
+  <a href="#" onclick="showPage('about'); closeMobileMenu()">ℹ️ About</a>
+
+  <div id="mobileAuthLinks">
+    <button onclick="showPage('login'); closeMobileMenu()">Log In</button>
+    <button class="mobile-primary" onclick="showPage('signup'); closeMobileMenu()">Get Started</button>
+  </div>
+</div>
 
 <!-- ===== HOME PAGE ===== -->
 <div class="page active" id="page-home">
@@ -949,8 +1035,45 @@ async function loadLiveContent() {
   renderCourses('all');
 }
 
+
+
+// ===== MOBILE MENU =====
+function toggleMobileMenu(){
+  const panel = document.getElementById('mobileMenuPanel');
+  const btn = document.getElementById('mobileMenuBtn');
+  if(!panel || !btn) return;
+  panel.classList.toggle('open');
+  btn.textContent = panel.classList.contains('open') ? '✕' : '☰';
+}
+function closeMobileMenu(){
+  const panel = document.getElementById('mobileMenuPanel');
+  const btn = document.getElementById('mobileMenuBtn');
+  if(!panel || !btn) return;
+  panel.classList.remove('open');
+  btn.textContent = '☰';
+}
+function updateMobileMenuAuth(){
+  const box = document.getElementById('mobileAuthLinks');
+  if(!box) return;
+  if(loggedIn && currentUser){
+    box.innerHTML = `
+      <button class="mobile-primary" onclick="showPage('dashboard'); closeMobileMenu()">👤 Dashboard</button>
+      <button class="mobile-danger" onclick="doLogout(); closeMobileMenu()">🚪 Log Out</button>
+    `;
+  } else {
+    box.innerHTML = `
+      <button onclick="showPage('login'); closeMobileMenu()">Log In</button>
+      <button class="mobile-primary" onclick="showPage('signup'); closeMobileMenu()">Get Started</button>
+    `;
+  }
+}
+window.addEventListener('resize', function(){
+  if(window.innerWidth > 900) closeMobileMenu();
+});
+
 // ===== PAGE ROUTING =====
 function showPage(id, el){
+  closeMobileMenu();
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const page = document.getElementById('page-'+id);
   if(page) page.classList.add('active');
@@ -1145,6 +1268,7 @@ function updateNavForAuth(){
   } else {
     nr.innerHTML = `<button class="btn-ghost" onclick="showPage('login')">Log In</button><button class="btn-primary" onclick="showPage('signup')">Get Started</button>`;
   }
+  updateMobileMenuAuth();
 }
 
 // ===== DASHBOARD =====
@@ -1330,6 +1454,7 @@ function showToast(msg,type='success'){
 // ===== INIT =====
 loadLiveContent();
 loadOwnerPosts();
+updateMobileMenuAuth();
 checkAuth();
 
 // ===== ADMIN 3-CLICK LOGO SHORTCUT =====
