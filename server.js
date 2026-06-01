@@ -301,6 +301,15 @@ function authRequired(req, res, next) {
   }
 }
 
+// Public order helper: if a user is logged in, attach req.user; if not, still allow request.
+function optionalAuth(req, _res, next) {
+  const hdr = req.headers.authorization || '';
+  if (hdr.startsWith('Bearer ')) {
+    try { req.user = jwt.verify(hdr.slice(7), JWT_SECRET); } catch { req.user = null; }
+  }
+  return next();
+}
+
 function adminRequired(req, res, next) {
   authRequired(req, res, () => {
     if (req.user.role !== 'admin') return res.status(403).json({ error: 'Admin access required' });
@@ -501,6 +510,51 @@ async function seedDatabase() {
   console.log('✅ Seed done');
   console.log(`Admin email: ${ADMIN_EMAIL}`);
   console.log(`Admin password: ${ADMIN_PASSWORD}\n`);
+}
+
+
+// Seed only missing starter data. This does NOT delete real users or orders.
+async function seedStarterContentIfEmpty() {
+  try {
+    if (dbMode === 'mongodb-atlas') {
+      const [courseCount, tutorialCount] = await Promise.all([
+        Course.countDocuments(),
+        Tutorial.countDocuments(),
+      ]);
+      if (courseCount === 0) {
+        await Course.insertMany(SEED_COURSES);
+        console.log('✅ Starter courses added because Courses collection was empty');
+      }
+      if (tutorialCount === 0) {
+        await Tutorial.insertMany(SEED_TUTORIALS);
+        console.log('✅ Starter tutorials added because Tutorials collection was empty');
+      }
+      return;
+    }
+
+    const db = readDb();
+    db.courses = Array.isArray(db.courses) ? db.courses : [];
+    db.tutorials = Array.isArray(db.tutorials) ? db.tutorials : [];
+    db.orders = Array.isArray(db.orders) ? db.orders : [];
+    db.posts = Array.isArray(db.posts) ? db.posts : [];
+    db.users = Array.isArray(db.users) ? db.users : [];
+
+    let changed = false;
+    if (db.courses.length === 0) {
+      db.courses = SEED_COURSES.map((c) => ({ ...c, id: newId(), _id: newId(), createdAt: now(), updatedAt: now() }));
+      changed = true;
+    }
+    if (db.tutorials.length === 0) {
+      db.tutorials = SEED_TUTORIALS.map((t) => ({ ...t, id: newId(), _id: newId(), createdAt: now(), updatedAt: now() }));
+      changed = true;
+    }
+    if (changed) {
+      writeDb(db);
+      console.log('✅ Starter courses/tutorials added to JSON fallback because they were empty');
+    }
+  } catch (e) {
+    console.warn('Starter seed skipped:', e.message);
+  }
 }
 
 // API Routes
@@ -721,7 +775,7 @@ app.get('/api/posts', async (_req, res) => {
 });
 
 // Orders
-app.post('/api/orders', authRequired, async (req, res) => {
+app.post('/api/orders', optionalAuth, async (req, res) => {
   try {
     const { firstName, lastName, email, phone = '', packageName, budget = '', description } = req.body || {};
 
@@ -735,7 +789,7 @@ app.post('/api/orders', authRequired, async (req, res) => {
 
     if (dbMode === 'mongodb-atlas') {
       const order = await Order.create({
-        user: req.user.id,
+        user: req.user?.id || null,
         firstName,
         lastName,
         email,
@@ -758,7 +812,7 @@ app.post('/api/orders', authRequired, async (req, res) => {
     const order = {
       id,
       _id: id,
-      user: req.user.id,
+      user: req.user?.id || null,
       firstName,
       lastName,
       email,
@@ -1487,6 +1541,7 @@ app.use((err, _req, res, _next) => {
 async function start() {
   await connectDB();
   await ensureAdminUser();
+  await seedStarterContentIfEmpty();
 
   app.listen(PORT, () => {
     console.log(`\n🚀 NextSynergy Tech: http://localhost:${PORT}`);
