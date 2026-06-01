@@ -291,10 +291,31 @@ function genToken(u) {
 }
 
 function authRequired(req, res, next) {
+  // Accept BOTH normal Bearer token and admin cookie token.
+  // This fixes the admin dashboard showing 0 even when MongoDB has records,
+  // because /admin opens with the nst_admin cookie but the API calls may not
+  // always send/read a Bearer token from JavaScript.
   const hdr = req.headers.authorization || '';
-  if (!hdr.startsWith('Bearer ')) return res.status(401).json({ error: 'Login required' });
+  let token = '';
+
+  if (hdr.startsWith('Bearer ')) {
+    token = hdr.slice(7).trim();
+  }
+
+  if (!token && req.cookies && req.cookies.nst_admin) {
+    token = req.cookies.nst_admin;
+  }
+
+  if (!token && req.headers['x-admin-token']) {
+    token = req.headers['x-admin-token'];
+  }
+
+  if (!token) {
+    return res.status(401).json({ error: 'Login required' });
+  }
+
   try {
-    req.user = jwt.verify(hdr.slice(7), JWT_SECRET);
+    req.user = jwt.verify(token, JWT_SECRET);
     return next();
   } catch {
     return res.status(401).json({ error: 'Invalid or expired token — please log in again.' });
@@ -1482,11 +1503,21 @@ function esc(v){
 }
 
 async function api(url,method,body){
-  var opt={method:method||'GET',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}};
+  // Send admin cookie with same-origin requests and also send Bearer token when readable.
+  var headers={'Content-Type':'application/json'};
+  if(token) {
+    headers['Authorization']='Bearer '+token;
+    headers['x-admin-token']=token;
+  }
+  var opt={
+    method:method||'GET',
+    headers:headers,
+    credentials:'include'
+  };
   if(body) opt.body=JSON.stringify(body);
   var r=await fetch(url,opt);
   var d=await r.json().catch(function(){return {};});
-  if(!r.ok) throw new Error(d.error||('Request failed '+r.status));
+  if(!r.ok) throw new Error((d.error||('Request failed '+r.status))+' from '+url);
   return d;
 }
 
