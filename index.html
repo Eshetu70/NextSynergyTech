@@ -1327,7 +1327,6 @@ function selectPackage(pkg){
   document.querySelector('.order-form-wrap').scrollIntoView({behavior:'smooth',block:'start'});
 }
 async function submitOrder(){
-  // PUBLIC ORDER FIX: customers do NOT need to login before requesting a project.
   const fn = document.getElementById('of-fname').value.trim();
   const ln = document.getElementById('of-lname').value.trim();
   const email = document.getElementById('of-email').value.trim().toLowerCase();
@@ -1347,8 +1346,7 @@ async function submitOrder(){
   }
 
   try {
-    console.log('Submitting public order to:', API_BASE + '/api/orders');
-    const savedOrder = await apiRequest('/api/orders', {
+    await apiRequest('/api/orders', {
       method: 'POST',
       body: JSON.stringify({
         firstName: fn,
@@ -1361,7 +1359,6 @@ async function submitOrder(){
       })
     });
 
-    console.log('Saved order response:', savedOrder);
     showToast(`✅ Request received! We'll contact ${fn} within 24 hours.`,'success');
     ['of-fname','of-lname','of-email','of-phone','of-desc'].forEach(id => {
       const el = document.getElementById(id);
