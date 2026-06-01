@@ -1500,70 +1500,79 @@ function row(html,col){
   return html || ('<tr><td colspan="'+col+'">No data found</td></tr>');
 }
 
+async function safeApi(url, fallback){
+  try{
+    return await api(url);
+  }catch(e){
+    console.warn('Failed loading:', url, e.message || e);
+    return fallback || [];
+  }
+}
+
 async function loadAll(){
   try{
     document.getElementById('error').style.display='none';
 
-    var results=await Promise.all([
-      api('/api/admin/users'),
-      api('/api/admin/orders'),
-      api('/api/courses'),
-      api('/api/tutorials'),
-      api('/api/admin/posts')
-    ]);
+    // Load each dashboard section separately.
+    // Important: one failed API should NOT make the whole dashboard stay at zero.
+    var users = await safeApi('/api/admin/users', []);
+    var orders = await safeApi('/api/admin/orders', []);
+    var courses = await safeApi('/api/courses', []);
+    var tutorials = await safeApi('/api/tutorials', []);
+    var posts = await safeApi('/api/admin/posts', []);
 
-    var users=results[0]||[];
-    var orders=results[1]||[];
-    var courses=results[2]||[];
-    var tutorials=results[3]||[];
-    var posts=results[4]||[];
+    document.getElementById('usersCount').textContent = users.length;
+    document.getElementById('ordersCount').textContent = orders.length;
+    document.getElementById('coursesCount').textContent = courses.length;
+    document.getElementById('tutorialsCount').textContent = tutorials.length;
+    document.getElementById('postsCount').textContent = posts.length;
 
-    document.getElementById('usersCount').textContent=users.length;
-    document.getElementById('ordersCount').textContent=orders.length;
-    document.getElementById('coursesCount').textContent=courses.length;
-    document.getElementById('tutorialsCount').textContent=tutorials.length;
-    document.getElementById('postsCount').textContent=posts.length;
+    document.getElementById('usersBody').innerHTML = row(users.map(function(u){
+      var fullName = ((u.firstName || '') + ' ' + (u.lastName || '')).trim() || 'Customer';
+      return '<tr>'+
+        '<td>'+esc(fullName)+'</td>'+
+        '<td>'+esc(u.email || '-')+'</td>'+
+        '<td>'+esc(u.role || 'student')+'</td>'+
+        '<td>'+(u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '-')+'</td>'+
+      '</tr>';
+    }).join(''), 4);
 
-    document.getElementById('usersBody').innerHTML=row(users.map(function(u){
-      return '<tr><td>'+esc((u.firstName||'')+' '+(u.lastName||''))+'</td><td>'+esc(u.email)+'</td><td>'+esc(u.role||'student')+'</td><td>'+(u.createdAt?new Date(u.createdAt).toLocaleDateString():'-')+'</td></tr>';
-    }).join(''),4);
-
-    document.getElementById('ordersBody').innerHTML=row(orders.map(function(o){
-      var id=o._id||o.id;
-      var customer=esc(((o.firstName||'')+' '+(o.lastName||'')).trim()||'Customer');
-      var created=o.createdAt?new Date(o.createdAt).toLocaleString():'-';
-      var status=esc(o.status||'pending');
-      var payment=esc(o.paymentStatus||'unpaid');
+    document.getElementById('ordersBody').innerHTML = row(orders.map(function(o){
+      var id = o._id || o.id;
+      var customer = esc(((o.firstName || '') + ' ' + (o.lastName || '')).trim() || 'Customer');
+      var created = o.createdAt ? new Date(o.createdAt).toLocaleString() : '-';
+      var status = esc(o.status || 'pending');
+      var payment = esc(o.paymentStatus || 'unpaid');
       return '<tr>'+
         '<td><b>'+customer+'</b><div class="small">Created: '+created+'</div></td>'+
-        '<td><b>Email:</b> '+esc(o.email||'-')+'<br><b>Phone:</b> '+esc(o.phone||'-')+'</td>'+
-        '<td><b>'+esc(o.packageName||'-')+'</b><div class="small">Budget: '+esc(o.budget||'-')+'<br>Payment: '+payment+'</div></td>'+
-        '<td class="desc-box">'+esc(o.description||'No description provided')+'<br><br><span class="small"><b>Admin notes:</b> '+esc(o.adminNotes||'-')+'</span></td>'+
+        '<td><b>Email:</b> '+esc(o.email || '-')+'<br><b>Phone:</b> '+esc(o.phone || '-')+'</td>'+
+        '<td><b>'+esc(o.packageName || '-')+'</b><div class="small">Budget: '+esc(o.budget || '-')+'<br>Payment: '+payment+'</div></td>'+
+        '<td class="desc-box">'+esc(o.description || 'No description provided')+'<br><br><span class="small"><b>Admin notes:</b> '+esc(o.adminNotes || '-')+'</span></td>'+
         '<td class="order-actions"><span class="status-pill">'+status+'</span><select id="status_'+id+'">'+
           '<option value="pending" '+(status==='pending'?'selected':'')+'>pending</option>'+
           '<option value="in-progress" '+(status==='in-progress'?'selected':'')+'>in-progress</option>'+
           '<option value="delivered" '+(status==='delivered'?'selected':'')+'>delivered</option>'+
           '<option value="cancelled" '+(status==='cancelled'?'selected':'')+'>cancelled</option>'+
-        '</select><textarea id="note_'+id+'" placeholder="Admin notes">'+esc(o.adminNotes||'')+'</textarea>'+
+        '</select><textarea id="note_'+id+'" placeholder="Admin notes">'+esc(o.adminNotes || '')+'</textarea>'+
         '<button class="mini-btn" onclick="updateOrder(\''+id+'\')">Update</button> '+
         '<button class="mini-btn danger" onclick="delOrder(\''+id+'\')">Delete</button></td>'+
       '</tr>';
-    }).join(''),5);
+    }).join(''), 5);
 
-    document.getElementById('coursesBody').innerHTML=row(courses.map(function(c){
-      var id=c._id||c.id;
-      return '<tr><td>'+esc(c.title)+'</td><td>'+esc(c.category)+'</td><td>'+(c.isFree?'Free':'$'+(c.price||0))+'</td><td><button class="danger" onclick="delCourse(\\''+id+'\\')">Delete</button></td></tr>';
-    }).join(''),4);
+    document.getElementById('coursesBody').innerHTML = row(courses.map(function(c){
+      var id = c._id || c.id;
+      return '<tr><td>'+esc(c.title || '-')+'</td><td>'+esc(c.category || '-')+'</td><td>'+(c.isFree ? 'Free' : '$'+(c.price || 0))+'</td><td><button class="danger" onclick="delCourse(\''+id+'\')">Delete</button></td></tr>';
+    }).join(''), 4);
 
-    document.getElementById('tutorialsBody').innerHTML=row(tutorials.map(function(t){
-      var id=t._id||t.id;
-      return '<tr><td>'+esc(t.title)+'</td><td>'+esc(t.topic)+'</td><td>'+esc(t.videoId)+'</td><td><button class="danger" onclick="delTutorial(\\''+id+'\\')">Delete</button></td></tr>';
-    }).join(''),4);
+    document.getElementById('tutorialsBody').innerHTML = row(tutorials.map(function(t){
+      var id = t._id || t.id;
+      return '<tr><td>'+esc(t.title || '-')+'</td><td>'+esc(t.topic || '-')+'</td><td>'+esc(t.videoId || '-')+'</td><td><button class="danger" onclick="delTutorial(\''+id+'\')">Delete</button></td></tr>';
+    }).join(''), 4);
 
-    document.getElementById('postsBody').innerHTML=row(posts.map(function(p){
-      var id=p._id||p.id;
-      return '<tr><td>'+esc(p.title)+'</td><td>'+esc(p.category)+'</td><td>'+esc(p.message)+'</td><td><button class="danger" onclick="delPost(\\''+id+'\\')">Delete</button></td></tr>';
-    }).join(''),4);
+    document.getElementById('postsBody').innerHTML = row(posts.map(function(p){
+      var id = p._id || p.id;
+      return '<tr><td>'+esc(p.title || '-')+'</td><td>'+esc(p.category || '-')+'</td><td>'+esc(p.message || '-')+'</td><td><button class="danger" onclick="delPost(\''+id+'\')">Delete</button></td></tr>';
+    }).join(''), 4);
 
   }catch(e){
     showErr(e);
