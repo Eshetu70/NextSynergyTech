@@ -765,7 +765,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,8,15,0.9)
 // ===== STATE =====
 // Always use the same Express server that serves this page.
 // Open the site from http://localhost:5000 (or your computer IP:5000 from phone).
-const API_BASE = window.location.origin;
+const API_BASE =
+  location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+    ? 'http://localhost:5000'
+    : 'https://YOUR-RENDER-BACKEND-URL.onrender.com';
 console.log('NextSynergy API_BASE =', API_BASE);
 
 let authToken = localStorage.getItem('nst_token') || '';
