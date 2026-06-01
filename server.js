@@ -407,7 +407,7 @@ async function seedDatabase() {
     await Course.insertMany(SEED_COURSES);
     await Tutorial.insertMany(SEED_TUTORIALS);
 
-    const adminEmail = 'admin@nextsynergytech.com';
+    const adminEmail = 'eshetuwek1@gmail.com';
     let admin = await User.findOne({ email: adminEmail });
     if (!admin) {
       admin = new User({
@@ -437,7 +437,7 @@ async function seedDatabase() {
       _id: id,
       firstName: 'NextSynergy',
       lastName: 'Admin',
-      email: 'admin@nextsynergytech.com',
+      email: 'eshetuwek1@gmail.com',
       password: await bcrypt.hash('Admin@NST2025', 12),
       role: 'admin',
       isActive: true,
@@ -450,7 +450,7 @@ async function seedDatabase() {
   }
 
   console.log('✅ Seed done');
-  console.log('Admin email: admin@nextsynergytech.com');
+  console.log('Admin email: eshetuwek1@gmail.com');
   console.log('Admin password: Admin@NST2025\n');
 }
 
