@@ -29,6 +29,8 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'NST_dev_secret_CHANGE_IN_PRODUCTION';
 const MONGO_URI = (process.env.MONGO_URI || '').trim();
 const MONGO_DB = (process.env.MONGO_DB_NAME || 'Next_Synergy_Tech').trim();
+const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || 'admin@nextsynergytech.com').toLowerCase().trim();
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Admin@NST2025';
 
 const publicDir = path.join(__dirname, 'public');
 const uploadsDir = path.join(__dirname, 'uploads');
@@ -299,6 +301,15 @@ function authRequired(req, res, next) {
   }
 }
 
+// Public order helper: if a user is logged in, attach req.user; if not, still allow request.
+function optionalAuth(req, _res, next) {
+  const hdr = req.headers.authorization || '';
+  if (hdr.startsWith('Bearer ')) {
+    try { req.user = jwt.verify(hdr.slice(7), JWT_SECRET); } catch { req.user = null; }
+  }
+  return next();
+}
+
 function adminRequired(req, res, next) {
   authRequired(req, res, () => {
     if (req.user.role !== 'admin') return res.status(403).json({ error: 'Admin access required' });
@@ -337,6 +348,71 @@ async function sendEmail(to, subject, html) {
   } catch (e) {
     console.warn('Email skipped:', e.message);
   }
+}
+
+// Ensure default admin exists on every server start
+async function ensureAdminUser() {
+  const adminEmail = ADMIN_EMAIL;
+  const adminPassword = ADMIN_PASSWORD;
+
+  if (!adminEmail || !adminPassword) {
+    console.warn('⚠️ ADMIN_EMAIL or ADMIN_PASSWORD missing — admin auto-create skipped.');
+    return;
+  }
+
+  if (dbMode === 'mongodb-atlas') {
+    let admin = await User.findOne({ email: adminEmail });
+    if (!admin) {
+      admin = new User({
+        firstName: 'NextSynergy',
+        lastName: 'Admin',
+        email: adminEmail,
+        password: adminPassword,
+        role: 'admin',
+        isActive: true,
+      });
+      await admin.save();
+      console.log(`✅ Admin user created in Atlas: ${adminEmail}`);
+      return;
+    }
+
+    admin.firstName = admin.firstName || 'NextSynergy';
+    admin.lastName = admin.lastName || 'Admin';
+    admin.role = 'admin';
+    admin.isActive = true;
+    admin.password = adminPassword; // reset to known admin password
+    await admin.save(); // pre-save hook hashes password
+    console.log(`✅ Admin user verified/reset in Atlas: ${adminEmail}`);
+    return;
+  }
+
+  const db = readDb();
+  db.users = Array.isArray(db.users) ? db.users : [];
+  let admin = db.users.find((u) => String(u.email || '').toLowerCase().trim() === adminEmail);
+
+  if (!admin) {
+    const id = newId();
+    admin = {
+      id,
+      _id: id,
+      firstName: 'NextSynergy',
+      lastName: 'Admin',
+      email: adminEmail,
+      role: 'admin',
+      isActive: true,
+      createdAt: now(),
+    };
+    db.users.push(admin);
+  }
+
+  admin.firstName = admin.firstName || 'NextSynergy';
+  admin.lastName = admin.lastName || 'Admin';
+  admin.role = 'admin';
+  admin.isActive = true;
+  admin.password = await bcrypt.hash(adminPassword, 12);
+  admin.updatedAt = now();
+  writeDb(db);
+  console.log(`✅ Admin user verified/reset in JSON fallback: ${adminEmail}`);
 }
 
 // Seed
@@ -407,25 +483,7 @@ async function seedDatabase() {
     await Course.insertMany(SEED_COURSES);
     await Tutorial.insertMany(SEED_TUTORIALS);
 
-    const adminEmail = 'admin@nextsynergytech.com';
-    let admin = await User.findOne({ email: adminEmail });
-    if (!admin) {
-      admin = new User({
-        firstName: 'NextSynergy',
-        lastName: 'Admin',
-        email: adminEmail,
-        password: 'Admin@NST2025',
-        role: 'admin',
-        isActive: true,
-      });
-      await admin.save();
-      console.log('✅ Admin user created in Atlas');
-    } else {
-      admin.role = 'admin';
-      admin.isActive = true;
-      await admin.save();
-      console.log('✅ Admin user updated in Atlas');
-    }
+    await ensureAdminUser();
   } else {
     const db = emptyDb();
     db.courses = SEED_COURSES.map((c) => ({ ...c, id: newId(), _id: newId(), createdAt: now(), updatedAt: now() }));
@@ -437,8 +495,8 @@ async function seedDatabase() {
       _id: id,
       firstName: 'NextSynergy',
       lastName: 'Admin',
-      email: 'admin@nextsynergytech.com',
-      password: await bcrypt.hash('Admin@NST2025', 12),
+      email: ADMIN_EMAIL,
+      password: await bcrypt.hash(ADMIN_PASSWORD, 12),
       role: 'admin',
       isActive: true,
       createdAt: now(),
@@ -450,8 +508,53 @@ async function seedDatabase() {
   }
 
   console.log('✅ Seed done');
-  console.log('Admin email: admin@nextsynergytech.com');
-  console.log('Admin password: Admin@NST2025\n');
+  console.log(`Admin email: ${ADMIN_EMAIL}`);
+  console.log(`Admin password: ${ADMIN_PASSWORD}\n`);
+}
+
+
+// Seed only missing starter data. This does NOT delete real users or orders.
+async function seedStarterContentIfEmpty() {
+  try {
+    if (dbMode === 'mongodb-atlas') {
+      const [courseCount, tutorialCount] = await Promise.all([
+        Course.countDocuments(),
+        Tutorial.countDocuments(),
+      ]);
+      if (courseCount === 0) {
+        await Course.insertMany(SEED_COURSES);
+        console.log('✅ Starter courses added because Courses collection was empty');
+      }
+      if (tutorialCount === 0) {
+        await Tutorial.insertMany(SEED_TUTORIALS);
+        console.log('✅ Starter tutorials added because Tutorials collection was empty');
+      }
+      return;
+    }
+
+    const db = readDb();
+    db.courses = Array.isArray(db.courses) ? db.courses : [];
+    db.tutorials = Array.isArray(db.tutorials) ? db.tutorials : [];
+    db.orders = Array.isArray(db.orders) ? db.orders : [];
+    db.posts = Array.isArray(db.posts) ? db.posts : [];
+    db.users = Array.isArray(db.users) ? db.users : [];
+
+    let changed = false;
+    if (db.courses.length === 0) {
+      db.courses = SEED_COURSES.map((c) => ({ ...c, id: newId(), _id: newId(), createdAt: now(), updatedAt: now() }));
+      changed = true;
+    }
+    if (db.tutorials.length === 0) {
+      db.tutorials = SEED_TUTORIALS.map((t) => ({ ...t, id: newId(), _id: newId(), createdAt: now(), updatedAt: now() }));
+      changed = true;
+    }
+    if (changed) {
+      writeDb(db);
+      console.log('✅ Starter courses/tutorials added to JSON fallback because they were empty');
+    }
+  } catch (e) {
+    console.warn('Starter seed skipped:', e.message);
+  }
 }
 
 // API Routes
@@ -672,7 +775,7 @@ app.get('/api/posts', async (_req, res) => {
 });
 
 // Orders
-app.post('/api/orders', async (req, res) => {
+app.post('/api/orders', optionalAuth, async (req, res) => {
   try {
     const { firstName, lastName, email, phone = '', packageName, budget = '', description } = req.body || {};
 
@@ -844,6 +947,72 @@ async function deleteOrder(req, res) {
 
 app.delete('/api/admin/orders/:id', adminRequired, deleteOrder);
 app.delete('/api/orders/:id', adminRequired, deleteOrder);
+
+
+// DEBUG / TEST ROUTES
+// Use these to confirm Render is actually recording data in the same database the admin dashboard reads.
+app.get('/api/debug/counts', async (_req, res) => {
+  try {
+    if (dbMode === 'mongodb-atlas') {
+      const [users, orders, courses, tutorials, posts] = await Promise.all([
+        User.countDocuments(),
+        Order.countDocuments(),
+        Course.countDocuments(),
+        Tutorial.countDocuments(),
+        OwnerPost.countDocuments(),
+      ]);
+      return res.json({ ok: true, mode: dbMode, dbName: mongoose.connection.name, counts: { users, orders, courses, tutorials, posts } });
+    }
+    const db = readDb();
+    return res.json({
+      ok: true,
+      mode: dbMode,
+      dbName: MONGO_DB,
+      jsonFile: jsonDbPath,
+      counts: {
+        users: db.users.length,
+        orders: db.orders.length,
+        courses: db.courses.length,
+        tutorials: db.tutorials.length,
+        posts: (db.posts || []).length,
+      },
+    });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+app.post('/api/debug/create-test-order', async (_req, res) => {
+  try {
+    const orderData = {
+      firstName: 'Test',
+      lastName: 'Customer',
+      email: 'testcustomer@example.com',
+      phone: '+1 704 000 0000',
+      packageName: 'Starter Website — $499',
+      budget: '$1,000 – $5,000',
+      description: 'This is a test order created from the admin dashboard to confirm the backend is recording orders.',
+      status: 'pending',
+      paymentStatus: 'unpaid',
+      paymentAmount: 0,
+      adminNotes: 'Created by /api/debug/create-test-order',
+    };
+
+    if (dbMode === 'mongodb-atlas') {
+      const order = await Order.create(orderData);
+      return res.status(201).json({ ok: true, message: 'Test order created in MongoDB Atlas', order });
+    }
+
+    const db = readDb();
+    const id = newId();
+    const order = { id, _id: id, ...orderData, createdAt: now(), updatedAt: now() };
+    db.orders.push(order);
+    writeDb(db);
+    return res.status(201).json({ ok: true, message: 'Test order created in JSON fallback', order });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err.message });
+  }
+});
 
 // Courses admin
 async function createCourse(req, res) {
@@ -1096,8 +1265,8 @@ button{width:100%;margin-top:20px;padding:14px;background:#00e5ff;color:#000;bor
 <div class="card">
   <h1>NextSynergy Tech</h1>
   <div class="sub">Admin Dashboard Login</div>
-  <label>Email</label><input id="email" type="email" value="admin@nextsynergytech.com">
-  <label>Password</label><input id="password" type="password" value="Admin@NST2025" onkeydown="if(event.key==='Enter')login()">
+  <label>Email</label><input id="email" type="email" value="${ADMIN_EMAIL}">
+  <label>Password</label><input id="password" type="password" value="${ADMIN_PASSWORD}" onkeydown="if(event.key==='Enter')login()">
   <button onclick="login()">Sign In →</button>
   <div id="err" class="err"></div>
 </div>
@@ -1146,10 +1315,10 @@ h1{color:var(--cyan);margin:0 0 6px}.sub{color:var(--muted);margin:0 0 20px}.top
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0}
 .stat,.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px}.num{font-size:32px;font-weight:900;color:var(--cyan)}.label{font-size:13px;color:var(--muted)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{margin-bottom:16px;overflow:auto}
-table{width:100%;border-collapse:collapse;min-width:620px}th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;font-size:14px;vertical-align:top}th{color:var(--muted);font-size:12px;text-transform:uppercase}
+table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;font-size:14px;vertical-align:top}th{color:var(--muted);font-size:12px;text-transform:uppercase}
 input,textarea,select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--border);background:#0f1525;color:#fff;margin:6px 0}textarea{min-height:80px}
-.err{display:none;color:var(--red);background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.25);border-radius:10px;padding:12px;margin:12px 0}
 .small{font-size:12px;color:var(--muted);line-height:1.45}.desc-box{max-width:360px;white-space:pre-wrap;line-height:1.45}.order-actions{min-width:190px}.mini-btn{padding:8px 10px;border-radius:8px;font-size:12px;margin-top:6px}.status-pill{display:inline-block;padding:4px 9px;border-radius:999px;background:rgba(0,229,255,.12);color:var(--cyan);font-size:12px;font-weight:800;margin-bottom:6px}
+.err{display:none;color:var(--red);background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.25);border-radius:10px;padding:12px;margin:12px 0}
 @media(max-width:800px){.grid{grid-template-columns:1fr}body{padding:14px}}
 </style>
 </head>
@@ -1163,6 +1332,8 @@ input,textarea,select{width:100%;padding:11px;border-radius:10px;border:1px soli
     <a class="btn ghost" href="/">Website</a>
     <a class="btn ghost" href="/api/health">Health</a>
     <button onclick="loadAll()">Refresh</button>
+    <button class="ghost" onclick="createTestOrder()">Create Test Order</button>
+    <a class="btn ghost" href="/api/debug/counts" target="_blank">Debug Counts</a>
     <a class="btn danger" href="/admin/logout">Logout</a>
   </div>
 </div>
@@ -1413,6 +1584,14 @@ async function delPost(id){
   }
 }
 
+async function createTestOrder(){
+  try{
+    await api('/api/debug/create-test-order','POST',{});
+    await loadAll();
+    alert('Test order created. If you see it in Orders, backend recording works and the website index.html is the part that was not submitting.');
+  }catch(e){showErr(e);}
+}
+
 loadAll();
 </script>
 </body>
@@ -1437,6 +1616,8 @@ app.use((err, _req, res, _next) => {
 // Boot
 async function start() {
   await connectDB();
+  await ensureAdminUser();
+  await seedStarterContentIfEmpty();
 
   app.listen(PORT, () => {
     console.log(`\n🚀 NextSynergy Tech: http://localhost:${PORT}`);
