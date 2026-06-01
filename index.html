@@ -229,37 +229,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,8,15,0.9)
 .ec-progress-fill{height:100%;border-radius:2px;background:var(--cyan);}
 .ec-pct{font-size:12px;color:var(--text2);margin-top:6px;}
 
-/* ===== MOBILE DASHBOARD TABS FIX ===== */
-.dash-mobile-tabs{
-  display:none;
-  gap:8px;
-  overflow-x:auto;
-  padding:12px 5%;
-  background:var(--bg2);
-  border-bottom:1px solid var(--border);
-  position:sticky;
-  top:64px;
-  z-index:900;
-  -webkit-overflow-scrolling:touch;
-}
-.dash-mobile-tabs button{
-  flex:0 0 auto;
-  padding:10px 14px;
-  border-radius:999px;
-  background:var(--surface);
-  border:1px solid var(--border2);
-  color:var(--text2);
-  font-size:13px;
-  font-weight:700;
-  white-space:nowrap;
-}
-.dash-mobile-tabs button.active{
-  background:var(--cyan);
-  color:#000;
-  border-color:var(--cyan);
-}
-
-
 /* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:16px 22px;font-size:14px;font-weight:500;z-index:9999;transform:translateY(100px);opacity:0;transition:.3s;max-width:340px;}
 .toast.show{transform:translateY(0);opacity:1;}
@@ -273,10 +242,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,8,15,0.9)
 @media(max-width:900px){
   .hero-content,.services-grid,.courses-grid{grid-template-columns:1fr;}
   .order-grid{grid-template-columns:1fr;}
-  .dash-layout{grid-template-columns:1fr;padding-top:0;}
+  .dash-layout{grid-template-columns:1fr;}
   .dash-sidebar{display:none;}
-  .dash-mobile-tabs{display:flex;}
-  .dash-main{padding:24px 5%;}
   .dash-stats{grid-template-columns:repeat(2,1fr);}
   .form-grid{grid-template-columns:1fr;}
   .enrolled-grid{grid-template-columns:1fr;}
@@ -349,15 +316,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,8,15,0.9)
   #dashVideosGrid{grid-template-columns:1fr!important;}
   #page-about .section-inner > div[style*="grid-template-columns:1fr 1fr"],
   #page-about div[style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important;}
-}
-
-
-@media(max-width:600px){
-  .dash-stats{grid-template-columns:1fr;}
-  .dash-main{padding:20px 5%;}
-  .dash-greeting h2{font-size:22px;}
-  .enrolled-card{flex-direction:column;}
-  .course-card{border-radius:16px;}
 }
 
 .form-status{margin-top:12px;padding:10px;border-radius:8px;font-size:13px;display:none}.form-status.ok{display:block;background:rgba(6,214,160,.12);color:var(--green);border:1px solid rgba(6,214,160,.25)}.form-status.err{display:block;background:rgba(255,107,107,.12);color:var(--coral);border:1px solid rgba(255,107,107,.25)}
@@ -768,15 +726,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,8,15,0.9)
 <!-- ===== DASHBOARD ===== -->
 <div class="page" id="page-dashboard">
   <div class="dash-layout">
-    <div class="dash-mobile-tabs" id="dashMobileTabs">
-      <button class="active" onclick="showDashTab('overview',this)">📊 Overview</button>
-      <button onclick="showDashTab('mycourses',this)">🎓 My Courses</button>
-      <button onclick="showDashTab('videos',this)">🎬 Videos</button>
-      <button onclick="showDashTab('orders',this)">📦 Orders</button>
-      <button onclick="showDashTab('profile',this)">👤 Profile</button>
-      <button onclick="showDashTab('settings',this)">⚙️ Settings</button>
-      <button onclick="doLogout()">🚪 Logout</button>
-    </div>
     <aside class="dash-sidebar">
       <div class="dash-nav">
         <div class="dash-nav-label">Main</div>
@@ -1363,21 +1312,10 @@ function renderDashboard(){
 }
 function showDashTab(tab,el){
   document.querySelectorAll('[id^="dash-"]').forEach(d=>d.classList.add('hidden'));
-  const target = document.getElementById('dash-'+tab);
-  if(target) target.classList.remove('hidden');
-
+  document.getElementById('dash-'+tab).classList.remove('hidden');
   document.querySelectorAll('.dash-nav a').forEach(a=>a.classList.remove('active'));
-  document.querySelectorAll('.dash-mobile-tabs button').forEach(b=>b.classList.remove('active'));
-
   if(el) el.classList.add('active');
-
-  const sideLink = document.querySelector(`.dash-nav a[onclick*="${tab}"]`);
-  if(sideLink) sideLink.classList.add('active');
-  const mobileBtn = document.querySelector(`.dash-mobile-tabs button[onclick*="${tab}"]`);
-  if(mobileBtn) mobileBtn.classList.add('active');
-
   if(tab==='mycourses'||tab==='videos') renderDashboard();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ===== ORDER =====
@@ -1389,7 +1327,7 @@ function selectPackage(pkg){
   document.querySelector('.order-form-wrap').scrollIntoView({behavior:'smooth',block:'start'});
 }
 async function submitOrder(){
-  // Public order form: customers can submit project requests without creating an account.
+  // PUBLIC ORDER FIX: customers do NOT need to login before requesting a project.
   const fn = document.getElementById('of-fname').value.trim();
   const ln = document.getElementById('of-lname').value.trim();
   const email = document.getElementById('of-email').value.trim().toLowerCase();
@@ -1409,7 +1347,8 @@ async function submitOrder(){
   }
 
   try {
-    await apiRequest('/api/orders', {
+    console.log('Submitting public order to:', API_BASE + '/api/orders');
+    const savedOrder = await apiRequest('/api/orders', {
       method: 'POST',
       body: JSON.stringify({
         firstName: fn,
@@ -1422,6 +1361,7 @@ async function submitOrder(){
       })
     });
 
+    console.log('Saved order response:', savedOrder);
     showToast(`✅ Request received! We'll contact ${fn} within 24 hours.`,'success');
     ['of-fname','of-lname','of-email','of-phone','of-desc'].forEach(id => {
       const el = document.getElementById(id);

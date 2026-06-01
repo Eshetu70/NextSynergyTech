@@ -948,6 +948,72 @@ async function deleteOrder(req, res) {
 app.delete('/api/admin/orders/:id', adminRequired, deleteOrder);
 app.delete('/api/orders/:id', adminRequired, deleteOrder);
 
+
+// DEBUG / TEST ROUTES
+// Use these to confirm Render is actually recording data in the same database the admin dashboard reads.
+app.get('/api/debug/counts', async (_req, res) => {
+  try {
+    if (dbMode === 'mongodb-atlas') {
+      const [users, orders, courses, tutorials, posts] = await Promise.all([
+        User.countDocuments(),
+        Order.countDocuments(),
+        Course.countDocuments(),
+        Tutorial.countDocuments(),
+        OwnerPost.countDocuments(),
+      ]);
+      return res.json({ ok: true, mode: dbMode, dbName: mongoose.connection.name, counts: { users, orders, courses, tutorials, posts } });
+    }
+    const db = readDb();
+    return res.json({
+      ok: true,
+      mode: dbMode,
+      dbName: MONGO_DB,
+      jsonFile: jsonDbPath,
+      counts: {
+        users: db.users.length,
+        orders: db.orders.length,
+        courses: db.courses.length,
+        tutorials: db.tutorials.length,
+        posts: (db.posts || []).length,
+      },
+    });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+app.post('/api/debug/create-test-order', async (_req, res) => {
+  try {
+    const orderData = {
+      firstName: 'Test',
+      lastName: 'Customer',
+      email: 'testcustomer@example.com',
+      phone: '+1 704 000 0000',
+      packageName: 'Starter Website — $499',
+      budget: '$1,000 – $5,000',
+      description: 'This is a test order created from the admin dashboard to confirm the backend is recording orders.',
+      status: 'pending',
+      paymentStatus: 'unpaid',
+      paymentAmount: 0,
+      adminNotes: 'Created by /api/debug/create-test-order',
+    };
+
+    if (dbMode === 'mongodb-atlas') {
+      const order = await Order.create(orderData);
+      return res.status(201).json({ ok: true, message: 'Test order created in MongoDB Atlas', order });
+    }
+
+    const db = readDb();
+    const id = newId();
+    const order = { id, _id: id, ...orderData, createdAt: now(), updatedAt: now() };
+    db.orders.push(order);
+    writeDb(db);
+    return res.status(201).json({ ok: true, message: 'Test order created in JSON fallback', order });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
 // Courses admin
 async function createCourse(req, res) {
   try {
@@ -1266,6 +1332,8 @@ input,textarea,select{width:100%;padding:11px;border-radius:10px;border:1px soli
     <a class="btn ghost" href="/">Website</a>
     <a class="btn ghost" href="/api/health">Health</a>
     <button onclick="loadAll()">Refresh</button>
+    <button class="ghost" onclick="createTestOrder()">Create Test Order</button>
+    <a class="btn ghost" href="/api/debug/counts" target="_blank">Debug Counts</a>
     <a class="btn danger" href="/admin/logout">Logout</a>
   </div>
 </div>
@@ -1514,6 +1582,14 @@ async function delPost(id){
     await api('/api/admin/posts/'+id,'DELETE');
     loadAll();
   }
+}
+
+async function createTestOrder(){
+  try{
+    await api('/api/debug/create-test-order','POST',{});
+    await loadAll();
+    alert('Test order created. If you see it in Orders, backend recording works and the website index.html is the part that was not submitting.');
+  }catch(e){showErr(e);}
 }
 
 loadAll();
